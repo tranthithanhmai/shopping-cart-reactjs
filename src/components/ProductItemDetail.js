@@ -7,7 +7,7 @@ class ProductItemDetail extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-12 col-sm-6">
-                            <img className="card-img-top" src="images/poster_4_up.jpg" alt="Card image" style={{ width: '100%' }} />
+                            <img className="card-img-top" src="http://192.168.1.198/wordpress-demo/wp-content/uploads/2019/05/poster_4_up.jpg" alt="Card image" style={{ width: '100%' }} />
                         </div>
                         <div className="col-12 col-sm-6">
                             <h1>Flying Ninja</h1>
