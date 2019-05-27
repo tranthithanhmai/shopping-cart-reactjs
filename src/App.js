@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
+import NavBar from './components/NavBar';
+import Breadcrumb from './components/Breadcrumb';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import routes from './route-config';
+
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div className="wrapper">
+          <div className="header-container fixed-top">
+            <NavBar />
+            <Breadcrumb />
+          </div>
+          <div className="product-container" style={{ marginTop: '150px' }}>
+            {this.showRoute(routes)}
+          </div>
+        </div>
+      </Router>
+    );
+  }
+
+  showRoute(routes) {
+    let xhtml = null;
+
+    if (routes.length > 0) {
+      xhtml = routes.map((route, index) => {
+        return (
+          <Route key={index} exact={route.exact} path={route.path} component={route.main} />
+        );
+      });
+    }
+
+    return <Switch>{xhtml}</Switch>;
+  }
 }
 
 export default App;
