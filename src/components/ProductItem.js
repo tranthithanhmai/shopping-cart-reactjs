@@ -3,7 +3,7 @@ import { Route, Link } from 'react-router-dom';
 
 const item = [
 	{ 
-		to: '/product-detail', 
+		to: '/shopping-cart-reactjs/product-detail', 
 		name: 'Woo Ninja', 
 		price: 18 
 	}

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import {Route, NavLink, Link} from 'react-router-dom';
 
 const menus = [
-	{to: '/'		, exact: true, name: 'Home'},
-	{to: '/product'	, exact: true, name: 'Product'},
-	{to: '/product-detail'	, exact: true, name: 'Product Detail'},
-	{to: '/login', exact: true, name: 'Login'}
+	{to: '/shopping-cart-reactjs/'		, exact: true, name: 'Home'},
+	{to: '/shopping-cart-reactjs/product'	, exact: true, name: 'Product'},
+	{to: '/shopping-cart-reactjs/product-detail'	, exact: true, name: 'Product Detail'},
+	{to: '/shopping-cart-reactjs/login', exact: true, name: 'Login'}
 ];
 
 const MenuLink = ({ menu }) => {

@@ -9,22 +9,22 @@ import ProductItemDetail from './components/ProductItemDetail';
 
 const routes = [
     { 
-        path: '/',
+        path: '/shopping-cart-reactjs/',
         exact: true,
         main: () => <HomePage />
     },
     { 
-        path: '/product',
+        path: '/shopping-cart-reactjs/product',
         exact: true,
         main: () => <ProductListsPage />
     },
     { 
-        path: '/product-detail',
+        path: '/shopping-cart-reactjs/product-detail',
         exact: true,
         main: () => <ProductItemDetail />
     },
     { 
-        path: '/login',
+        path: '/shopping-cart-reactjs/login',
         exact: true,
         main: () => <LoginPage  />
     }

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import {Route, Link} from 'react-router-dom';
 
 const breadcrumbs = [
-	{to: '/'		, exact: true, name: 'Home'},
-    {to: '/product'	, exact: true, name: 'Product'},
+	{to: '/shopping-cart-reactjs/'		, exact: true, name: 'Home'},
+    {to: '/shopping-cart-reactjs/product'	, exact: true, name: 'Product'},
     // {to: '/product-detail'	, exact: true, name: 'Woo Ninja '},
 	// {to: '/login', exact: true, name: 'Login'}
 ];
