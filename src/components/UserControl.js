@@ -12,7 +12,7 @@ class UserControl extends Component {
 		return (
 		    <div className="bg-faded p-4 my-4">
 				<hr className="divider" />
-				<h2 className="text-center text-lg text-uppercase my-0"><strong>UserControl</strong></h2>
+				<h2 className="text-center text-lg text-uppercase my-0"><strong>User Control</strong></h2>
 				<hr className="divider" />
 				<form  >
 				    <div className="row">

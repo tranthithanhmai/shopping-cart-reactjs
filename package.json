@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://tranthithanhmai.github.io/shopping-cart-reactjs",
   "dependencies": {
+    "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "gh-pages": "^2.0.1",
     "lodash": "^4.17.11",

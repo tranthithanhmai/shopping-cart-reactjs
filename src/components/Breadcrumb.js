@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import {Route, Link} from 'react-router-dom';
 
 const breadcrumbs = [
-	{to: '/shopping-cart-reactjs/'		, exact: true, name: 'Home'},
-    {to: '/shopping-cart-reactjs/product'	, exact: true, name: 'Product'},
-    // {to: '/product-detail'	, exact: true, name: 'Woo Ninja '},
-	// {to: '/login', exact: true, name: 'Login'}
+	{to: '/shopping-cart-reactjs/', name: 'Home'}
 ];
 
 const BreadcrumbLink = ({ menu }) => {
@@ -16,14 +13,11 @@ const BreadcrumbLink = ({ menu }) => {
 			children=
 				{ 
 					({ match }) => {
-						let active = (match !== null) ? "active" : "";
-						return (
-							<li className={`breadcrumb-item ${active}`} >
-								<Link to={menu.to}>
-									{menu.name}
-								</Link>
-							</li>
-						)
+						if(match !== null && match.isExact === true) {
+							return <li className="active">{menu.name}</li>;	
+						}else {
+							return <li><Link to={menu.to} >{menu.name}</Link></li>;
+						}
 					}
 				}
 		/>

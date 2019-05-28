@@ -12,3 +12,10 @@ export const actLogout = () => {
 		type : types.USER_LOGOUT
 	}
 }
+
+export const actSearch = (strSearch) => {
+    return {
+        type : types.CHANGE_SEARCH,
+        strSearch
+    }
+}

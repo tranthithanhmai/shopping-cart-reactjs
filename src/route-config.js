@@ -1,7 +1,6 @@
 import React from 'react';
 
 import HomePage from './pages/HomePage';
-// import ProductItemPage from './pages/ProductListsPage';
 import LoginPage from './pages/LoginPage';
 import ProductListsPage from './pages/ProductListsPage';
 import ProductItemDetail from './components/ProductItemDetail';
@@ -19,7 +18,7 @@ const routes = [
         main: () => <ProductListsPage />
     },
     { 
-        path: '/shopping-cart-reactjs/product-detail',
+        path: "/shopping-cart-reactjs/product/:id",
         exact: true,
         main: () => <ProductItemDetail />
     },
