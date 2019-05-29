@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import ProductItem from './ProductItem';
 import * as callApi from './../services/apiCaller';
+import { filter, includes } from 'lodash';
 
 class ProductLists extends Component {
   constructor(props) {
@@ -21,6 +23,14 @@ class ProductLists extends Component {
 
   render() {
     var { products } = this.state
+    var { strSearch } = this.props;
+    var itemsOrigin = (products !== null) ? [...products] : []; 
+  
+    //Search
+    products = filter(itemsOrigin, (product) => {
+        return includes(product.name.toLowerCase() , strSearch.toLowerCase());
+    });
+
     return (
       <div className="row">
         {this.showProducts(products)}
@@ -41,4 +51,10 @@ class ProductLists extends Component {
   }
 }
 
-export default ProductLists;
+const mapStateToProps = state => {
+  return {
+      strSearch : state.strSearch
+  };
+}
+
+export default connect(mapStateToProps,null)(ProductLists);

@@ -16,8 +16,7 @@ const user = (state = defaultState, action) => {
 		case types.USER_LOGOUT:
 			state.username = null;
 			state.isLogin = false;
-			return {...state};
-
+			return [...state];
 		default:
 			return state;
 	}

@@ -3,7 +3,7 @@ import React from 'react';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import ProductListsPage from './pages/ProductListsPage';
-import ProductItemDetail from './components/ProductItemDetail';
+import ProductItemPage from './pages/ProductItemPage';
 
 
 const routes = [
@@ -15,12 +15,13 @@ const routes = [
     { 
         path: '/shopping-cart-reactjs/product',
         exact: true,
-        main: () => <ProductListsPage />
+        main: ({match}) => <ProductListsPage match={match} />
     },
     { 
         path: "/shopping-cart-reactjs/product/:id",
         exact: true,
-        main: () => <ProductItemDetail />
+        main: ({match}) => <ProductItemPage match={match} />
+
     },
     { 
         path: '/shopping-cart-reactjs/login',

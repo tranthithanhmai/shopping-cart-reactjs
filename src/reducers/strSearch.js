@@ -1,4 +1,5 @@
-import * as types from './../constants/ActionTypes';
+import * as types from './../constants/ActionType';
+
 const defaultState = ''; 
 
 const strSearch = (state = defaultState, action) => { 

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {Route, Link} from 'react-router-dom';
 
 const breadcrumbs = [
-	{to: '/shopping-cart-reactjs/', name: 'Home'}
+	{to: '/shopping-cart-reactjs/', name: 'Home'},
+	// {to: '/shopping-cart-reactjs/product', name: 'Product'},
+	// {to: '/shopping-cart-reactjs/login', name: 'login'}
 ];
 
 const BreadcrumbLink = ({ menu }) => {
