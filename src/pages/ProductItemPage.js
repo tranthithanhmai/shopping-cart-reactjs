@@ -4,8 +4,9 @@ import ProductItemDetail from '../components/ProductItemDetail';
 
 class ProductItemPage extends Component {
     render() {
+        var {match, product} = this.props;
         return (
-           <ProductItemDetail />
+           <ProductItemDetail match = {match} />
         );
     }
 }

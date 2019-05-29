@@ -5,7 +5,7 @@ import SearchControl from './SearchControl';
 class Control extends Component {
     render() {
         return (
-            <div className="row">
+            <div className="row" style={{margin : '30px 0'}}>
                 <div className="col-6 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                     <h2>Poster</h2>
                 </div>

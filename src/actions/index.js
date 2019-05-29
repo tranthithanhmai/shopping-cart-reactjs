@@ -19,3 +19,11 @@ export const actSearch = (strSearch) => {
         strSearch
     }
 }
+
+export const actSort = (orderBy, orderDir) => {
+    return {
+        type : types.SORT_ITEM,
+        orderBy, //orderBy: orderBy 
+        orderDir //orderDir: orderDir 
+    }
+}

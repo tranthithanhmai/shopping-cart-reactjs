@@ -31,7 +31,7 @@ class Login extends Component {
 			password: this.state.password
 		}
 
-		callApi.NoAuth('wordpress-demo/wp-json/jwt-auth/v1/token', 'POST', data).then(res => {
+		callApi.call('wordpress-demo/wp-json/jwt-auth/v1/token', 'POST', data).then(res => {
 			if(res !== undefined) {
 				localStorage.setItem('token', res.data.token);
 				this.setState({
@@ -69,7 +69,7 @@ class Login extends Component {
 						<div className="clearfix" />
 
 						<div className="form-group col-lg-12">
-							<button type="submit" className="btn btn-secondary">Submit</button>
+							<button type="submit" className="btn btn-primary">Submit</button>
 						</div>
 					</div>
 				</form>

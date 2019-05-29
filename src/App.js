@@ -6,9 +6,7 @@ import {
 } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Breadcrumb from './components/Breadcrumb';
-
 import routes from './route-config';
-
 class App extends Component {
   render() {
     return (

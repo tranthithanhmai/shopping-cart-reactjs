@@ -15,7 +15,9 @@ class SearchControl extends Component {
     }
 
     onClickClear = () => {
-        this.state.strSearch = '';
+       this.setState = {
+           strSearch : ''
+       }
         this.props.handleSearch(this.state.strSearch);
     }
 
@@ -26,7 +28,7 @@ class SearchControl extends Component {
     render() {
         var {strSearch} = this.state;
 
-        var strSearch = strSearch ? strSearch : this.props.strSearch;
+        strSearch = strSearch ? strSearch : this.props.strSearch;
 
         return (
             <div className="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">

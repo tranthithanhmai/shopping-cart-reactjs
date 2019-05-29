@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import ProductItem from './ProductItem';
 import * as callApi from './../services/apiCaller';
-import { filter, includes } from 'lodash';
+import { filter, includes, orderBy as funcOrderBy } from 'lodash';
 
 class ProductLists extends Component {
   constructor(props) {
@@ -23,13 +23,16 @@ class ProductLists extends Component {
 
   render() {
     var { products } = this.state
-    var { strSearch } = this.props;
-    var itemsOrigin = (products !== null) ? [...products] : []; 
+    var { strSearch, sort } = this.props;
+    var { orderBy, orderDir} = sort;
+    var itemsOrigin = (products !== null) ? [...products] : [];
   
     //Search
     products = filter(itemsOrigin, (product) => {
         return includes(product.name.toLowerCase() , strSearch.toLowerCase());
     });
+    //Sort
+    products = funcOrderBy(products, [orderBy], [orderDir]);
 
     return (
       <div className="row">
@@ -53,7 +56,8 @@ class ProductLists extends Component {
 
 const mapStateToProps = state => {
   return {
-      strSearch : state.strSearch
+      strSearch : state.strSearch,
+      sort : state.sort
   };
 }
 
