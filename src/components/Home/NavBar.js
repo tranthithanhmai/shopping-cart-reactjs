@@ -3,8 +3,10 @@ import { Route, NavLink, Link } from 'react-router-dom';
 
 const menus = [
 	{ to: '/shopping-cart-reactjs/', exact: true, name: 'Home' },
-	{ to: '/shopping-cart-reactjs/product', exact: true, name: 'Product' },
-	{ to: '/shopping-cart-reactjs/login', exact: true, name: 'Login' }
+	{ to: '/shopping-cart-reactjs/product', name: 'Product' },
+	{ to: '/shopping-cart-reactjs/admin', name: 'Admin' },
+	{ to: '/shopping-cart-reactjs/shopping-cart', name: 'Cart' },
+	{ to: '/shopping-cart-reactjs/login', name: 'Login' }
 ];
 
 const MenuLink = ({ menu }) => {
@@ -16,10 +18,18 @@ const MenuLink = ({ menu }) => {
 			{
 				({ match }) => {
 					let active = (match !== null) ? "active" : "";
+					var name = menu.name;
+					if (name === 'Cart') {
+						name = <i className="fa fa-shopping-cart" aria-hidden="true"></i>;
+					} else if (name === 'Login') {
+						name = <i className="fa fa-sign-in" aria-hidden="true"></i>;
+					} else {
+						name = menu.name;
+					}
 					return (
 						<li className={`nav-item px-lg-4 ${active}`} >
 							<Link to={menu.to} className="nav-link text-uppercase text-expanded">
-								{menu.name}
+								{name}
 							</Link>
 						</li>
 					)
@@ -32,10 +42,10 @@ const MenuLink = ({ menu }) => {
 class NavBar extends Component {
 	render() {
 		return (
-			<nav className="navbar navbar-expand-sm bg-dark navbar-dark py-lg-4">
+			<nav className="navbar navbar-expand-sm bg-dark navbar-dark py-lg-4" style={{ display: 'flex',justifyContent: 'space-between'}}>
 				<NavLink to='/shopping-cart-reactjs/' className="navbar-brand text-uppercase text-expanded font-weight-bold">
 					Shopping Cart
-					</NavLink>
+				</NavLink>
 				<ul className="navbar-nav">
 					{this.showMenus(menus)}
 				</ul>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Control from '../components/Control';
-import ProductLists from '../components/ProductLists';
+import Control from './../../components/Product/Control';
+import ProductLists from './../../components/Product/ProductLists';
 
 class ProductListsPage extends Component {
     render() {

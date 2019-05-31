@@ -9,13 +9,14 @@ let defaultState = {
 const user = (state = defaultState, action) => {
 
 	switch(action.type){
-
 		case types.USER_LOGIN:
+			console.log('action : ', action)
 			return {...state};
-		case types.USER_LOGOUT:
-			state.username = null;
-			state.isLogin = false;
-			return [...state];
+		// case types.USER_LOGOUT:
+		// 	state.username = null;
+		// 	state.password = null;
+		// 	state.isLogin = false;
+		// 	return [...state];
 		default:
 			return state;
 	}

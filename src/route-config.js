@@ -1,9 +1,11 @@
 import React from 'react';
 
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import ProductListsPage from './pages/ProductListsPage';
-import ProductItemPage from './pages/ProductItemPage';
+import HomePage from './pages/Home/HomePage';
+import LoginPage from './pages/Login/LoginPage';
+import AdminPage from './pages/Admin/AdminPage';
+import CartPage from './pages/Cart/CartPage';
+import ProductListsPage from './pages/Product/ProductListsPage';
+import ProductItemPage from './pages/Product/ProductItemPage';
 
 
 const routes = [
@@ -22,6 +24,16 @@ const routes = [
         exact: true,
         main: ({match}) => <ProductItemPage match={match} />
 
+    },
+    { 
+        path: '/shopping-cart-reactjs/admin',
+        exact: true,
+        main: ({match}) => <AdminPage match = {match}  />
+    },
+    { 
+        path: '/shopping-cart-reactjs/shopping-cart',
+        exact: true,
+        main: ({match}) => <CartPage match = {match}  />
     },
     { 
         path: '/shopping-cart-reactjs/login',

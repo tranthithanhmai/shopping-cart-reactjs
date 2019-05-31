@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { actSearch } from './../actions/index';
+import { actSearch } from './../../actions/index';
 
 class SearchControl extends Component {
     constructor(props) {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {actLogout} from './../actions/index';
+import {actLogout} from './../../actions/index';
 import {connect} from 'react-redux';
 
 class UserControl extends Component {

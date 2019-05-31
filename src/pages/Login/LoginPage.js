@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import Login from './../components/Login';
-import UserControl from './../components/UserControl';
+import Login from './../../components/Login/Login';
+import UserControl from './../../components/Login/UserControl';
 
 class LoginPage extends Component {
 	render() {
-		let {user} = this.props;
 		return (
-  			<div>
-			    {this.showArea(user)}
-			</div>
+			<Login />
 		);
 	}
 
