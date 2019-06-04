@@ -4,6 +4,7 @@ import { Route, NavLink, Link } from 'react-router-dom';
 const menus = [
 	{ to: '/shopping-cart-reactjs/', exact: true, name: 'Home' },
 	{ to: '/shopping-cart-reactjs/product', name: 'Product' },
+	{ to: '/shopping-cart-reactjs/products/categories', name: 'Category' },
 	{ to: '/shopping-cart-reactjs/admin', name: 'Admin' },
 	{ to: '/shopping-cart-reactjs/shopping-cart', name: 'Cart' },
 	{ to: '/shopping-cart-reactjs/login', name: 'Login' }

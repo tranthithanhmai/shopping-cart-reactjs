@@ -4,7 +4,7 @@ import breadcrumb from './breadcrumb';
 import strSearch from './strSearch';
 import sort from './sort';
 import isShowForm from './isShowForm';
-import items from './items';
+import product from './product';
 import itemSelected from './itemSelected';
 
 const appReducers = combineReducers({
@@ -13,7 +13,7 @@ const appReducers = combineReducers({
 	strSearch,
 	sort,
 	isShowForm,
-    items,
+    product,
     itemSelected
 });
 

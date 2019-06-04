@@ -1,90 +1,85 @@
 import React, { Component } from 'react';
+import { actAddProductRequest, actUpdateProductRequest } from './../../actions/index';
 import { connect } from 'react-redux';
-import * as callApi from './../../services/apiCaller';
-import { actCloseForm, actSubmitForm } from './../../actions/index';
+import { actCloseForm } from './../../actions/index';
 
 class Form extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            task_id: '',
-            task_name: '',
-            task_price: 0,
-            task_images: [],
-            task_description: ''
-        }
+            id: '',
+            txtName: '',
+            txtPrice: 0,
+            urlImages: [],
+            txtDesc: ''
+        };
     }
 
-    componentWillMount() {
-        this.updateItem(this.props.itemSelected)
-    }
-    componentWillReceiveProps(nextProps) {
-        this.updateItem(nextProps.itemSelected)
+
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps && nextProps.itemEditing) {
+    //         var { itemEditing } = nextProps;
+    //         this.setState({
+    //             id: itemEditing.id,
+    //             txtName: itemEditing.name,
+    //             txtPrice: itemEditing.price,
+    //             urlImages: itemEditing.images,
+    //             txtDesc: itemEditing.description
+    //         });
+    //     }
+    // }
+
+    onClickCancel = () => {
+        this.props.handleCancel();
     }
 
-    updateItem(item) {
-        if (item !== null) {
-            this.setState({
-                task_id: item.id,
-                task_name: item.name,
-                task_price: item.price,
-                task_images: item.images,
-                task_description: item.description
-            });
-        }
-    }
-
-    handleChange = (event) => {
-        let target = event.target;
-        let value = target.value;
-        let name = target.name;
+    onChange = (event) => {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
 
         this.setState({
             [name]: value
         });
     }
 
-    onClickSubmit = (event) => {
-        let item = {
-            id: this.state.task_id,
-            name: this.state.task_name,
-            price: this.state.task_price,
-            images: this.state.task_images,
-            description: this.state.task_description
+    onClickSubmit = (e) => {
+        e.preventDefault();
+        var { id, txtName, txtPrice, urlImages, txtDesc } = this.state;
+        var product = {
+            id: id,
+            name: txtName,
+            price: txtPrice,
+            images: urlImages,
+            description: txtDesc
+        };
+        if (id) {
+            this.props.onUpdateProduct(product);
+        } else {
+            this.props.onAddProduct(product);
         }
-        callApi.call('wordpress-demo/wp-json/wc/v3/products', 'POST', {
-            id: item.id,
-            name: item.name,
-            price: item.price,
-            images: item.images,
-            description: item.description
-        }).then(res => {
-            console.log(res);
-        });
-        this.props.handleSubmit(item);
-        event.preventDefault();
-    }
-
-    onClickCancel = () => {
         this.props.handleCancel();
     }
 
     render() {
         let { isShowForm } = this.props;
         if (isShowForm === false) return null;
+        var { txtName, txtPrice, urlImages, txtDesc } = this.state;
+        console.log('value: ', this.state)
         return (
             <div className="row">
                 <div className="col-12">
-                    <form onSubmit={this.onClickSubmit} style={{border: '1px solid #aaa', padding: '20px', marginBottom: '20px'}}>
+                    <form onSubmit={this.onClickSubmit} style={{ border: '1px solid #aaa', padding: '20px', marginBottom: '20px' }}>
                         <div className="form-group">
                             <label>Tên sản phẩm</label>
                             <input
                                 type="text"
                                 className="form-control"
                                 placeholder="Product Name"
-                                name='task_name'
-                                value={this.state.task_name}
-                                onChange={this.handleChange}
+                                name='txtName'
+                                value={txtName}
+                                onChange={this.onChange}
                             />
                         </div>
                         <div className="form-group">
@@ -93,9 +88,9 @@ class Form extends Component {
                                 type="number"
                                 className="form-control"
                                 placeholder="Product Price"
-                                name='task_price'
-                                value={this.state.task_price}
-                                onChange={this.handleChange}
+                                name='txtPrice'
+                                value={txtPrice}
+                                onChange={this.onChange}
                             />
                         </div>
                         <div className="form-group">
@@ -104,19 +99,19 @@ class Form extends Component {
                                 type="file"
                                 className="form-control"
                                 placeholder="Product Images"
-                                name='task_images'
-                                value={this.state.task_images}
-                                onChange={this.handleChange}
+                                name='urlImages'
+                                value={urlImages}
+                                onChange={this.onChange}
                             />
                         </div>
                         <div className="form-group">
                             <label>Chi tiết sản phẩm</label>
-                            <textarea 
+                            <textarea
                                 type="text"
                                 className="form-control"
-                                name='task_description'
-                                value={this.state.task_description}
-                                onChange={this.handleChange}
+                                name='txtDesc'
+                                value={txtDesc}
+                                onChange={this.onChange}
                             />
                         </div>
                         <button type="submit" className="btn btn-primary">Submit</button>
@@ -126,23 +121,27 @@ class Form extends Component {
             </div>
         );
     }
+
 }
 
 const mapStateToProps = state => {
     return {
+        // itemEditing: state.itemEditing,
         isShowForm: state.isShowForm,
         itemSelected: state.itemSelected
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, props) => {
     return {
-        handleCancel: () => {
-            dispatch(actCloseForm());
+        onAddProduct: (product) => {
+            dispatch(actAddProductRequest(product));
         },
 
-        handleSubmit: (item) => {
-            dispatch(actSubmitForm(item));
+        // onUpdateProduct: (product) => {
+        //     dispatch(actUpdateProductRequest(product));
+        // },
+        handleCancel: () => {
             dispatch(actCloseForm());
         }
     }

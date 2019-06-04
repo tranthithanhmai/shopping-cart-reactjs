@@ -6,6 +6,8 @@ import AdminPage from './pages/Admin/AdminPage';
 import CartPage from './pages/Cart/CartPage';
 import ProductListsPage from './pages/Product/ProductListsPage';
 import ProductItemPage from './pages/Product/ProductItemPage';
+import CategoryPage from './pages/Category/CategoryPage';
+import ProductListCategoryPage from './pages/Category/ProductListCategoryPage';
 
 
 const routes = [
@@ -23,6 +25,17 @@ const routes = [
         path: "/shopping-cart-reactjs/product/:id",
         exact: true,
         main: ({match}) => <ProductItemPage match={match} />
+
+    },
+    { 
+        path: '/shopping-cart-reactjs/products/categories',
+        exact: true,
+        main: ({match, history}) => <CategoryPage match = {match} history ={history} />
+    },
+    { 
+        path: "/shopping-cart-reactjs/products/categories/:id",
+        exact: true,
+        main: ({match, history}) => <ProductListCategoryPage match={match} history ={history} />
 
     },
     { 

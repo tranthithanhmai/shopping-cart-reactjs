@@ -16,7 +16,6 @@ const isShowForm = (state = defaultState, action) => { //state = isShowForm
         default:
             return state;
     }
-    // return state;
 }
 
 export default isShowForm;

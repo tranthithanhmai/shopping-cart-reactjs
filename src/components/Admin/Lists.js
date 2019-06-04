@@ -5,6 +5,7 @@ import { actOpenForm } from './../../actions/index';
 import * as callApi from '../../services/apiCaller';
 import Add from './Add';
 import Form from './Form';
+import { actFetchProductsRequest, actDeleteProductRequest } from './../../actions/index';
 
 class Lists extends Component {
     constructor(props) {
@@ -69,16 +70,20 @@ class Lists extends Component {
 
 const mapStateToProps = state => {
     return {
-        items: state.items,
-        sort: state.sort,
-        strSearch: state.strSearch
-    };
+        products: state.products
+    }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, props) => {
     return {
         handleEdit: () => {
             dispatch(actOpenForm());
+        },
+        fetchAllProducts: () => {
+            dispatch(actFetchProductsRequest());
+        },
+        onDeleteProduct: (id) => {
+            dispatch(actDeleteProductRequest(id));
         }
     }
 }

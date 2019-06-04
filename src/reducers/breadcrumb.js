@@ -15,13 +15,14 @@ const breadcrumb = (state = defaultState, action) => {
 			return [...state];
 
 		case types.GO_PRODUCT:
-			state[1] = {to , name};
+			state[1] = {to: '/shopping-cart-reactjs/product', name: 'Product'};
 			if(state.length > 2) state.splice(-1,1);
 
 			return [...state];
 			
 		case types.GO_PRODUCT_ITEM:
 			state[2] = {to , name};
+			if(state.length > 2) state.splice(-1,1);
 			return [...state];
 
 		default:

@@ -30,7 +30,6 @@ class Item extends Component {
                         type="button"
                         className="btn btn-xs btn-danger"
                         data-original-title="Remove item"
-                    // onClick={() => this.onDelete(item)}
                     >
                        <i className="fa fa-trash-o" aria-hidden="true"></i> &nbsp; Delete
                     </button>

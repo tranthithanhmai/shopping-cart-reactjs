@@ -54,7 +54,7 @@ class ProductItemDetail extends Component {
                                 SKU:{product.sku}
                             </p>
                             <p>
-                                Category:  <Link to="/shopping-cart-reactjs/product">{category}</Link>
+                                Category:  <Link to="/shopping-cart-reactjs/products/categories">{category}</Link>
                             </p>
                         </div>
                     </div>
