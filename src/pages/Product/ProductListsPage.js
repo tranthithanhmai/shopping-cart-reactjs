@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 
-import SortControl from '../components/SortControl';
-import ProductLists from '../components/ProductLists';
-import SearchControl from '../components/SearchControl';
+import Control from './../../components/Product/Control';
+import ProductLists from './../../components/Product/ProductLists';
 
 class ProductListsPage extends Component {
     render() {
         return (
             <div className="container">
-                <SortControl />
+                <Control />
                 <ProductLists />
-                <SearchControl />
             </div>
         );
     }

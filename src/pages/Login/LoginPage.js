@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import Login from './../../components/Login/Login';
+import ProductListsPage from './../Product/ProductListsPage';
 
-import Login from './../components/Login';
-import UserControl from './../components/UserControl';
 
 class LoginPage extends Component {
 	render() {
-		let {user} = this.props;
 		return (
-  			<div>
-			    {this.showArea(user)}
-			</div>
+			<Login />
 		);
 	}
 
@@ -18,7 +15,7 @@ class LoginPage extends Component {
 		if(user.isLogin === false) {
 			return <Login />;
 		}else if (user.isLogin === true){
-            return <UserControl username={user.username} />;
+            return <ProductListsPage />;
         }
 	}
 }

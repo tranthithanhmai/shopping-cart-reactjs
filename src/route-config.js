@@ -1,30 +1,55 @@
 import React from 'react';
 
-import HomePage from './pages/HomePage';
-// import ProductItemPage from './pages/ProductListsPage';
-import LoginPage from './pages/LoginPage';
-import ProductListsPage from './pages/ProductListsPage';
-import ProductItemDetail from './components/ProductItemDetail';
+import HomePage from './pages/Home/HomePage';
+import LoginPage from './pages/Login/LoginPage';
+import AdminPage from './pages/Admin/AdminPage';
+import CartPage from './pages/Cart/CartPage';
+import ProductListsPage from './pages/Product/ProductListsPage';
+import ProductItemPage from './pages/Product/ProductItemPage';
+import CategoryPage from './pages/Category/CategoryPage';
+import ProductListCategoryPage from './pages/Category/ProductListCategoryPage';
 
 
 const routes = [
     { 
-        path: '/',
+        path: '/shopping-cart-reactjs/',
         exact: true,
         main: () => <HomePage />
     },
     { 
-        path: '/product',
+        path: '/shopping-cart-reactjs/product',
         exact: true,
-        main: () => <ProductListsPage />
+        main: ({match}) => <ProductListsPage match = {match} />
     },
     { 
-        path: '/product-detail',
+        path: "/shopping-cart-reactjs/product/:id",
         exact: true,
-        main: () => <ProductItemDetail />
+        main: ({match}) => <ProductItemPage match={match} />
+
     },
     { 
-        path: '/login',
+        path: '/shopping-cart-reactjs/products/categories',
+        exact: true,
+        main: ({match, history}) => <CategoryPage match = {match} history ={history} />
+    },
+    { 
+        path: "/shopping-cart-reactjs/products/categories/:id",
+        exact: true,
+        main: ({match, history}) => <ProductListCategoryPage match={match} history ={history} />
+
+    },
+    { 
+        path: '/shopping-cart-reactjs/admin',
+        exact: true,
+        main: ({match}) => <AdminPage match = {match}  />
+    },
+    { 
+        path: '/shopping-cart-reactjs/shopping-cart',
+        exact: true,
+        main: ({match}) => <CartPage match = {match}  />
+    },
+    { 
+        path: '/shopping-cart-reactjs/login',
         exact: true,
         main: () => <LoginPage  />
     }

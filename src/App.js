@@ -4,11 +4,9 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import Breadcrumb from './components/Breadcrumb';
-
+import NavBar from './components/Home/NavBar';
+// import Breadcrumb from './components/Home/Breadcrumb';
 import routes from './route-config';
-
 class App extends Component {
   render() {
     return (
@@ -16,9 +14,8 @@ class App extends Component {
         <div className="wrapper">
           <div className="header-container fixed-top">
             <NavBar />
-            <Breadcrumb />
           </div>
-          <div className="product-container" style={{ marginTop: '150px' }}>
+          <div className="product-container" style={{ marginTop: '200px' }}>
             {this.showRoute(routes)}
           </div>
         </div>
