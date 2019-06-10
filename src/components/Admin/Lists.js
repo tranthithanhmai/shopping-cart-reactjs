@@ -1,35 +1,13 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Item from './Item';
-import { actOpenForm } from './../../actions/index';
-import * as callApi from '../../services/apiCaller';
 import Add from './Add';
-import Form from './Form';
-import { actFetchProductsRequest, actDeleteProductRequest } from './../../actions/index';
 
 class Lists extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            products: []
-        };
-    }
-
-    componentDidMount() {
-        callApi.call('wordpress-demo/wp-json/wc/v3/products', 'GET', null).then(res => {
-            this.setState({
-                products: res.data
-            });
-        })
-    }
-
     render() {
-        var { products } = this.state;
+        var { products } = this.props;
         return (
             <div className="container">
                 <Add />
-                <Form />
                 <div className="row">
                     <div className="col-12">
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -60,7 +38,11 @@ class Lists extends Component {
         if (products !== null && products.length > 0) {
             xhtml = products.map((product, index) => {
                 return (
-                    <Item key={index} item={product} />
+                    <Item key={index}
+                        item={product}
+                        onDelete={this.props.onDelete}
+                        index={index}
+                    />
                 );
             });
         }
@@ -68,24 +50,4 @@ class Lists extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        products: state.products
-    }
-}
-
-const mapDispatchToProps = (dispatch, props) => {
-    return {
-        handleEdit: () => {
-            dispatch(actOpenForm());
-        },
-        fetchAllProducts: () => {
-            dispatch(actFetchProductsRequest());
-        },
-        onDeleteProduct: (id) => {
-            dispatch(actDeleteProductRequest(id));
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Lists);
+export default Lists;

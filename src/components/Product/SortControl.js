@@ -15,12 +15,12 @@ class Sort extends Component {
                     Sort by <span className="caret">
                     </span>
                 </button>
-                <div className="dropdown-menu" aria-labelledby="dropdownMenu1" style={{ width: '100%' }}>
-                    <a className="dropdown-item" role="button" onClick={() => this.handleSort('name', 'asc')}>Sort by Name: A -> Z</a>
-                    <a className="dropdown-item" role="button" onClick={() => this.handleSort('name', 'desc')}>Sort by Name: Z -> A</a>
-                    <a className="dropdown-item" role="button" onClick={() => this.handleSort('price', 'asc')}>Sort by price: low to high</a>
-                    <a className="dropdown-item" role="button" onClick={() => this.handleSort('price', 'desc')}>Sort by price: high to low</a>
-                </div>
+                <ul className="dropdown-menu" aria-labelledby="dropdownMenu1" style={{ width: '100%' }}>
+                    <li className="dropdown-item" role="button" onClick={() => this.handleSort('name', 'asc')}>Sort by Name: A -> Z</li>
+                    <li className="dropdown-item" role="button" onClick={() => this.handleSort('name', 'desc')}>Sort by Name: Z -> A</li>
+                    <li className="dropdown-item" role="button" onClick={() => this.handleSort('price', 'asc')}>Sort by price: low to high</li>
+                    <li className="dropdown-item" role="button" onClick={() => this.handleSort('price', 'desc')}>Sort by price: high to low</li>
+                </ul>
             </div>
         );
     }

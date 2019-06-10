@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { actLogin } from './../../actions/index';
+import { actLoginRequest } from './../../actions/index';
 import { connect } from 'react-redux';
-import * as callApi from './../../services/apiCaller';
 import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
@@ -10,8 +9,7 @@ class Login extends Component {
 
 		this.state = {
 			username: '',
-			password: '',
-			isLogin: false
+			password: ''
 		};
 	}
 
@@ -25,31 +23,22 @@ class Login extends Component {
 		});
 	}
 
-	handleSubmit = (event) => {
-		var { isLogin, username, password } = this.state;
+	handleSubmit = async (event) => {
+		event.preventDefault();
+		var { username, password } = this.state;
 		var data = {
 			username,
-			password,
-			isLogin
+			password
 		}
-		callApi.NoAuth('wordpress-demo/wp-json/jwt-auth/v1/token', 'POST', data).then(res => {
-			if (res !== undefined && res && res.data) {
-				localStorage.setItem('token', res.data.token);
-				isLogin = true;
-				this.setState({
-					isLogin: true
-				});
-			} else {
-				alert('Username or password not correct!');
-			}
-		});
-		event.preventDefault();
+		await this.props.onLogin(data);
+		return <Redirect push to="/shopping-cart-reactjs/product" />;
 	}
 
 	render() {
-		var { isLogin, username, password } = this.state;
-		if (isLogin) {
-			return <Redirect to="/shopping-cart-reactjs/product" />
+		var { username, password } = this.state;
+		const { token } = this.props;
+		if (token) {
+			return <Redirect push to="/shopping-cart-reactjs/product" />;
 		} else {
 			return (
 				<div className="container">
@@ -83,10 +72,14 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		formLogin: (username, password) => {
-			dispatch(actLogin(username, password));
+		onLogin: (data) => {
+			dispatch(actLoginRequest(data));
 		}
 	}
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+const mapStatetoProps = (state) => ({
+token : state.user.token
+})
+
+export default connect(mapStatetoProps, mapDispatchToProps)(Login);

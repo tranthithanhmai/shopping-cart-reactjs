@@ -5,9 +5,8 @@ export function NoAuth(endpoint, method, body) {
   return axios({
     method: method,
     url: `${Config.API_URL}/${endpoint}`,
+    headers: { 'content-type': 'application/json' },
     data: body
-  }).catch(function (error) {
-    console.log(error);
   });
 }
 

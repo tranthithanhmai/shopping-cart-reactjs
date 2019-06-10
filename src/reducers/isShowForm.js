@@ -1,5 +1,5 @@
 import * as types from './../constants/ActionType';
-const defaultState = false; 
+const defaultState = true; 
 
 const isShowForm = (state = defaultState, action) => { //state = isShowForm
     //action => store => appReducer => new State

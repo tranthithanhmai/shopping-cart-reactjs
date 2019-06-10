@@ -27,7 +27,7 @@ class Cart extends Component {
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            {/* <tbody>
                                 <tr>
                                     <td style={{ verticalAlign: 'middle' }}>
                                         <img src="http://192.168.1.198/wordpress-demo/wp-content/uploads/2019/05/T_4_front.jpg" alt="image" style={{ width: '100px' }} />
@@ -142,7 +142,7 @@ class Cart extends Component {
                                         </button>
                                     </td>
                                 </tr>
-                            </tbody>
+                            </tbody> */}
                             <tfoot>
                                 <tr>
                                     <td></td>

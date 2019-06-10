@@ -8,6 +8,7 @@ import ProductListsPage from './pages/Product/ProductListsPage';
 import ProductItemPage from './pages/Product/ProductItemPage';
 import CategoryPage from './pages/Category/CategoryPage';
 import ProductListCategoryPage from './pages/Category/ProductListCategoryPage';
+import FormControlPage from './pages/Admin/FormControlPage';
 
 
 const routes = [
@@ -41,7 +42,19 @@ const routes = [
     { 
         path: '/shopping-cart-reactjs/admin',
         exact: true,
-        main: ({match}) => <AdminPage match = {match}  />
+        main: ({match, history}) => <AdminPage match = {match}  history = {history} />
+    },
+
+    { 
+        path: '/shopping-cart-reactjs/admin/add',
+        exact: true,
+        main: ({ match, history }) => <FormControlPage match = {match} history = {history}  />
+    },
+
+    { 
+        path: '/shopping-cart-reactjs/admin/:id/edit',
+        exact: true,
+        main: ({ match , history }) => <FormControlPage match = {match} history = {history}  />
     },
     { 
         path: '/shopping-cart-reactjs/shopping-cart',
