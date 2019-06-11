@@ -27,7 +27,6 @@ class ListProductCategory extends Component {
                     }
                 });
             }
-
             this.setState({
                 products
             });

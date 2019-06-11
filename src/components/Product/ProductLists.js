@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ProductItem from './ProductItem';
-import * as callApi from './../../services/apiCaller';
 import { filter, includes, orderBy as funcOrderBy } from 'lodash';
+import { actFetchProductsRequest } from './../../actions/index';
 
 class ProductLists extends Component {
   constructor(props) {
@@ -14,16 +14,12 @@ class ProductLists extends Component {
   }
 
   componentDidMount() {
-    callApi.call('wordpress-demo/wp-json/wc/v3/products', 'GET', null).then(res => {
-      this.setState({
-        products: res.data
-      });
-    })
+    this.props.showProducts();
   }
 
   render() {
-    var { products } = this.state
-    var { strSearch, sort } = this.props;
+    // var { products } = this.state
+    var { strSearch, sort, products } = this.props;
     var { orderBy, orderDir } = sort;
     var itemsOrigin = (products !== null) ? [...products] : [];
 
@@ -58,8 +54,17 @@ class ProductLists extends Component {
 const mapStateToProps = state => {
   return {
     strSearch: state.strSearch,
-    sort: state.sort
+    sort: state.sort,
+    products:  state.product
   };
 }
 
-export default connect(mapStateToProps, null)(ProductLists);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    showProducts: () => {
+      dispatch(actFetchProductsRequest());
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductLists);

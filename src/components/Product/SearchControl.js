@@ -15,11 +15,10 @@ class SearchControl extends Component {
   }
 
   onClickClear = () => {
-    // this.setState = {
-    //   strSearch : ""
-    // }
-    this.state.strSearch = "";
-    this.props.handleSearch(this.state.strSearch);
+    this.setState ({
+      strSearch : ""
+    });
+    this.props.handleSearch("");
   }
 
   handleChange = (event) => {

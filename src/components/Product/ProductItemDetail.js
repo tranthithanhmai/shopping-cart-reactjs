@@ -1,33 +1,32 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import * as callApi from './../../services/apiCaller';
 import TabProductItemDetail from './TabProductItemDetail';
 import RelatedProduct from './RelatedProduct';
+import { actGetProductRequest } from './../../actions/index';
 
 class ProductItemDetail extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            product: []
-        };
-    }
-
-    componentWillMount() {
+    componentDidMount() {
         var { match } = this.props;
         var id = match.params.id;
-        callApi.call(`wordpress-demo/wp-json/wc/v3/products/${id}`, 'GET', null).then(res => {
-            this.setState({
-                product: res.data
-            });
-        })
+        this.props.showProductItem(id);
     }
 
     render() {
-        var { product } = this.state;
-        var images = product.images;
-        var category = (product.length === 0) ? '' : product.categories[0].name;
-        var regularPrice = (product.sale_price !== "") ? <span style={{ textDecoration: 'line-through', color: '#aaa' }}>{product.regular_price}.00$ </span> : '';
+        var { product } = this.props;
+        var regularPrice = '';
+        var images = [];
+        var category = [];
+        if(product.id) {
+            images = product.images;
+            category = (product.length === 0) ? '' : product.categories[0].name;
+            regularPrice = (product.sale_price !== "") 
+                            ? 
+                            <span style={{ textDecoration: 'line-through', color: '#aaa' }}>
+                            {product.regular_price}.00$ 
+                            </span> 
+                            : '';
+        }
         return (
             <div className="product-detail-container">
                 <div className="container">
@@ -115,4 +114,19 @@ class ProductItemDetail extends Component {
     };
 }
 
-export default ProductItemDetail;
+const mapStateToProps = state => {
+    console.log('productItem state : ', state);
+    return {
+        product: state.itemEditing
+    };
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        showProductItem: (id) => {
+            dispatch(actGetProductRequest(id));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductItemDetail);

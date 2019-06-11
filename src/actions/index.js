@@ -166,11 +166,14 @@ export const actGetImages = (uploadImages) => {
 
 export const actUpdateImagesRequest = (uploadImages) => {
   return dispatch => {
-    return callApi.call(`wordpress-demo/wp-json/wp/v2/media/${uploadImages.id}`, 'PUT', uploadImages).then(res => {
-      dispatch(actUpdateImages(res.data));
-    }).catch(error => {
-      console.log(error.message);
-    });
+    if(uploadImages.id){
+      return callApi.call(`wordpress-demo/wp-json/wp/v2/media/${uploadImages.id}`, 'PUT', uploadImages).then(res => {
+        console.log('res edit images : ', res.data);
+        dispatch(actUpdateImages(res.data));
+      }).catch(error => {
+        console.log(error.message);
+      });
+    }
   }
 }
 

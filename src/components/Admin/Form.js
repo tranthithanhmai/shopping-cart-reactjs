@@ -6,9 +6,11 @@ import {
   actAddImagesRequest,
   actGetImagesRequest,
   actUpdateImagesRequest,
-  actFetchCategoriesRequest
+  actFetchCategoriesRequest,
+  actFetchProductsRequest
 } from './../../actions/index';
 import { connect } from 'react-redux';
+import { isEmpty } from 'lodash';
 
 class Form extends Component {
 
@@ -37,14 +39,17 @@ class Form extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.itemEditing) {
       var { itemEditing } = nextProps;
-      this.setState({
-        id: itemEditing.id,
-        txtName: itemEditing.name,
-        txtPrice: itemEditing.regular_price,
-        urlImages: itemEditing.images,
-        txtDesc: itemEditing.description,
-        arrCat: itemEditing.categories
-      });
+      console.log(itemEditing)
+      if (!isEmpty(itemEditing)) {
+        this.setState({
+          id: itemEditing.id,
+          txtName: itemEditing.name,
+          txtPrice: itemEditing.regular_price,
+          urlImages: itemEditing.images,
+          txtDesc: itemEditing.description,
+          arrCat: itemEditing.categories
+        });
+      }
     }
   }
 
@@ -52,21 +57,20 @@ class Form extends Component {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-
+    console.log(name , ' - ', value);
     this.setState({
-     [name] : value
+      [name]: value
     });
   }
 
   onChangeCheckBox = (event) => {
     var { arrCat } = this.state;
-    console.log("slug: event.target.slug  : ", event.target);
     let checkVal = {
       id: event.target.value,
       name: event.target.name,
       checked: event.target.checked
-    } 
-    if(arrCat === undefined) {
+    }
+    if (arrCat === undefined) {
       arrCat = [];
     }
     arrCat.push(checkVal);
@@ -80,7 +84,7 @@ class Form extends Component {
     let files = Array.from(event.target.files);
     files.map(async (file) => {
       var formData = new FormData();
-      await formData.append('file', file);
+      formData.append('file', file);
       if (id) {
         await this.props.onUpdateImages(formData);
       } else {
@@ -91,7 +95,6 @@ class Form extends Component {
 
   onClickSubmit = async (e) => {
     e.preventDefault();
-    console.log('state submit : ', this.state);
     var { id, txtName, txtPrice, txtDesc, arrCat } = this.state;
     var { history, uploadImages } = this.props;
     var product = {
@@ -117,8 +120,8 @@ class Form extends Component {
   }
 
   render() {
-    var { txtName, txtPrice, txtDesc, arrCat, uploadImages } = this.state;
-    var { categories} = this.props;
+    var { txtName, txtPrice, txtDesc } = this.state;
+    var { categories } = this.props;
 
     return (
       <div className="row">
@@ -174,7 +177,7 @@ class Form extends Component {
               <label>Categories</label>
               {this.showCategories(categories)}
             </div>
-            <button to="/shopping-cart-reactjs/admin/" type="submit" className="btn btn-primary" style={{marginRight : '10px'}}>
+            <button to="/shopping-cart-reactjs/admin/" type="submit" className="btn btn-primary" style={{ marginRight: '10px' }}>
               Submit
             </button>
             <button type="button" className="btn btn-light" onClick={this.onClickBack}>Back</button>
@@ -185,19 +188,27 @@ class Form extends Component {
   }
 
   showCategories(categories) {
-    
+    // var {arrCat} = this.state;
     let xhtml = null;
     if (categories !== null && categories.length > 0) {
       xhtml = categories.map((category, index) => {
+        // console.log('arrCat : ', arrCat)
+        // console.log('category : ', category)
+        // var checked = false;
+        // if (arrCat) {
+        //   for (var i = 0 ; i < arrCat.length ; i++) {
+        //     checked = (arrCat[i].id ===  category.id) ? true : false;
+        //   }
+        // }
         return (
-          <div className="form-check" key = {index}>
-            <input  type="checkbox" className="form-check-input" 
-                    value= {category.id}
-                    onChange= {this.onChangeCheckBox} 
-                    name= {category.name}
-                    slug = {category.slug}
+          <div className="form-check" key={index}>
+            <input type="checkbox" className="form-check-input"
+              value={category.id}
+              onChange={this.onChangeCheckBox}
+              name={category.name}
+            // checked = {checked}
             />
-            <label className="form-check-label" htmlFor="exampleCheck1">{category.name}</label>
+            <label className="form-check-label">{category.name}</label>
           </div>
         );
       });
@@ -237,6 +248,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onShowCategory: (categories) => {
       dispatch(actFetchCategoriesRequest(categories));
+    },
+    onShowProduct: () => {
+      dispatch(actFetchProductsRequest());
     }
   }
 }
