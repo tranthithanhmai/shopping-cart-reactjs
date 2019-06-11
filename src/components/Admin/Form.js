@@ -5,7 +5,8 @@ import {
   actGetProductRequest,
   actAddImagesRequest,
   actGetImagesRequest,
-  actUpdateImagesRequest
+  actUpdateImagesRequest,
+  actFetchCategoriesRequest
 } from './../../actions/index';
 import { connect } from 'react-redux';
 
@@ -14,33 +15,36 @@ class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
-      txtName: '',
-      txtPrice: '',
+      id: "",
+      txtName: "",
+      txtPrice: "",
       urlImages: [],
-      txtDesc: '',
+      txtDesc: "",
+      arrCat: []
     };
   }
 
   componentDidMount() {
     var { match } = this.props;
-    if (match) {
+    if (match.params.id) {
       var id = match.params.id;
       this.props.onEditImages(id);
       this.props.onEditProduct(id);
     }
+    this.props.onShowCategory();
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.itemEditing) {
       var { itemEditing } = nextProps;
-      this.setState = {
+      this.setState({
         id: itemEditing.id,
         txtName: itemEditing.name,
         txtPrice: itemEditing.regular_price,
         urlImages: itemEditing.images,
-        txtDesc: itemEditing.description
-      };
+        txtDesc: itemEditing.description,
+        arrCat: itemEditing.categories
+      });
     }
   }
 
@@ -50,40 +54,55 @@ class Form extends Component {
     const name = target.name;
 
     this.setState({
-      [name]: value
+     [name] : value
     });
-
   }
 
-  onChangeFile =  (event) => {
-    var { id} = this.state;
-    var { uploadImages } = this.props;
-    const files = Array.from(event.target.files);
+  onChangeCheckBox = (event) => {
+    var { arrCat } = this.state;
+    console.log("slug: event.target.slug  : ", event.target);
+    let checkVal = {
+      id: event.target.value,
+      name: event.target.name,
+      checked: event.target.checked
+    } 
+    if(arrCat === undefined) {
+      arrCat = [];
+    }
+    arrCat.push(checkVal);
+    this.setState({
+      arrCat
+    });
+  };
+
+  onChangeFile = async (event) => {
+    var { id } = this.state;
+    let files = Array.from(event.target.files);
     files.map(async (file) => {
       var formData = new FormData();
       await formData.append('file', file);
-      if(id) {
-        this.props.onUpdateImages(formData);
+      if (id) {
+        await this.props.onUpdateImages(formData);
       } else {
-        this.props.onAddImages(formData);
+        await this.props.onAddImages(formData);
       }
-      this.setState = {
-        images: uploadImages
-      }
-    });
+    })
   }
 
   onClickSubmit = async (e) => {
     e.preventDefault();
-    var { id, txtName, txtPrice, txtDesc } = this.state;
+    console.log('state submit : ', this.state);
+    var { id, txtName, txtPrice, txtDesc, arrCat } = this.state;
     var { history, uploadImages } = this.props;
     var product = {
       id: id,
       name: txtName,
       regular_price: txtPrice,
       images: uploadImages,
-      description: txtDesc
+      description: txtDesc,
+      categories: arrCat
     };
+
     if (id) {
       await this.props.onUpdateProduct(product);
     } else {
@@ -98,13 +117,8 @@ class Form extends Component {
   }
 
   render() {
-    var { txtName, txtPrice, txtDesc } = this.state;
-    var { itemEditing } = this.props;
-    if (itemEditing.id) {
-      txtName = itemEditing.name;
-      txtPrice = itemEditing.regular_price;
-      txtDesc = itemEditing.description;
-    }
+    var { txtName, txtPrice, txtDesc, arrCat, uploadImages } = this.state;
+    var { categories} = this.props;
 
     return (
       <div className="row">
@@ -136,6 +150,16 @@ class Form extends Component {
               />
             </div>
             <div className="form-group">
+              <label>Chi tiết sản phẩm</label>
+              <textarea
+                type="text"
+                className="form-control"
+                name='txtDesc'
+                value={txtDesc}
+                onChange={this.onChange}
+              />
+            </div>
+            <div className="form-group">
               <label>Hình ảnh sản phẩm</label>
               <input
                 type="file"
@@ -147,16 +171,10 @@ class Form extends Component {
               />
             </div>
             <div className="form-group">
-              <label>Chi tiết sản phẩm</label>
-              <textarea
-                type="text"
-                className="form-control"
-                name='txtDesc'
-                value={txtDesc}
-                onChange={this.onChange}
-              />
+              <label>Categories</label>
+              {this.showCategories(categories)}
             </div>
-            <button to="/shopping-cart-reactjs/admin/" type="submit" className="btn btn-primary">
+            <button to="/shopping-cart-reactjs/admin/" type="submit" className="btn btn-primary" style={{marginRight : '10px'}}>
               Submit
             </button>
             <button type="button" className="btn btn-light" onClick={this.onClickBack}>Back</button>
@@ -166,12 +184,34 @@ class Form extends Component {
     );
   }
 
+  showCategories(categories) {
+    
+    let xhtml = null;
+    if (categories !== null && categories.length > 0) {
+      xhtml = categories.map((category, index) => {
+        return (
+          <div className="form-check" key = {index}>
+            <input  type="checkbox" className="form-check-input" 
+                    value= {category.id}
+                    onChange= {this.onChangeCheckBox} 
+                    name= {category.name}
+                    slug = {category.slug}
+            />
+            <label className="form-check-label" htmlFor="exampleCheck1">{category.name}</label>
+          </div>
+        );
+      });
+    }
+    return xhtml;
+  }
+
 }
 
 const mapStateToProps = state => {
   return {
     itemEditing: state.itemEditing,
-    uploadImages: state.uploadImages
+    uploadImages: state.uploadImages,
+    categories: state.categories
   }
 }
 
@@ -194,6 +234,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     onUpdateImages: (uploadImages) => {
       dispatch(actUpdateImagesRequest(uploadImages));
+    },
+    onShowCategory: (categories) => {
+      dispatch(actFetchCategoriesRequest(categories));
     }
   }
 }

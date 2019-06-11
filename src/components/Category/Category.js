@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import * as callApi from './../../services/apiCaller';
+import { actFetchCategoriesRequest } from './../../actions/index';
+import { connect } from 'react-redux';
 
 class Category extends Component {
     constructor(props) {
@@ -12,21 +13,18 @@ class Category extends Component {
     }
 
     componentDidMount() {
-        callApi.call('wordpress-demo/wp-json/wc/v3/products/categories', 'GET', null).then(res => {
-            this.setState({
-                categories: res.data
-            });
-        })
+      this.props.onShowCategory();
     }
 
     render() {
-        var { categories } = this.state;
+        var { categories } = this.props;
+        console.log();
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-12" style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between' }}>
                         <h1>List Categories</h1>
-                        <h5 style={{marginTop: '15px'}}>Total: <b>{categories.length}</b> item(s)</h5>
+                        <h5 style={{ marginTop: '15px' }}>Total: <b>{categories.length}</b> item(s)</h5>
                     </div>
                 </div>
                 <div className="row">
@@ -35,13 +33,14 @@ class Category extends Component {
             </div>
         );
     }
+
     showCategories(categories) {
         let xhtml = null;
         if (categories !== null && categories.length > 0) {
             xhtml = categories.map((category, index) => {
                 return (
-                    <div className="col-12 col-sm-4 col-md-3 col-lg-3 list-item"  key={index}  style={{ marginBottom: '20px'}}>
-                        <img style={{width: '100px', height: '100px'}} alt={category.name} src={category.image === null ? 'http://192.168.1.198/wordpress-demo/wp-content/uploads/2019/05/hoodie_4_front.jpg' : category.image} />
+                    <div className="col-12 col-sm-4 col-md-3 col-lg-3 list-item" key={index} style={{ marginBottom: '20px' }}>
+                        <img style={{ width: '100px', height: '100px' }} alt={category.name} src={category.image === null ? 'http://192.168.1.198/wordpress-demo/wp-content/uploads/2019/05/hoodie_4_front.jpg' : category.image} />
                         <h4>
                             <Link to={`/shopping-cart-reactjs/products/categories/${category.id}`} category={category}>
                                 {category.name}
@@ -54,5 +53,19 @@ class Category extends Component {
         return xhtml;
     }
 }
+const mapStateToProps = state => {
+    return {
+        categories: state.categories
+    }
+}
 
-export default Category;
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onShowCategory: (categories) => {
+            dispatch(actFetchCategoriesRequest(categories));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category);
+

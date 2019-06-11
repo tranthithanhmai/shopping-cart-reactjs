@@ -6,6 +6,7 @@ import sort from './sort';
 import product from './product';
 import itemEditing from './itemEditing';
 import uploadImages from './uploadImages';
+import categories from './categories';
 
 const appReducers = combineReducers({
 	user,
@@ -14,7 +15,8 @@ const appReducers = combineReducers({
 	sort,
 	product,
 	itemEditing,
-	uploadImages
+	uploadImages,
+	categories
 });
 
 export default appReducers;

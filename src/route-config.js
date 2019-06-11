@@ -52,7 +52,7 @@ const routes = [
     },
 
     { 
-        path: '/shopping-cart-reactjs/admin/:id/edit',
+        path: '/shopping-cart-reactjs/admin/edit/:id',
         exact: true,
         main: ({ match , history }) => <FormControlPage match = {match} history = {history}  />
     },

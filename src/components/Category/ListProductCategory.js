@@ -16,13 +16,9 @@ class ListProductCategory extends Component {
         var { match } = this.props;
         var idCat = parseInt(match.params.id);
         callApi.call(`wordpress-demo/wp-json/wc/v3/products`, 'GET', null).then(res => {
-            // for (var i = 0; i < res.data.length; i++) {
-            //     var arrId = res.data[i].categories.length;
-                
-            // }
-
+            var listData = res.data;
             for (var j = 0; j < 10; j++) {
-                (res.data).filter((data) => {
+                listData.filter((data) => {
                     if (data && j < data.categories.length) {
                         var id = data.categories[j].id;
                         if (id === idCat) {

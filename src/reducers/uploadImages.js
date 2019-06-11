@@ -12,13 +12,12 @@ var findIndex = (uploadImages, id) => {
 }
 const uploadImages = (state = initialState, action) => {
     var index = -1;
-    var { uploadImage } = action;
     switch (action.type) {
         case types.ADD_IMAGES:
-            state.push(action.uploadImage);
+            state.push(action.uploadImages);
             return [...state];
         case types.UPDATE_IMAGES:
-            index = findIndex(state, uploadImage.id);
+            index = findIndex(state, uploadImages.id);
             state[index] = uploadImages;
             return [...state];
         default: return [...state];

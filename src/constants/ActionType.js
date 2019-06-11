@@ -19,3 +19,7 @@ export const EDIT_PRODUCT       = 'EDIT_PRODUCT';
 export const ADD_IMAGES         = 'ADD_IMAGES';
 export const EDIT_IMAGES        = 'EDIT_IMAGES';
 export const UPDATE_IMAGES      = 'UPDATE_IMAGES';
+
+
+//categories
+export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
