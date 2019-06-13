@@ -67,7 +67,6 @@ export const actAddImagesRequest = (uploadImages) => {
 }
 
 export const actAddImages = (uploadImages) => {
-  console.log('add uploadImages : ', uploadImages);
   return {
     type: types.ADD_IMAGES,
     uploadImages
@@ -222,5 +221,23 @@ export const actFetchCarts = (carts) => {
   return {
     type: types.FETCH_CART,
     carts
+  }
+}
+
+//DELETE CARTS
+export const actDeleteCartRequest = (id) => {
+  return dispatch => {
+    return callApi.call(`wordpress-demo/wp-json/wc/v3/orders/${id}`, 'DELETE', null).then(res => {
+      dispatch(actDeleteCart(id));
+    }).catch(error => {
+      console.log(error.message);
+    });
+  }
+}
+
+export const actDeleteCart = (id) => {
+  return {
+    type: types.DELETE_CART,
+    id
   }
 }

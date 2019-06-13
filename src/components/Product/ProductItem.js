@@ -20,9 +20,7 @@ class ProductItem extends Component {
               </Link>
             </h4>
             <p className="card-text">{regularPrice} {price}$</p>
-            <button className="btn btn-primary" style={{ width: '100%' }}>
-              ADD TO CART
-				  	</button>
+            <Link to={`/shopping-cart-reactjs/shopping-cart`} type="button" className="btn btn-primary">Add to cart</Link>
           </div>
         </div>
       </div>

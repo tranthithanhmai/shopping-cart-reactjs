@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 class TabProductItemDetail extends Component {
     render() {
         var {product} = this.props;
+        var description = "";
+        if (product.id) {
+            description = product.description.replace(new RegExp(/[<p>,</p>,</br>]/, 'g'), '');
+        }
         return (
             <div className="container" style={{marginTop : '30px'}}>
                 <ul className="nav nav-tabs">
@@ -16,7 +20,7 @@ class TabProductItemDetail extends Component {
                 <div className="tab-content">
                     <div id="Description" className="container tab-pane active"><br />
                         <h3>Description</h3>
-                        <p>{product.description}</p>
+                        <p>{description}</p>
                     </div>
                     <div id="Reviews" className="container tab-pane fade"><br />
                         <h3>Reviews</h3>

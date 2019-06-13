@@ -12,6 +12,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isEmpty } from 'lodash';
+import ItemCat from './ItemCat';
 
 class Form extends Component {
 
@@ -31,7 +32,7 @@ class Form extends Component {
     var { match } = this.props;
     if (match.params.id) {
       var id = match.params.id;
-      var idImg = match.params.id;
+      // var idImg = match.params.id;
       // this.props.actions.actGetImagesRequest(idImg);
       this.props.actions.actGetProductRequest(id);
     }
@@ -76,9 +77,16 @@ class Form extends Component {
     }
     if (arrCat === undefined) {
       arrCat = [];
+    } else {
+      arrCat.push(checkVal);
+      for (var i = 0; i < arrCat.length; i++) {
+        var idChecked = arrCat.length - 1;
+        if ((arrCat[i].id === arrCat[idChecked].id) && (arrCat[idChecked].checked === false)) {
+          arrCat.splice(i, 1);
+        }
+      }
     }
-    
-    arrCat.push(checkVal);
+
     this.setState({
       arrCat
     });
@@ -111,11 +119,8 @@ class Form extends Component {
       categories: arrCat
     };
 
-    console.log('product submit : ', product);
-
     if (id) {
       await this.props.actions.actUpdateProductRequest(product);
-      console.log('uploadImages submit : ', uploadImages);
     } else {
       await this.props.actions.actAddProductRequest(product);
     }
@@ -128,16 +133,9 @@ class Form extends Component {
   }
 
   render() {
-    var { txtName, txtPrice, txtDesc, urlImages } = this.state;
+    var { txtName, txtPrice, txtDesc } = this.state;
     var { categories } = this.props;
-    var txtImg = [];
-    if(urlImages && urlImages.length !== 0) {
-      for (var i = 0 ; i < urlImages.length; i++) {
-        txtImg.push(urlImages[i].name);
-        txtImg.join(',').toString();
-        console.log('txtImg : ', txtImg);
-      }
-    }
+    txtDesc = txtDesc.replace(new RegExp(/[<p>,</p>,</br>]/, 'g'), '');
     
     return (
       <div className="row">
@@ -204,27 +202,23 @@ class Form extends Component {
   }
 
   showCategories(categories) {
-    var {arrCat} = this.state;
+    var { arrCat } = this.state;
     let xhtml = null;
-    
     if (categories !== null && categories.length > 0) {
       xhtml = categories.map((category, index) => {
         return (
-          <div className="form-check" key={index}>
-           <input type="checkbox" 
-                  className="form-check-input"
-                  value={category.id}
-                  onChange={this.onChangeCheckBox}
-                  name={category.name}
-                />
-            <label className="form-check-label">{category.name}</label>
-          </div>
+          <ItemCat
+            onChangeCheckBox={this.onChangeCheckBox}
+            id={category.id}
+            key={index}
+            category={category}
+            arrCat={arrCat}
+          />
         );
       });
     }
     return xhtml;
   }
-
 }
 
 const mapStateToProps = state => {

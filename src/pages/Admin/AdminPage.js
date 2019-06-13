@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import Lists from './../../components/Admin/Lists';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { actFetchProductsRequest, actDeleteProductRequest } from './../../actions/index';
 
 class AdminPage extends Component {
   componentDidMount() {
-    this.props.fetchAllProducts();
+    this.props.actions.actFetchProductsRequest();
   }
 
   onDelete = (id) => {
-    this.props.onDeleteProduct(id);
+    this.props.actions.actDeleteProductRequest(id);
   }
 
   render() {
@@ -28,12 +29,17 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    fetchAllProducts: () => {
-      dispatch(actFetchProductsRequest());
-    },
-    onDeleteProduct: (id) => {
-      dispatch(actDeleteProductRequest(id));
-    }
+    // fetchAllProducts: () => {
+    //   dispatch(actFetchProductsRequest());
+    // },
+    // onDeleteProduct: (id) => {
+    //   dispatch(actDeleteProductRequest(id));
+    // }
+
+    actions: bindActionCreators({
+      actFetchProductsRequest,
+      actDeleteProductRequest
+    }, dispatch)
   }
 }
 

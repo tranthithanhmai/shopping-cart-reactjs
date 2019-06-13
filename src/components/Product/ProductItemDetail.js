@@ -17,16 +17,12 @@ class ProductItemDetail extends Component {
         var { product } = this.props;
         var regularPrice = '';
         var images = [];
-        var category = [];
+        var categories = [];
+        var description = "";
         if (product.id) {
             images = product.images;
-            category = (product.length === 0) ? '' : product.categories[0].name;
-            regularPrice = (product.sale_price !== "")
-                ?
-                <span style={{ textDecoration: 'line-through', color: '#aaa' }}>
-                    {product.regular_price}.00$
-                            </span>
-                : '';
+            categories = product.categories;
+            description = product.description.replace(new RegExp(/[<p>,</p>,</br>]/, 'g'), '');
         }
         return (
             <div className="product-detail-container">
@@ -42,19 +38,18 @@ class ProductItemDetail extends Component {
                         <div className="col-12 col-sm-6">
                             <h1>{product.name}</h1>
                             <h3 className="card-text">
-                                {regularPrice}  {product.price === '' ? 0 : product.price}.00 $
+                                {regularPrice}  {product.price === '' ? 0 : product.price} $
                             </h3>
-                            <p>{product.description}</p>
+                            <p>{description}</p>
                             <div style={{ display: 'flex' }}>
-                                <input type="number" style={{ marginRight: '10px', padding: '10px' }} />
-                                <button type="button" className="btn btn-primary">Add to cart</button>
-
+                                <input type="number" style={{ marginRight: '10px' }} />
+                                <Link to={`/shopping-cart-reactjs/shopping-cart`} type="button" className="btn btn-primary">Add to cart</Link>
                             </div>
                             <p>
                                 SKU:{product.sku}
                             </p>
                             <p>
-                                Category:  <Link to="/shopping-cart-reactjs/products/categories">{category}</Link>
+                                Category: {this.showCategory(categories)}
                             </p>
                         </div>
                     </div>
@@ -65,7 +60,20 @@ class ProductItemDetail extends Component {
         );
 
     }
+    showCategory(categories) {
+        let xhtml = null;
+        if (categories !== undefined) {
+            if (categories.length > 0) {
+                xhtml = categories.map((category, index) => {
+                    return (
+                        <Link to={`/shopping-cart-reactjs/products/categories/${category.id}`} key={index} style={{marginRight : '10px'}} category={category.name}>{category.name}</Link>
+                    );
+                });
+            }
 
+        }
+        return xhtml;
+    };
     showImages(images) {
         let xhtml = null;
         if (images !== undefined) {
