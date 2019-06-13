@@ -17,6 +17,7 @@ const uploadImages = (state = initialState, action) => {
             state.push(action.uploadImages);
             return [...state];
         case types.UPDATE_IMAGES:
+            console.log('action : ', action);
             index = findIndex(state, uploadImages.id);
             state[index] = uploadImages;
             return [...state];

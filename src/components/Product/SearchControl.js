@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { actSearch } from './../../actions/index';
 
 class SearchControl extends Component {
@@ -11,14 +12,14 @@ class SearchControl extends Component {
   }
 
   onClickSearch = () => {
-    this.props.handleSearch(this.state.strSearch);
+    this.props.actions.actSearch(this.state.strSearch);
   }
 
   onClickClear = () => {
     this.setState ({
       strSearch : ""
     });
-    this.props.handleSearch("");
+    this.props.actions.actSearch("");
   }
 
   handleChange = (event) => {
@@ -52,9 +53,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    handleSearch: (strSearch) => {
-      dispatch(actSearch(strSearch));
-    }
+    // handleSearch: (strSearch) => {
+    //   dispatch(actSearch(strSearch));
+    // }
+    actions: bindActionCreators({
+      actSearch
+    }, dispatch)
   }
 }
 

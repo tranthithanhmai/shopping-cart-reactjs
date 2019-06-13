@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import ProductItem from './ProductItem';
 import { filter, includes, orderBy as funcOrderBy } from 'lodash';
 import { actFetchProductsRequest } from './../../actions/index';
 
 class ProductLists extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      products: []
-    };
-  }
 
   componentDidMount() {
-    this.props.showProducts();
+    this.props.actions.actFetchProductsRequest();
   }
 
   render() {
@@ -61,9 +55,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    showProducts: () => {
-      dispatch(actFetchProductsRequest());
-    }
+    // showProducts: () => {
+    //   dispatch(actFetchProductsRequest());
+    // }
+    actions: bindActionCreators({
+      actFetchProductsRequest
+    }, dispatch)
   }
 }
 

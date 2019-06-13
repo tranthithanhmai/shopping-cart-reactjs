@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import TabProductItemDetail from './TabProductItemDetail';
 import RelatedProduct from './RelatedProduct';
@@ -9,7 +10,7 @@ class ProductItemDetail extends Component {
     componentDidMount() {
         var { match } = this.props;
         var id = match.params.id;
-        this.props.showProductItem(id);
+        this.props.actions.actGetProductRequest(id);
     }
 
     render() {
@@ -17,15 +18,15 @@ class ProductItemDetail extends Component {
         var regularPrice = '';
         var images = [];
         var category = [];
-        if(product.id) {
+        if (product.id) {
             images = product.images;
             category = (product.length === 0) ? '' : product.categories[0].name;
-            regularPrice = (product.sale_price !== "") 
-                            ? 
-                            <span style={{ textDecoration: 'line-through', color: '#aaa' }}>
-                            {product.regular_price}.00$ 
-                            </span> 
-                            : '';
+            regularPrice = (product.sale_price !== "")
+                ?
+                <span style={{ textDecoration: 'line-through', color: '#aaa' }}>
+                    {product.regular_price}.00$
+                            </span>
+                : '';
         }
         return (
             <div className="product-detail-container">
@@ -115,7 +116,6 @@ class ProductItemDetail extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log('productItem state : ', state);
     return {
         product: state.itemEditing
     };
@@ -123,9 +123,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        showProductItem: (id) => {
-            dispatch(actGetProductRequest(id));
-        }
+        // showProductItem: (id) => {
+        //     dispatch(actGetProductRequest(id));
+        // }
+
+        actions: bindActionCreators({
+            actGetProductRequest
+        }, dispatch)
     }
 }
 

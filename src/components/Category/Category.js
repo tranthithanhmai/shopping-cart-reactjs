@@ -2,18 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { actFetchCategoriesRequest } from './../../actions/index';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 class Category extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            categories: []
-        };
-    }
-
+    
     componentDidMount() {
-      this.props.onShowCategory();
+        this.props.actions.actFetchCategoriesRequest();
     }
 
     render() {
@@ -61,9 +55,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        onShowCategory: (categories) => {
-            dispatch(actFetchCategoriesRequest(categories));
-        }
+        // onShowCategory: (categories) => {
+        //     dispatch(actFetchCategoriesRequest(categories));
+        // }
+        actions: bindActionCreators({
+            actFetchCategoriesRequest
+        }, dispatch)
     }
 }
 

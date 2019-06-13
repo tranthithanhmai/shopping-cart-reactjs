@@ -41,7 +41,6 @@ export const actSort = (orderBy, orderDir) => {
 export const actAddProductRequest = (product) => {
   return dispatch => {
     return callApi.call('wordpress-demo/wp-json/wc/v3/products', 'POST', product).then(res => {
-      console.log('res : ', res)
       dispatch(actAddProduct(res.data));
     }).catch(error => {
       console.log(error.message);
@@ -59,7 +58,7 @@ export const actAddProduct = (product) => {
 //ADD IMAGES
 export const actAddImagesRequest = (uploadImages) => {
   return dispatch => {
-    return  callApi.call('wordpress-demo/wp-json/wp/v2/media', 'POST', uploadImages).then(res => {
+    return callApi.call('wordpress-demo/wp-json/wp/v2/media', 'POST', uploadImages).then(res => {
       dispatch(actAddImages(res.data));
     }).catch(error => {
       console.log(error.message);
@@ -68,6 +67,7 @@ export const actAddImagesRequest = (uploadImages) => {
 }
 
 export const actAddImages = (uploadImages) => {
+  console.log('add uploadImages : ', uploadImages);
   return {
     type: types.ADD_IMAGES,
     uploadImages
@@ -114,6 +114,7 @@ export const actFetchProducts = (products) => {
 export const actGetProductRequest = (id) => {
   return dispatch => {
     return callApi.call(`wordpress-demo/wp-json/wc/v3/products/${id}`, 'GET', null).then(res => {
+      console.log('EDIT PRODUCT : ', res);
       dispatch(actGetProduct(res.data));
     }).catch(error => {
       console.log(error.message);
@@ -122,6 +123,7 @@ export const actGetProductRequest = (id) => {
 }
 
 export const actGetProduct = (product) => {
+  console.log('product : ', product);
   return {
     type: types.EDIT_PRODUCT,
     product
@@ -150,6 +152,7 @@ export const actUpdateProduct = (product) => {
 export const actGetImagesRequest = (id) => {
   return dispatch => {
     return callApi.call(`wordpress-demo/wp-json/wp/v2/media/${id}`, 'GET', null).then(res => {
+      console.log('EDIT Images : ', res);
       dispatch(actGetImages(res.data));
     }).catch(error => {
       console.log(error.message);
@@ -158,6 +161,7 @@ export const actGetImagesRequest = (id) => {
 }
 
 export const actGetImages = (uploadImages) => {
+  console.log('uploadImages : ', uploadImages);
   return {
     type: types.EDIT_IMAGES,
     uploadImages
@@ -168,7 +172,6 @@ export const actUpdateImagesRequest = (uploadImages) => {
   return dispatch => {
     if(uploadImages.id){
       return callApi.call(`wordpress-demo/wp-json/wp/v2/media/${uploadImages.id}`, 'PUT', uploadImages).then(res => {
-        console.log('res edit images : ', res.data);
         dispatch(actUpdateImages(res.data));
       }).catch(error => {
         console.log(error.message);
@@ -200,5 +203,24 @@ export const actFetchCategories = (categories) => {
   return {
     type: types.FETCH_CATEGORIES,
     categories
+  }
+}
+
+//SHOW CARTS
+
+export const actFetchCartsRequest = () => {
+  return dispatch => {
+    return callApi.call('wordpress-demo/wp-json/wc/v3/orders', 'GET', null).then(res => {
+      dispatch(actFetchCarts(res.data));
+    }).catch(error => {
+      console.log(error.message);
+    });
+  };
+}
+
+export const actFetchCarts = (carts) => {
+  return {
+    type: types.FETCH_CART,
+    carts
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { actLoginRequest } from './../../actions/index';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
@@ -30,7 +31,7 @@ class Login extends Component {
 			username,
 			password
 		}
-		await this.props.onLogin(data);
+		await this.props.actions.actLoginRequest(data);
 		return <Redirect push to="/shopping-cart-reactjs/product" />;
 	}
 
@@ -72,14 +73,17 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		onLogin: (data) => {
-			dispatch(actLoginRequest(data));
-		}
+		// onLogin: (data) => {
+		// 	dispatch(actLoginRequest(data));
+		// }
+		actions: bindActionCreators({
+      actLoginRequest
+    }, dispatch)
 	}
 }
 
 const mapStatetoProps = (state) => ({
-token : state.user.token
+		token : state.user.token
 })
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Login);

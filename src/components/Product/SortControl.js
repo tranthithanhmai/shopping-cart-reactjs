@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { actSort } from './../../actions/index';
 
 class Sort extends Component {
 
     handleSort = (orderBy, orderDir) => {
-        this.props.onClickSort(orderBy, orderDir);
+        this.props.actions.actSort(orderBy, orderDir);
     }
 
     render() {
@@ -33,9 +34,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        onClickSort: (orderBy, orderDir) => {
-            dispatch(actSort(orderBy, orderDir));
-        }
+        // onClickSort: (orderBy, orderDir) => {
+        //     dispatch(actSort(orderBy, orderDir));
+        // }
+        actions: bindActionCreators({
+            actSort
+        }, dispatch)
     }
 }
 

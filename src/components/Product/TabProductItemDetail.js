@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class TabProductItemDetail extends Component {
     render() {
         var {product} = this.props;
-        console.log('tabDes : ',product);
         return (
             <div className="container" style={{marginTop : '30px'}}>
                 <ul className="nav nav-tabs">

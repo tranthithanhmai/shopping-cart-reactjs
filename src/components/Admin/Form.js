@@ -10,6 +10,7 @@ import {
   actFetchProductsRequest
 } from './../../actions/index';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { isEmpty } from 'lodash';
 
 class Form extends Component {
@@ -30,16 +31,16 @@ class Form extends Component {
     var { match } = this.props;
     if (match.params.id) {
       var id = match.params.id;
-      this.props.onEditImages(id);
-      this.props.onEditProduct(id);
+      var idImg = match.params.id;
+      // this.props.actions.actGetImagesRequest(idImg);
+      this.props.actions.actGetProductRequest(id);
     }
-    this.props.onShowCategory();
+    this.props.actions.actFetchCategoriesRequest();
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.itemEditing) {
       var { itemEditing } = nextProps;
-      console.log(itemEditing)
       if (!isEmpty(itemEditing)) {
         this.setState({
           id: itemEditing.id,
@@ -49,6 +50,10 @@ class Form extends Component {
           txtDesc: itemEditing.description,
           arrCat: itemEditing.categories
         });
+      } else {
+        this.setState({
+          urlImages: itemEditing.images
+        });
       }
     }
   }
@@ -57,7 +62,6 @@ class Form extends Component {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-    console.log(name , ' - ', value);
     this.setState({
       [name]: value
     });
@@ -66,50 +70,54 @@ class Form extends Component {
   onChangeCheckBox = (event) => {
     var { arrCat } = this.state;
     let checkVal = {
-      id: event.target.value,
+      id: +event.target.value,
       name: event.target.name,
       checked: event.target.checked
     }
     if (arrCat === undefined) {
       arrCat = [];
     }
+    
     arrCat.push(checkVal);
     this.setState({
       arrCat
     });
   };
 
-  onChangeFile = async (event) => {
+  onChangeFile = (event) => {
     var { id } = this.state;
     let files = Array.from(event.target.files);
     files.map(async (file) => {
       var formData = new FormData();
       formData.append('file', file);
       if (id) {
-        await this.props.onUpdateImages(formData);
+        await this.props.actions.actUpdateImagesRequest(formData);
       } else {
-        await this.props.onAddImages(formData);
+        await this.props.actions.actAddImagesRequest(formData);
       }
     })
   }
 
   onClickSubmit = async (e) => {
     e.preventDefault();
-    var { id, txtName, txtPrice, txtDesc, arrCat } = this.state;
+    var { id, txtName, txtPrice, txtDesc, arrCat, urlImages } = this.state;
     var { history, uploadImages } = this.props;
     var product = {
       id: id,
       name: txtName,
       regular_price: txtPrice,
-      images: uploadImages,
+      images: (id !== '') ? urlImages : uploadImages, //uploadImages, 
       description: txtDesc,
       categories: arrCat
     };
 
+    console.log('product submit : ', product);
+
     if (id) {
-      await this.props.onUpdateProduct(product);
+      await this.props.actions.actUpdateProductRequest(product);
+      console.log('uploadImages submit : ', uploadImages);
     } else {
-      await this.props.onAddProduct(product);
+      await this.props.actions.actAddProductRequest(product);
     }
     history.goBack();
   }
@@ -120,9 +128,17 @@ class Form extends Component {
   }
 
   render() {
-    var { txtName, txtPrice, txtDesc } = this.state;
+    var { txtName, txtPrice, txtDesc, urlImages } = this.state;
     var { categories } = this.props;
-
+    var txtImg = [];
+    if(urlImages && urlImages.length !== 0) {
+      for (var i = 0 ; i < urlImages.length; i++) {
+        txtImg.push(urlImages[i].name);
+        txtImg.join(',').toString();
+        console.log('txtImg : ', txtImg);
+      }
+    }
+    
     return (
       <div className="row">
         <div className="col-12">
@@ -188,26 +204,19 @@ class Form extends Component {
   }
 
   showCategories(categories) {
-    // var {arrCat} = this.state;
+    var {arrCat} = this.state;
     let xhtml = null;
+    
     if (categories !== null && categories.length > 0) {
       xhtml = categories.map((category, index) => {
-        // console.log('arrCat : ', arrCat)
-        // console.log('category : ', category)
-        // var checked = false;
-        // if (arrCat) {
-        //   for (var i = 0 ; i < arrCat.length ; i++) {
-        //     checked = (arrCat[i].id ===  category.id) ? true : false;
-        //   }
-        // }
         return (
           <div className="form-check" key={index}>
-            <input type="checkbox" className="form-check-input"
-              value={category.id}
-              onChange={this.onChangeCheckBox}
-              name={category.name}
-            // checked = {checked}
-            />
+           <input type="checkbox" 
+                  className="form-check-input"
+                  value={category.id}
+                  onChange={this.onChangeCheckBox}
+                  name={category.name}
+                />
             <label className="form-check-label">{category.name}</label>
           </div>
         );
@@ -228,30 +237,41 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    onAddProduct: (product) => {
-      dispatch(actAddProductRequest(product));
-    },
-    onEditProduct: (id) => {
-      dispatch(actGetProductRequest(id));
-    },
-    onUpdateProduct: (product) => {
-      dispatch(actUpdateProductRequest(product));
-    },
-    onAddImages: (uploadImages) => {
-      dispatch(actAddImagesRequest(uploadImages));
-    },
-    onEditImages: (id) => {
-      dispatch(actGetImagesRequest(id));
-    },
-    onUpdateImages: (uploadImages) => {
-      dispatch(actUpdateImagesRequest(uploadImages));
-    },
-    onShowCategory: (categories) => {
-      dispatch(actFetchCategoriesRequest(categories));
-    },
-    onShowProduct: () => {
-      dispatch(actFetchProductsRequest());
-    }
+    // onAddProduct: (product) => {
+    //   dispatch(actAddProductRequest(product));
+    // },
+    // onEditProduct: (id) => {
+    //   dispatch(actGetProductRequest(id));
+    // },
+    // onUpdateProduct: (product) => {
+    //   dispatch(actUpdateProductRequest(product));
+    // },
+    // onAddImages: (uploadImages) => {
+    //   dispatch(actAddImagesRequest(uploadImages));
+    // },
+    // onEditImages: (id) => {
+    //   dispatch(actGetImagesRequest(id));
+    // },
+    // onUpdateImages: (uploadImages) => {
+    //   dispatch(actUpdateImagesRequest(uploadImages));
+    // },
+    // onShowCategory: (categories) => {
+    //   dispatch(actFetchCategoriesRequest(categories));
+    // },
+    // onShowProduct: () => {
+    //   dispatch(actFetchProductsRequest());
+    // }
+
+    actions: bindActionCreators({
+      actAddProductRequest,
+      actGetProductRequest,
+      actUpdateProductRequest,
+      actAddImagesRequest,
+      actGetImagesRequest,
+      actUpdateImagesRequest,
+      actFetchCategoriesRequest,
+      actFetchProductsRequest
+    }, dispatch)
   }
 }
 
