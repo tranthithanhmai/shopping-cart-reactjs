@@ -4,6 +4,7 @@ import HomePage from './pages/Home/HomePage';
 import LoginPage from './pages/Login/LoginPage';
 import AdminPage from './pages/Admin/AdminPage';
 import CartPage from './pages/Cart/CartPage';
+import OrderPage from './pages/Cart/OrderPage';
 import ProductListsPage from './pages/Product/ProductListsPage';
 import ProductItemPage from './pages/Product/ProductItemPage';
 import CategoryPage from './pages/Category/CategoryPage';
@@ -60,6 +61,11 @@ const routes = [
         path: '/shopping-cart-reactjs/shopping-cart',
         exact: true,
         main: ({match}) => <CartPage match = {match}  />
+    },
+    { 
+        path: '/shopping-cart-reactjs/shopping-cart/add',
+        exact: true,
+        main: ({ match , history }) => <OrderPage match = {match}  history = {history}  />
     },
     { 
         path: '/shopping-cart-reactjs/login',

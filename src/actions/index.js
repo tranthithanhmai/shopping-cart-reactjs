@@ -147,47 +147,6 @@ export const actUpdateProduct = (product) => {
     product
   }
 }
-
-//EDIT Images
-
-// export const actGetImagesRequest = (id) => {
-//   return dispatch => {
-//     return callApi.call(`wordpress-demo/wp-json/wp/v2/media/${id}`, 'GET', null).then(res => {
-//       console.log('EDIT Images : ', res);
-//       dispatch(actGetImages(res.data));
-//     }).catch(error => {
-//       console.log(error.message);
-//     });
-//   }
-// }
-
-// export const actGetImages = (uploadImages) => {
-//   console.log('uploadImages : ', uploadImages);
-//   return {
-//     type: types.EDIT_IMAGES,
-//     uploadImages
-//   }
-// }
-
-// export const actUpdateImagesRequest = (uploadImages) => {
-//   return dispatch => {
-//     if(uploadImages.id){
-//       return callApi.call(`wordpress-demo/wp-json/wp/v2/media/${uploadImages.id}`, 'PUT', uploadImages).then(res => {
-//         dispatch(actUpdateImages(res.data));
-//       }).catch(error => {
-//         console.log(error.message);
-//       });
-//     }
-//   }
-// }
-
-// export const actUpdateImages = (uploadImages) => {
-//   return {
-//     type: types.UPDATE_IMAGES,
-//     uploadImages
-//   }
-// }
-
 //SHOW CATEGORIES
 
 export const actFetchCategoriesRequest = () => {
@@ -241,5 +200,24 @@ export const actDeleteCart = (id) => {
   return {
     type: types.DELETE_CART,
     id
+  }
+}
+
+//ADD CART
+export const actAddCartRequest = (cart) => {
+  return dispatch => {
+    return callApi.call('wordpress-demo/wp-json/wc/v3/orders', 'POST', cart).then(res => {
+      console.log('add order : ', res.data)
+      dispatch(actAddCart(res.data));
+    }).catch(error => {
+      console.log(error.message);
+    });
+  }
+}
+
+export const actAddCart = (cart) => {
+  return {
+    type: types.ADD_CART,
+    cart
   }
 }

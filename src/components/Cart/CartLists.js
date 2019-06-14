@@ -15,11 +15,11 @@ class CartLists extends Component {
     var { carts } = this.props;
     return (
       <div className="container">
-        <div className="row header-form">
+        {/* <div className="row header-form">
           <div className="col-12" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
             <h2><b>Giỏ hàng </b></h2>
           </div>
-        </div>
+        </div> */}
         <div className="row">
           {this.showCarts(carts)}
         </div>
