@@ -4,8 +4,6 @@ import {
   actUpdateProductRequest,
   actGetProductRequest,
   actAddImagesRequest,
-  actGetImagesRequest,
-  actUpdateImagesRequest,
   actFetchCategoriesRequest,
   actFetchProductsRequest
 } from './../../actions/index';
@@ -32,8 +30,6 @@ class Form extends Component {
     var { match } = this.props;
     if (match.params.id) {
       var id = match.params.id;
-      // var idImg = match.params.id;
-      // this.props.actions.actGetImagesRequest(idImg);
       this.props.actions.actGetProductRequest(id);
     }
     this.props.actions.actFetchCategoriesRequest();
@@ -47,13 +43,9 @@ class Form extends Component {
           id: itemEditing.id,
           txtName: itemEditing.name,
           txtPrice: itemEditing.regular_price,
-          urlImages: itemEditing.images,
+          urlImages: itemEditing.images.map(item => ({...item, uploaded: true})),
           txtDesc: itemEditing.description,
           arrCat: itemEditing.categories
-        });
-      } else {
-        this.setState({
-          urlImages: itemEditing.images
         });
       }
     }
@@ -92,29 +84,45 @@ class Form extends Component {
     });
   };
 
-  onChangeFile = (event) => {
-    var { id } = this.state;
+  getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  onChangeFile = async (event) => {
+    let urlImages = [...this.state.urlImages]
     let files = Array.from(event.target.files);
-    files.map(async (file) => {
-      var formData = new FormData();
-      formData.append('file', file);
-      if (id) {
-        await this.props.actions.actUpdateImagesRequest(formData);
-      } else {
-        await this.props.actions.actAddImagesRequest(formData);
-      }
-    })
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      let src = await this.getBase64(file);
+      urlImages.push({src, uploaded: false, file})
+    }
+    this.setState({urlImages})
   }
 
   onClickSubmit = async (e) => {
     e.preventDefault();
-    var { id, txtName, txtPrice, txtDesc, arrCat, urlImages } = this.state;
-    var { history, uploadImages } = this.props;
+    let { id, txtName, txtPrice, txtDesc, arrCat, urlImages } = this.state;
+    let urlArr = urlImages.filter(file => file.uploaded);
+    for (let i = 0; i < urlImages.length; i++) {
+      const fileData = urlImages[i];
+      if (!fileData.uploaded) {
+        var formData = new FormData();
+        formData.append('file', fileData.file);
+        await this.props.actions.actAddImagesRequest(formData);
+      } 
+    }
+    let { history, uploadImages } = this.props;
+    urlArr = [...urlArr, ...uploadImages];
     var product = {
       id: id,
       name: txtName,
       regular_price: txtPrice,
-      images: (id !== '') ? urlImages : uploadImages, //uploadImages, 
+      images:  urlArr,
       description: txtDesc,
       categories: arrCat
     };
@@ -178,6 +186,10 @@ class Form extends Component {
             </div>
             <div className="form-group">
               <label>Hình ảnh sản phẩm</label>
+              <div className="col-12">
+                {this.state.urlImages.map((item, index) => <img src={item.src} alt="Hình ảnh" key={index } style={{ width: '100px', height: '100px', marginRight: '5px'}} />)}
+              </div>
+              
               <input
                 type="file"
                 multiple
@@ -231,38 +243,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    // onAddProduct: (product) => {
-    //   dispatch(actAddProductRequest(product));
-    // },
-    // onEditProduct: (id) => {
-    //   dispatch(actGetProductRequest(id));
-    // },
-    // onUpdateProduct: (product) => {
-    //   dispatch(actUpdateProductRequest(product));
-    // },
-    // onAddImages: (uploadImages) => {
-    //   dispatch(actAddImagesRequest(uploadImages));
-    // },
-    // onEditImages: (id) => {
-    //   dispatch(actGetImagesRequest(id));
-    // },
-    // onUpdateImages: (uploadImages) => {
-    //   dispatch(actUpdateImagesRequest(uploadImages));
-    // },
-    // onShowCategory: (categories) => {
-    //   dispatch(actFetchCategoriesRequest(categories));
-    // },
-    // onShowProduct: () => {
-    //   dispatch(actFetchProductsRequest());
-    // }
-
     actions: bindActionCreators({
       actAddProductRequest,
       actGetProductRequest,
       actUpdateProductRequest,
       actAddImagesRequest,
-      actGetImagesRequest,
-      actUpdateImagesRequest,
       actFetchCategoriesRequest,
       actFetchProductsRequest
     }, dispatch)

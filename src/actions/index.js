@@ -130,12 +130,14 @@ export const actGetProduct = (product) => {
 }
 
 export const actUpdateProductRequest = (product) => {
-  return dispatch => {
-    return callApi.call(`wordpress-demo/wp-json/wc/v3/products/${product.id}`, 'PUT', product).then(res => {
+  return async dispatch => {
+    try {
+      const res = await callApi.call(`wordpress-demo/wp-json/wc/v3/products/${product.id}`, 'PUT', product);
       dispatch(actUpdateProduct(res.data));
-    }).catch(error => {
+    }
+    catch (error) {
       console.log(error.message);
-    });
+    }
   }
 }
 
@@ -148,43 +150,43 @@ export const actUpdateProduct = (product) => {
 
 //EDIT Images
 
-export const actGetImagesRequest = (id) => {
-  return dispatch => {
-    return callApi.call(`wordpress-demo/wp-json/wp/v2/media/${id}`, 'GET', null).then(res => {
-      console.log('EDIT Images : ', res);
-      dispatch(actGetImages(res.data));
-    }).catch(error => {
-      console.log(error.message);
-    });
-  }
-}
+// export const actGetImagesRequest = (id) => {
+//   return dispatch => {
+//     return callApi.call(`wordpress-demo/wp-json/wp/v2/media/${id}`, 'GET', null).then(res => {
+//       console.log('EDIT Images : ', res);
+//       dispatch(actGetImages(res.data));
+//     }).catch(error => {
+//       console.log(error.message);
+//     });
+//   }
+// }
 
-export const actGetImages = (uploadImages) => {
-  console.log('uploadImages : ', uploadImages);
-  return {
-    type: types.EDIT_IMAGES,
-    uploadImages
-  }
-}
+// export const actGetImages = (uploadImages) => {
+//   console.log('uploadImages : ', uploadImages);
+//   return {
+//     type: types.EDIT_IMAGES,
+//     uploadImages
+//   }
+// }
 
-export const actUpdateImagesRequest = (uploadImages) => {
-  return dispatch => {
-    if(uploadImages.id){
-      return callApi.call(`wordpress-demo/wp-json/wp/v2/media/${uploadImages.id}`, 'PUT', uploadImages).then(res => {
-        dispatch(actUpdateImages(res.data));
-      }).catch(error => {
-        console.log(error.message);
-      });
-    }
-  }
-}
+// export const actUpdateImagesRequest = (uploadImages) => {
+//   return dispatch => {
+//     if(uploadImages.id){
+//       return callApi.call(`wordpress-demo/wp-json/wp/v2/media/${uploadImages.id}`, 'PUT', uploadImages).then(res => {
+//         dispatch(actUpdateImages(res.data));
+//       }).catch(error => {
+//         console.log(error.message);
+//       });
+//     }
+//   }
+// }
 
-export const actUpdateImages = (uploadImages) => {
-  return {
-    type: types.UPDATE_IMAGES,
-    uploadImages
-  }
-}
+// export const actUpdateImages = (uploadImages) => {
+//   return {
+//     type: types.UPDATE_IMAGES,
+//     uploadImages
+//   }
+// }
 
 //SHOW CATEGORIES
 
