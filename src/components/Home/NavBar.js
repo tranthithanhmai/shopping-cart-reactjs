@@ -6,7 +6,7 @@ const menus = [
 	{ to: '/shopping-cart-reactjs/product', name: 'Product' },
 	{ to: '/shopping-cart-reactjs/products/categories', name: 'Category' },
 	{ to: '/shopping-cart-reactjs/admin', name: 'Admin' },
-	{ to: '/shopping-cart-reactjs/shopping-cart', name: 'Cart' },
+	{ to: '/shopping-cart-reactjs/shopping-cart', name: 'Orders' },
 	{ to: '/shopping-cart-reactjs/login', name: 'Login' }
 ];
 
@@ -20,9 +20,7 @@ const MenuLink = ({ menu }) => {
 				({ match }) => {
 					let active = (match !== null) ? "active" : "";
 					var name = menu.name;
-					if (name === 'Cart') {
-						name = <i className="fa fa-shopping-cart" aria-hidden="true"></i>;
-					} else if (name === 'Login') {
+					if (name === 'Login') {
 						name = <i className="fa fa-sign-in" aria-hidden="true"></i>;
 					} else {
 						name = menu.name;

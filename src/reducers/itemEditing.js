@@ -8,6 +8,10 @@ const itemEditing = (state = initialState, action) => {
             return action.product;
         case Types.EDIT_IMAGES:
             return action.uploadImages;
+        case Types.EDIT_CART:
+            return action.cart;
+        case Types.VIEW_CART:
+            return action.cart;
         default:
             return state;
     }

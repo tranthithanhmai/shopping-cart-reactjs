@@ -22,9 +22,6 @@ class ItemCat extends Component {
     var { category } = this.props;
     if(arrCat !== null && arrCat.length > 0) {
       for(var i = 0; i < arrCat.length ; i++) {
-        // if(category.checked === false) {
-        //   checked = "";
-        // }
         if(category.id === arrCat[i].id) {
           checked = "checked";
         }

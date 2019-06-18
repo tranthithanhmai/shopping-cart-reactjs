@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import {
-  actAddCartRequest
+  actAddCartRequest,
+  actGetCartRequest,
+  actUpdateCartRequest
 } from './../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { isEmpty } from 'lodash';
 
 class Order extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       first_name: "",
       last_name: "",
       address_1: "",
@@ -29,6 +33,41 @@ class Order extends Component {
     };
   }
 
+  componentDidMount() {
+    var { match } = this.props;
+    if (match.params.id) {
+      var id = match.params.id;
+      this.props.actions.actGetCartRequest(id);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.itemEditing) {
+      var { itemEditing } = nextProps;
+      if (!isEmpty(itemEditing)) {
+        this.setState({
+          id: itemEditing.id,
+          first_name: itemEditing.billing.first_name,
+          last_name: itemEditing.billing.last_name,
+          address_1: itemEditing.billing.address_1,
+          city: itemEditing.billing.city,
+          state: itemEditing.billing.state,
+          postcode: itemEditing.billing.postcode,
+          country: itemEditing.billing.country,
+          email: itemEditing.billing.email,
+          phone: itemEditing.billing.phone,
+          shipping_first_name: itemEditing.shipping.first_name,
+          shipping_last_name: itemEditing.shipping.last_name,
+          shipping_address_1: itemEditing.shipping.address_1,
+          shipping_city: itemEditing.shipping.city,
+          shipping_state: itemEditing.shipping.state,
+          shipping_postcode: itemEditing.shipping.postcode,
+          shipping_country: itemEditing.shipping.country
+        });
+      }
+    }
+  }
+
   onChange = (event) => {
     const target = event.target;
     const value = target.value;  //target.type === 'checkbox' ? target.checked : target.value;
@@ -41,13 +80,15 @@ class Order extends Component {
 
   onClickSubmit = async (e) => {
     e.preventDefault();
-    let { first_name, last_name, address_1, city,
-          state, postcode, country, email, phone,
-          shipping_first_name, shipping_last_name, shipping_address_1, shipping_city,
-          shipping_state, shipping_postcode, shipping_country
+    let { history, match } = this.props;
+    let { id, first_name, last_name, address_1, city,
+      state, postcode, country, email, phone,
+      shipping_first_name, shipping_last_name, shipping_address_1, shipping_city,
+      shipping_state, shipping_postcode, shipping_country
     } = this.state;
 
     var cart = {
+      id: id,
       billing: {
         first_name: first_name,
         last_name: last_name,
@@ -59,7 +100,7 @@ class Order extends Component {
         email: email,
         phone: phone
       },
-        shipping: {
+      shipping: {
         first_name: shipping_first_name,
         last_name: shipping_last_name,
         address_1: shipping_address_1,
@@ -71,8 +112,12 @@ class Order extends Component {
       }
     }
     console.log('cart : ', cart)
-    await this.props.actions.actAddCartRequest(cart);
-    // history.goBack();
+    if ( match.params.id) {
+      await this.props.actions.actUpdateCartRequest(cart);
+    } else {
+      await this.props.actions.actAddCartRequest(cart);
+    }
+    history.goBack();
   }
 
   onClickBack = () => {
@@ -82,9 +127,9 @@ class Order extends Component {
 
   render() {
     let { first_name, last_name, address_1, city,
-          state, postcode, country, email, phone,
-          shipping_first_name, shipping_last_name, shipping_address_1,shipping_city,
-          shipping_state, shipping_postcode, shipping_country
+      state, postcode, country, email, phone,
+      shipping_first_name, shipping_last_name, shipping_address_1, shipping_city,
+      shipping_state, shipping_postcode, shipping_country
     } = this.state;
 
     return (
@@ -274,14 +319,16 @@ class Order extends Component {
 
 const mapStateToProps = state => {
   return {
-
+    itemEditing: state.itemEditing,
   }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
     actions: bindActionCreators({
-      actAddCartRequest
+      actAddCartRequest,
+      actGetCartRequest,
+      actUpdateCartRequest
     }, dispatch)
   }
 }

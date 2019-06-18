@@ -221,3 +221,58 @@ export const actAddCart = (cart) => {
     cart
   }
 }
+
+//EDIT CART
+
+export const actGetCartRequest = (id) => {
+  return dispatch => {
+    return callApi.call(`wordpress-demo/wp-json/wc/v3/orders/${id}`, 'GET', null).then(res => {
+      dispatch(actGetCart(res.data));
+    }).catch(error => {
+      console.log(error.message);
+    });
+  }
+}
+
+export const actGetCart = (cart) => {
+  return {
+    type: types.EDIT_CART,
+    cart
+  }
+}
+
+export const actUpdateCartRequest = (cart) => {
+  return async dispatch => {
+    return callApi.call(`wordpress-demo/wp-json/wc/v3/orders/${cart.id}`, 'PUT', cart).then(res => {
+      dispatch(actGetCart(res.data));
+    }).catch(error => {
+      console.log(error.message);
+    });
+  }
+}
+
+export const actUpdateCart = (cart) => {
+  return {
+    type: types.UPDATE_CART,
+    cart
+  }
+}
+
+//VIEW CARTS
+
+export const actViewCartsRequest = (id) => {
+  return dispatch => {
+    return callApi.call(`wordpress-demo/wp-json/wc/v3/orders/${id}`, 'GET', null).then(res => {
+      dispatch(actViewCarts(res.data));
+    }).catch(error => {
+      console.log(error.message);
+    });
+  };
+}
+
+export const actViewCarts = (cart) => {
+  return {
+    type: types.VIEW_CART,
+    cart
+  }
+}

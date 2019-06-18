@@ -10,6 +10,7 @@ import ProductItemPage from './pages/Product/ProductItemPage';
 import CategoryPage from './pages/Category/CategoryPage';
 import ProductListCategoryPage from './pages/Category/ProductListCategoryPage';
 import FormControlPage from './pages/Admin/FormControlPage';
+import ViewOrderPage from './pages/Cart/ViewOrderPage';
 
 
 const routes = [
@@ -66,6 +67,16 @@ const routes = [
         path: '/shopping-cart-reactjs/shopping-cart/add',
         exact: true,
         main: ({ match , history }) => <OrderPage match = {match}  history = {history}  />
+    },
+    { 
+        path: '/shopping-cart-reactjs/shopping-cart/edit/:id',
+        exact: true,
+        main: ({ match , history }) => <OrderPage match = {match}  history = {history}  />
+    },
+    { 
+        path: '/shopping-cart-reactjs/shopping-cart/view/:id',
+        exact: true,
+        main: ({ match , history }) => <ViewOrderPage match = {match}  history = {history}  />
     },
     { 
         path: '/shopping-cart-reactjs/login',
