@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import 'react-table/react-table.css'
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
