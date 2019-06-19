@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import ProductItem from './ProductItem';
 import { filter, includes, orderBy as funcOrderBy } from 'lodash';
 import { actFetchProductsRequest } from './../../actions/index';
-// import Pagination from "react-js-pagination";
 import PaginationPage from '../Pagination/PaginationPage';
 
 class ProductLists extends Component {
@@ -69,9 +68,9 @@ class ProductLists extends Component {
         <div className="col-12" style={{ display: 'flex', justifyContent: 'space-around' }}>
           <PaginationPage
             totalRecords={products.length}
-            pageLimit={pageLimit || 5}
+            pageLimit={pageLimit || 8}
             initialPage={1}
-            pagesToShow={5}
+            pagesToShow={8}
             onChangePage={this.onChangePage}
           />
         </div>
@@ -103,9 +102,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    // showProducts: () => {
-    //   dispatch(actFetchProductsRequest());
-    // }
     actions: bindActionCreators({
       actFetchProductsRequest
     }, dispatch)

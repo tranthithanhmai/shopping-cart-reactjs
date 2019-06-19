@@ -29,13 +29,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    // fetchAllProducts: () => {
-    //   dispatch(actFetchProductsRequest());
-    // },
-    // onDeleteProduct: (id) => {
-    //   dispatch(actDeleteProductRequest(id));
-    // }
-
     actions: bindActionCreators({
       actFetchProductsRequest,
       actDeleteProductRequest

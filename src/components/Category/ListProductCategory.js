@@ -34,7 +34,7 @@ class ListProductCategory extends Component {
             products,
             categories
         } = this.state;
-       
+
         var { match } = this.props;
         var id = match.params.id;
         callApi.call(`wordpress-demo/wp-json/wc/v3/products/categories/${id}`, 'GET', null).then(res => {
@@ -67,8 +67,6 @@ class ListProductCategory extends Component {
         history.goBack();
     }
 
-
-
     render() {
         var {
             products,
@@ -79,21 +77,27 @@ class ListProductCategory extends Component {
             startIndex,
             endIndex,
         } = this.state;
+
         var rowsPerPage = [];
         //Pagination
         rowsPerPage = products.slice(startIndex, endIndex + 1);
+
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-12">
+                    <div className="col-12" style={{ marginBottom: '20px', display: 'flex' }}>
+                        <button
+                            className="btn btn-light"
+                            onClick={this.handleBack}
+                            style={{marginRight: '10px'}}
+                        >
+                            <i className="fa fa-chevron-circle-left" aria-hidden="true"></i>
+                            &nbsp;Back
+                        </button>
                         <h2>Category : {categories.name}</h2>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-12" style={{ marginBottom: '20px', display: 'flex' }}>
-                        <button className="btn btn-light" onClick={this.handleBack}><i className="fa fa-chevron-circle-left" aria-hidden="true"></i> &nbsp;Back</button>
-                        <h4 style={{ marginLeft: '10px' }}>Total: <b>{products.length}</b> item(s)</h4>
-                    </div>
                     {this.showProducts(rowsPerPage)}
                     <div className="col-12" style={{ display: 'flex', justifyContent: 'space-around' }}>
                         <p>

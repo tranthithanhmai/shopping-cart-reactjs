@@ -15,7 +15,7 @@ class App extends Component {
           <div className="header-container fixed-top">
             <NavBar />
           </div>
-          <div className="product-container" style={{ marginTop: '200px' }}>
+          <div className="product-container" style={{ marginTop: '150px' }}>
             {this.showRoute(routes)}
           </div>
         </div>
