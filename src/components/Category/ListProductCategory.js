@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as callApi from '../../services/apiCaller';
 import ProductItem from './../../components/Product/ProductItem';
+import PaginationPage from './../Pagination/PaginationPage';
 
 class ListProductCategory extends Component {
     constructor(props) {
@@ -8,12 +9,32 @@ class ListProductCategory extends Component {
 
         this.state = {
             products: [],
-            categories: {}
+            categories: {},
+            totalRecords: "",
+            totalPages: "",
+            pageLimit: "",
+            currentPage: "",
+            startIndex: "",
+            endIndex: ""
         };
     }
 
+    onChangePage = data => {
+        this.setState({
+            pageLimit: data.pageLimit,
+            totalPages: data.totalPages,
+            currentPage: data.page,
+            startIndex: data.startIndex,
+            endIndex: data.endIndex
+        });
+    };
+
     componentDidMount() {
-        var { products, categories } = this.state;
+        var {
+            products,
+            categories
+        } = this.state;
+       
         var { match } = this.props;
         var id = match.params.id;
         callApi.call(`wordpress-demo/wp-json/wc/v3/products/categories/${id}`, 'GET', null).then(res => {
@@ -46,8 +67,21 @@ class ListProductCategory extends Component {
         history.goBack();
     }
 
+
+
     render() {
-        var { products, categories } = this.state;
+        var {
+            products,
+            categories,
+            totalPages,
+            currentPage,
+            pageLimit,
+            startIndex,
+            endIndex,
+        } = this.state;
+        var rowsPerPage = [];
+        //Pagination
+        rowsPerPage = products.slice(startIndex, endIndex + 1);
         return (
             <div className="container">
                 <div className="row">
@@ -60,7 +94,21 @@ class ListProductCategory extends Component {
                         <button className="btn btn-light" onClick={this.handleBack}><i className="fa fa-chevron-circle-left" aria-hidden="true"></i> &nbsp;Back</button>
                         <h4 style={{ marginLeft: '10px' }}>Total: <b>{products.length}</b> item(s)</h4>
                     </div>
-                    {this.showProducts(products)}
+                    {this.showProducts(rowsPerPage)}
+                    <div className="col-12" style={{ display: 'flex', justifyContent: 'space-around' }}>
+                        <p>
+                            {products.length} Sản phẩm | Trang {currentPage}/{totalPages}
+                        </p>
+                    </div>
+                    <div className="col-12" style={{ display: 'flex', justifyContent: 'space-around' }}>
+                        <PaginationPage
+                            totalRecords={products.length}
+                            pageLimit={pageLimit || 5}
+                            initialPage={1}
+                            pagesToShow={5}
+                            onChangePage={this.onChangePage}
+                        />
+                    </div>
                 </div>
             </div>
         );

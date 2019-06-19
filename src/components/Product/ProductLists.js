@@ -4,35 +4,83 @@ import { bindActionCreators } from 'redux';
 import ProductItem from './ProductItem';
 import { filter, includes, orderBy as funcOrderBy } from 'lodash';
 import { actFetchProductsRequest } from './../../actions/index';
+// import Pagination from "react-js-pagination";
+import PaginationPage from '../Pagination/PaginationPage';
 
 class ProductLists extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      totalRecords: "",
+      totalPages: "",
+      pageLimit: "",
+      currentPage: "",
+      startIndex: "",
+      endIndex: ""
+    };
+  }
+
+  onChangePage = data => {
+    this.setState({
+      pageLimit: data.pageLimit,
+      totalPages: data.totalPages,
+      currentPage: data.page,
+      startIndex: data.startIndex,
+      endIndex: data.endIndex
+    });
+  };
 
   componentDidMount() {
     this.props.actions.actFetchProductsRequest();
   }
 
   render() {
-    // var { products } = this.state
+    var {
+      totalPages,
+      currentPage,
+      pageLimit,
+      startIndex,
+      endIndex
+    } = this.state;
+    var rowsPerPage = [];
     var { strSearch, sort, products } = this.props;
     var { orderBy, orderDir } = sort;
     var itemsOrigin = (products !== null) ? [...products] : [];
-
     //Search
     products = filter(itemsOrigin, (product) => {
       return includes(product.name.toLowerCase(), strSearch.toLowerCase());
     });
     //Sort
     products = funcOrderBy(products, [orderBy], [orderDir]);
+    //Pagination
+    rowsPerPage = products.slice(startIndex, endIndex + 1);
+
     return (
       <div className="row">
         <div className="col-12" style={{ marginBottom: '20px' }}>
-          <h4>Total: <b>{products.length}</b> item(s)</h4>
         </div>
-        {this.showProducts(products)}
+        {this.showProducts(rowsPerPage)}
+        <div className="col-12" style={{ display: 'flex', justifyContent: 'space-around' }}>
+          <p>
+            {products.length} Sản phẩm | Trang {currentPage}/{totalPages}
+          </p>
+        </div>
+        <div className="col-12" style={{ display: 'flex', justifyContent: 'space-around' }}>
+          <PaginationPage
+            totalRecords={products.length}
+            pageLimit={pageLimit || 5}
+            initialPage={1}
+            pagesToShow={5}
+            onChangePage={this.onChangePage}
+          />
+        </div>
       </div>
+
     );
   }
-  showProducts(products) {
+
+  showProducts = (products) => {
     let xhtml = null;
     if (products !== null && products.length > 0) {
       xhtml = products.map((product, index) => {
@@ -49,7 +97,7 @@ const mapStateToProps = state => {
   return {
     strSearch: state.strSearch,
     sort: state.sort,
-    products:  state.product
+    products: state.product
   };
 }
 
