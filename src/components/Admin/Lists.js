@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Item from './Item';
 import Add from './Add';
+import ListCategories from './ListCategories';
 import PaginationPage from './../Pagination/PaginationPage';
+import { Link } from 'react-router-dom';
 
 class Lists extends Component {
   constructor(props) {
@@ -46,9 +48,9 @@ class Lists extends Component {
             <table className="table table-hover">
               <thead>
                 <tr>
-                  <th>Hình ảnh</th>
-                  <th>Sản Phẩm</th>
-                  <th>Giá</th>
+                  <th>Images</th>
+                  <th>Products</th>
+                  <th>Prices</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -71,6 +73,21 @@ class Lists extends Component {
               onChangePage={this.onChangePage}
             />
           </div>
+        </div>
+        <div className="row" style={{ marginTop: '40px' }}>
+          <div className="col-12" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <h2>List Categories Management </h2>
+            <div className="action-control" style={{ display: 'flex' }} >
+              <Link
+                to="/shopping-cart-reactjs/admin/add-category"
+                type="button"
+                style={{ marginRight: '10px' }}
+                className="btn btn-info">
+                <i className='fa fa-plus' aria-hidden="true" style={{ paddingTop: '8px' }}></i> &nbsp;Add Category
+              </Link>
+            </div>
+          </div>
+          <ListCategories />
         </div>
       </div>
     );

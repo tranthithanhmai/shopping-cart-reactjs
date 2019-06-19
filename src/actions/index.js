@@ -108,12 +108,12 @@ export const actFetchProducts = (products) => {
     products
   }
 }
+
 //EDIT PRODUCT
 
 export const actGetProductRequest = (id) => {
   return dispatch => {
     return callApi.call(`wordpress-demo/wp-json/wc/v3/products/${id}`, 'GET', null).then(res => {
-      console.log('EDIT PRODUCT : ', res);
       dispatch(actGetProduct(res.data));
     }).catch(error => {
       console.log(error.message);
@@ -122,7 +122,6 @@ export const actGetProductRequest = (id) => {
 }
 
 export const actGetProduct = (product) => {
-  console.log('product : ', product);
   return {
     type: types.EDIT_PRODUCT,
     product
@@ -147,6 +146,7 @@ export const actUpdateProduct = (product) => {
     product
   }
 }
+
 //SHOW CATEGORIES
 
 export const actFetchCategoriesRequest = () => {
@@ -163,6 +163,80 @@ export const actFetchCategories = (categories) => {
   return {
     type: types.FETCH_CATEGORIES,
     categories
+  }
+}
+//ADD CATEGORIES
+export const actAddCategoryRequest = (category) => {
+  return dispatch => {
+    return callApi.call('wordpress-demo/wp-json/wc/v3/products/categories', 'POST', category).then(res => {
+      console.log('add cat : ', res.data)
+      dispatch(actAddCategory(res.data));
+    }).catch(error => {
+      console.log(error.message);
+    });
+  }
+}
+
+export const actAddCategory = (category) => {
+  return {
+    type: types.ADD_CATEGORY,
+    category
+  }
+}
+
+//DELETE CATEGORY
+export const actDeleteCategoryRequest = (id) => {
+  return dispatch => {
+    return callApi.call(`wordpress-demo/wp-json/wc/v3/products/categories/${id}`, 'DELETE', null).then(res => {
+      dispatch(actDeleteCategory(id));
+    }).catch(error => {
+      console.log(error.message);
+    });
+  }
+}
+
+export const actDeleteCategory = (id) => {
+  return {
+    type: types.DELETE_CATEGORY,
+    id
+  }
+}
+
+//EDIT CATEGORY
+
+export const actGetCategoryRequest = (id) => {
+  return dispatch => {
+    return callApi.call(`wordpress-demo/wp-json/wc/v3/products/categories/${id}`, 'GET', null).then(res => {
+      dispatch(actGetCategory(res.data));
+    }).catch(error => {
+      console.log(error.message);
+    });
+  }
+}
+
+export const actGetCategory = (category) => {
+  return {
+    type: types.EDIT_CATEGORY,
+    category
+  }
+}
+
+export const actUpdateCategoryRequest = (category) => {
+  return async dispatch => {
+    try {
+      const res = await callApi.call(`wordpress-demo/wp-json/wc/v3/products/categories/${category.id}`, 'PUT', category);
+      dispatch(actUpdateCategory(res.data));
+    }
+    catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
+export const actUpdateCategory = (category) => {
+  return {
+    type: types.UPDATE_CATEGORY,
+    category
   }
 }
 

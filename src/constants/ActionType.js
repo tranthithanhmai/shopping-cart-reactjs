@@ -20,14 +20,17 @@ export const ADD_IMAGES         = 'ADD_IMAGES';
 export const EDIT_IMAGES        = 'EDIT_IMAGES';
 export const UPDATE_IMAGES      = 'UPDATE_IMAGES';
 
-
 //categories
-export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
+export const FETCH_CATEGORIES   = 'FETCH_CATEGORIES';
+export const ADD_CATEGORY       = 'ADD_CATEGORY';
+export const DELETE_CATEGORY    = 'DELETE_CATEGORY';
+export const UPDATE_CATEGORY    = 'UPDATE_CATEGORY';
+export const EDIT_CATEGORY      = 'EDIT_CATEGORY';
 
 //orders
-export const FETCH_CART       = 'FETCH_CART';
-export const UPDATE_CART      = 'UPDATE_CART';
-export const ADD_CART         = 'ADD_CART';
-export const EDIT_CART        = 'EDIT_CART';
-export const DELETE_CART      = 'DELETE_CART';
-export const VIEW_CART        = 'VIEW_CART';
+export const FETCH_CART         = 'FETCH_CART';
+export const UPDATE_CART        = 'UPDATE_CART';
+export const ADD_CART           = 'ADD_CART';
+export const EDIT_CART          = 'EDIT_CART';
+export const DELETE_CART        = 'DELETE_CART';
+export const VIEW_CART          = 'VIEW_CART';

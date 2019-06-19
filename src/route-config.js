@@ -11,6 +11,7 @@ import CategoryPage from './pages/Category/CategoryPage';
 import ProductListCategoryPage from './pages/Category/ProductListCategoryPage';
 import FormControlPage from './pages/Admin/FormControlPage';
 import ViewOrderPage from './pages/Cart/ViewOrderPage';
+import FormCategoryPage from './pages/Admin/FormCategoryPage';
 
 
 const routes = [
@@ -52,11 +53,21 @@ const routes = [
         exact: true,
         main: ({ match, history }) => <FormControlPage match = {match} history = {history}  />
     },
+    { 
+        path: '/shopping-cart-reactjs/admin/add-category',
+        exact: true,
+        main: ({ match, history }) => <FormCategoryPage match = {match} history = {history}  />
+    },
 
     { 
         path: '/shopping-cart-reactjs/admin/edit/:id',
         exact: true,
         main: ({ match , history }) => <FormControlPage match = {match} history = {history}  />
+    },
+    { 
+        path: '/shopping-cart-reactjs/admin/edit-category/:id',
+        exact: true,
+        main: ({ match , history }) => <FormCategoryPage match = {match} history = {history}  />
     },
     { 
         path: '/shopping-cart-reactjs/shopping-cart',

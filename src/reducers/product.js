@@ -8,7 +8,6 @@ var findIndex = (products, id) => {
             result = index;
         }
     });
-    console.log('products red: ',products);
     return result;
 }
 

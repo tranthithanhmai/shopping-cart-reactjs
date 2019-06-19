@@ -112,13 +112,13 @@ class PaginationPage extends Component {
           disabled={pager.currentPage === 1 ? true : false}
           onClick={() => this.setPage(1)}
         >
-          <button className="page-link">Đầu</button>
+          <button className="page-link"><i className="fa fa-angle-double-left" aria-hidden="true"></i></button>
         </li>
         <li className="page-item"
           disabled={pager.currentPage === 1 ? true : false}
           onClick={() => this.setPage(pager.currentPage - 1)}
         >
-          <button className="page-link">Sau</button>
+          <button className="page-link"><i className="fa fa-angle-left" aria-hidden="true"></i></button>
         </li>
         {pager.pages.map((page, index) => (
           <li
@@ -133,13 +133,13 @@ class PaginationPage extends Component {
           disabled={pager.currentPage === pager.totalPages ? true : false}
           onClick={() => this.setPage(pager.currentPage + 1)}
         >
-          <button className="page-link">Tiếp</button>
+          <button className="page-link"><i className="fa fa-angle-right" aria-hidden="true"></i></button>
         </li>
         <li className="page-item"
           disabled={pager.currentPage === pager.totalPages ? true : false}
           onClick={() => this.setPage(pager.totalPages)}
         >
-          <button className="page-link">Cuối</button>
+          <button className="page-link"><i className="fa fa-angle-double-right" aria-hidden="true"></i></button>
         </li>
       </ul>
     );
