@@ -111,7 +111,6 @@ class Order extends Component {
 
       }
     }
-    console.log('cart : ', cart)
     if (match.params.id) {
       await this.props.actions.actUpdateCartRequest(cart);
     } else {

@@ -1,11 +1,11 @@
 export const LoginStore = {
-  setData(USER_ID, data) {
-    return localStorage.setItem(USER_ID, data);
+  setData(token, data) {
+    return localStorage.setItem(token, data);
   },
-  removeData(USER_ID) {
-    localStorage.removeItem(USER_ID);
+  removeData(token) {
+    localStorage.removeItem(token);
   },
-  getData(USER_ID) {
-    return localStorage.getItem(USER_ID);
+  getData(token) {
+    return localStorage.getItem(token);
   }
 }

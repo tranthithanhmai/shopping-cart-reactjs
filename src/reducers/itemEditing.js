@@ -13,6 +13,8 @@ const itemEditing = (state = initialState, action) => {
       return action.cart;
     case Types.EDIT_CATEGORY:
       return action.category;
+    case Types.VIEW_CATEGORY:
+      return action.categories;
     default:
       return state;
   }

@@ -26,7 +26,7 @@ class RelatedProduct extends Component {
     var { relatedProduct } = this.state;
     return (
       <div className="container">
-        <div className="row" style={{ margin: '30px -15px' }}>
+        <div className="row">
           <div className="col-12">
             <p style={{ height: '2px', width: '50px', background: '#000' }}></p>
             <h2>Related products</h2>

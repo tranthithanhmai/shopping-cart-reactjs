@@ -20,7 +20,7 @@ class ProductItem extends Component {
               </Link>
             </h4>
             <p className="card-text">{regularPrice} {price}$</p>
-            <Link to={`/shopping-cart-reactjs/shopping-cart`} type="button" className="btn btn-primary">Add to cart</Link>
+            {/* <Link to={`/shopping-cart-reactjs/shopping-cart`} type="button" className="btn btn-primary">Add to cart</Link> */}
           </div>
         </div>
       </div>

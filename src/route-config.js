@@ -12,6 +12,7 @@ import ProductListCategoryPage from './pages/Category/ProductListCategoryPage';
 import FormControlPage from './pages/Admin/FormControlPage';
 import ViewOrderPage from './pages/Cart/ViewOrderPage';
 import FormCategoryPage from './pages/Admin/FormCategoryPage';
+import LogoutPage from './pages/Login/LogoutPage';
 
 
 const routes = [
@@ -92,7 +93,12 @@ const routes = [
     { 
         path: '/shopping-cart-reactjs/login',
         exact: true,
-        main: () => <LoginPage  />
+        main: ({ history }) => <LoginPage history = {history}  />
+    },
+    { 
+        path: '/shopping-cart-reactjs/logout',
+        exact: true,
+        main: () => <LogoutPage />
     }
 ];
 

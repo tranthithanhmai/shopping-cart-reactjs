@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { actViewCartsRequest } from './../../actions/index';
-import { bindActionCreators } from 'redux';
 
 class CartLists extends Component {
-
-  componentDidMount() {
-    let { id } = this.props.match.params;
-    if (id) {
-      this.props.actions.actViewCartsRequest(id);
-    }
-  }
   onClickBack = () => {
     let { history } = this.props;
     history.goBack();
@@ -23,7 +13,7 @@ class CartLists extends Component {
         <div className="row">
           <div className="col-12">
             <div style={{ display: 'flex', marginBottom: '40px' }}>
-              <button class="btn btn-light" onClick={this.onClickBack} style={{ marginRight: '10px' }}><i className="fa fa-arrow-left" aria-hidden="true"></i> &nbsp;Back</button>
+              <button className="btn btn-light" onClick={this.onClickBack} style={{ marginRight: '10px' }}><i className="fa fa-arrow-left" aria-hidden="true"></i> &nbsp;Back</button>
               <h2>Danh sách sản phẩm của key order : {cart.order_key} </h2>
             </div>
             <table className="table table-hover" style={{ marginBottom: '40px' }}>
@@ -71,19 +61,4 @@ class CartLists extends Component {
     return xhtml;
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    cart: state.itemEditing
-  };
-}
-
-const mapDispatchToProps = (dispatch, props) => {
-  return {
-    actions: bindActionCreators({
-      actViewCartsRequest
-    }, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartLists);
+export default CartLists;

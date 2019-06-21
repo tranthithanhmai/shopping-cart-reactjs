@@ -1,5 +1,6 @@
 //login
 export const USER_LOGIN 		      = 'USER_LOGIN';
+export const USER_LOGOUT          = 'USER_LOGOUT';
 
 //product
 export const CHANGE_SEARCH        = 'CHANGE_SEARCH';
@@ -27,6 +28,7 @@ export const ADD_CATEGORY         = 'ADD_CATEGORY';
 export const DELETE_CATEGORY      = 'DELETE_CATEGORY';
 export const UPDATE_CATEGORY      = 'UPDATE_CATEGORY';
 export const EDIT_CATEGORY        = 'EDIT_CATEGORY';
+export const VIEW_CATEGORY        = 'VIEW_CATEGORY';
 
 //orders
 export const FETCH_CART           = 'FETCH_CART';

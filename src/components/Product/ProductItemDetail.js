@@ -13,7 +13,7 @@ class ProductItemDetail extends Component {
     if (product.id) {
       images = product.images;
       categories = product.categories;
-      description = product.description.replace(new RegExp(/[<p>,</p>,</br>]/, 'g'), '');
+      description = product.description.replace(new RegExp(/<.*?>/, 'g'), '');
     }
     return (
       <div className="product-detail-container">
@@ -32,10 +32,10 @@ class ProductItemDetail extends Component {
                 {regularPrice}  {product.price === '' ? 0 : product.price} $
               </h3>
               <p>{description}</p>
-              <div style={{ display: 'flex' }}>
+              {/* <div style={{ display: 'flex' }}>
                 <input type="number" style={{ marginRight: '10px' }} />
                 <Link to={`/shopping-cart-reactjs/shopping-cart`} type="button" className="btn btn-primary">Add to cart</Link>
-              </div>
+              </div> */}
               <p>
                 SKU:{product.sku}
               </p>

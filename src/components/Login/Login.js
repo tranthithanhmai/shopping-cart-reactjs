@@ -27,19 +27,20 @@ class Login extends Component {
 	handleSubmit = async (event) => {
 		event.preventDefault();
 		var { username, password } = this.state;
+		let { history } = this.props;
 		var data = {
 			username,
 			password
 		}
 		await this.props.actions.actLoginRequest(data);
-		return <Redirect push to="/shopping-cart-reactjs/product" />;
+		history.goBack();
 	}
 
 	render() {
 		var { username, password } = this.state;
 		const { token } = this.props;
 		if (token) {
-			return <Redirect push to="/shopping-cart-reactjs/product" />;
+			return <Redirect to="/shopping-cart-reactjs/logout" />
 		} else {
 			return (
 				<div className="container">
@@ -56,9 +57,7 @@ class Login extends Component {
 								<label className="text-heading">Password</label>
 								<input name="password" value={password} onChange={this.handleChange} type="password" className="form-control" required />
 							</div>
-
 							<div className="clearfix" />
-
 							<div className="form-group col-lg-12">
 								<button type="submit" className="btn btn-primary"><i className="fa fa-sign-in" aria-hidden="true"></i> &nbsp;Login</button>
 							</div>

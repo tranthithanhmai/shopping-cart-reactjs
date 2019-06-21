@@ -6,8 +6,9 @@ import ProductListsPage from './../Product/ProductListsPage';
 
 class LoginPage extends Component {
   render() {
+    let { history } = this.props;
     return (
-      <Login />
+      <Login history = { history } />
     );
   }
 

@@ -22,6 +22,7 @@ class Form extends Component {
       txtPrice: "",
       urlImages: [],
       txtDesc: "",
+      txtSku: "",
       arrCat: []
     };
   }
@@ -45,6 +46,7 @@ class Form extends Component {
           txtPrice: itemEditing.regular_price,
           urlImages: itemEditing.images.map(item => ({ ...item, uploaded: true })),
           txtDesc: itemEditing.description,
+          txtSku: itemEditing.sku,
           arrCat: itemEditing.categories
         });
       }
@@ -106,7 +108,7 @@ class Form extends Component {
 
   onClickSubmit = async (e) => {
     e.preventDefault();
-    let { id, txtName, txtPrice, txtDesc, arrCat, urlImages } = this.state;
+    let { id, txtName, txtPrice, txtDesc, arrCat, urlImages, txtSku } = this.state;
     let urlArr = urlImages.filter(file => file.uploaded);
     for (let i = 0; i < urlImages.length; i++) {
       const fileData = urlImages[i];
@@ -124,6 +126,7 @@ class Form extends Component {
       regular_price: txtPrice,
       images: urlArr,
       description: txtDesc,
+      sku: txtSku,
       categories: arrCat
     };
 
@@ -141,9 +144,9 @@ class Form extends Component {
   }
 
   render() {
-    var { txtName, txtPrice, txtDesc } = this.state;
+    var { txtName, txtPrice, txtDesc, txtSku } = this.state;
     var { categories } = this.props;
-    txtDesc = txtDesc.replace(new RegExp(/[<p>,</p>,</br>]/, 'g'), '');
+    txtDesc = txtDesc.replace(new RegExp(/<.*?>/, 'g'), '');
 
     return (
       <div className="row">
@@ -153,7 +156,7 @@ class Form extends Component {
         <div className="col-12">
           <form onSubmit={this.onClickSubmit} style={{ border: '1px solid #aaa', padding: '20px', marginBottom: '20px' }}>
             <div className="form-group">
-              <label>Tên sản phẩm</label>
+              <label>Name</label>
               <input
                 type="text"
                 className="form-control"
@@ -164,7 +167,7 @@ class Form extends Component {
               />
             </div>
             <div className="form-group">
-              <label>Giá sản phẩm</label>
+              <label>Price</label>
               <input
                 type="number"
                 className="form-control"
@@ -175,7 +178,7 @@ class Form extends Component {
               />
             </div>
             <div className="form-group">
-              <label>Chi tiết sản phẩm</label>
+              <label>Description</label>
               <textarea
                 type="text"
                 className="form-control"
@@ -185,11 +188,20 @@ class Form extends Component {
               />
             </div>
             <div className="form-group">
-              <label>Hình ảnh sản phẩm</label>
+              <label>Sku</label>
+              <textarea
+                type="text"
+                className="form-control"
+                name='txtSku'
+                value={txtSku}
+                onChange={this.onChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Images</label>
               <div className="col-12">
                 {this.state.urlImages.map((item, index) => <img src={item.src} alt="Hình ảnh" key={index} style={{ width: '100px', height: '100px', marginRight: '5px' }} />)}
               </div>
-
               <input
                 type="file"
                 multiple

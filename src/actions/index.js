@@ -22,6 +22,14 @@ export const actLogin = (data) => {
   }
 }
 
+//LOGOUT
+export const actLogout = () => {
+  return {
+    type: types.USER_LOGOUT
+  }
+}
+
+//SEARCH
 export const actSearch = (strSearch) => {
   return {
     type: types.CHANGE_SEARCH,
@@ -29,6 +37,7 @@ export const actSearch = (strSearch) => {
   }
 }
 
+//SORT
 export const actSort = (orderBy, orderDir) => {
   return {
     type: types.SORT_ITEM,
@@ -348,5 +357,24 @@ export const actViewCarts = (cart) => {
   return {
     type: types.VIEW_CART,
     cart
+  }
+}
+
+//VIEW CATEGORY
+
+export const actViewCategoryRequest = (id) => {
+  return dispatch => {
+    return callApi.call(`wordpress-demo/wp-json/wc/v3/products/categories/${id}`, 'GET', null).then(res => {
+      dispatch(actViewCarts(res.data));
+    }).catch(error => {
+      console.log(error.message);
+    });
+  };
+}
+
+export const actViewCategory = (categories) => {
+  return {
+    type: types.VIEW_CATEGORY,
+    categories
   }
 }

@@ -15,12 +15,13 @@ class PaginationPage extends Component {
   }
 
   componentDidMount() {
+    let { totalRecords , pageLimit, pagesToShow ,initialPage} = this.props;
     this.setState({
-      totalRecords: this.props.totalRecords,
-      pageLimit: this.props.pageLimit || 10,
-      totalPages: Math.ceil(this.props.totalRecords / this.props.pageLimit),
-      pagesToShow: this.props.pagesToShow || 5,
-      currentPage: this.props.initialPage || 1
+      totalRecords: totalRecords,
+      pageLimit: pageLimit || 10,
+      totalPages: Math.ceil(totalRecords / pageLimit),
+      pagesToShow: pagesToShow || 5,
+      currentPage: initialPage || 1
     });
   }
 
@@ -34,11 +35,12 @@ class PaginationPage extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    let { totalRecords, pageLimit, currentPage  } = this.state;
     if (
-      this.state.totalRecords !== prevState.totalRecords ||
-      this.state.pageLimit !== prevState.pageLimit
+      totalRecords !== prevState.totalRecords ||
+      pageLimit !== prevState.pageLimit
     ) {
-      this.setPage(this.state.currentPage);
+      this.setPage(currentPage);
     }
   }
 
@@ -100,7 +102,8 @@ class PaginationPage extends Component {
   }
 
   render() {
-    if (!this.state.totalRecords || this.state.totalPages === 1) return null;
+    let { totalRecords , totalPages} = this.state;
+    if (!totalRecords || totalPages === 1) return null;
     var pager = this.getPager();
     return (
       <ul className="pagination">

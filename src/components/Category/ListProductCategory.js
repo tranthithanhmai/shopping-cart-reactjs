@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import * as callApi from '../../services/apiCaller';
+import {
+  actViewCategoryRequest
+} from './../../actions/index';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import ProductItem from './../../components/Product/ProductItem';
 import PaginationPage from './../Pagination/PaginationPage';
 
@@ -31,18 +36,12 @@ class ListProductCategory extends Component {
 
   componentDidMount() {
     var {
-      products,
-      categories
+      products
     } = this.state;
 
     var { match } = this.props;
     var id = match.params.id;
-    callApi.call(`wordpress-demo/wp-json/wc/v3/products/categories/${id}`, 'GET', null).then(res => {
-      categories = res.data;
-      this.setState({
-        categories
-      });
-    });
+    this.props.actions.actViewCategoryRequest(id);
     var idCat = parseInt(id);
     callApi.call(`wordpress-demo/wp-json/wc/v3/products`, 'GET', null).then(res => {
       var listData = res.data;
@@ -70,13 +69,13 @@ class ListProductCategory extends Component {
   render() {
     var {
       products,
-      categories,
       totalPages,
       currentPage,
       pageLimit,
       startIndex,
       endIndex,
     } = this.state;
+    let { categories } = this.props;
 
     var rowsPerPage = [];
     //Pagination
@@ -129,5 +128,18 @@ class ListProductCategory extends Component {
     return xhtml;
   }
 }
+const mapStateToProps = state => {
+  return {
+    categories: state.itemEditing,
+  }
+}
 
-export default ListProductCategory;
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    actions: bindActionCreators({
+      actViewCategoryRequest
+    }, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListProductCategory);
