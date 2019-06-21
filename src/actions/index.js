@@ -178,7 +178,6 @@ export const actFetchCategories = (categories) => {
 export const actAddCategoryRequest = (category) => {
   return dispatch => {
     return callApi.call('wordpress-demo/wp-json/wc/v3/products/categories', 'POST', category).then(res => {
-      console.log('add cat : ', res.data)
       dispatch(actAddCategory(res.data));
     }).catch(error => {
       console.log(error.message);
@@ -290,7 +289,6 @@ export const actDeleteCart = (id) => {
 export const actAddCartRequest = (cart) => {
   return dispatch => {
     return callApi.call('wordpress-demo/wp-json/wc/v3/orders', 'POST', cart).then(res => {
-      console.log('add order : ', res.data)
       dispatch(actAddCart(res.data));
     }).catch(error => {
       console.log(error.message);

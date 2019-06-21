@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actFetchCartsRequest, actDeleteCartRequest } from './../../actions/index';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 import Cart from './../../components/Cart/Cart';
 
 class CartPage extends Component {
@@ -15,15 +16,20 @@ class CartPage extends Component {
     }
   }
   render() {
-    var { carts } = this.props;
-    return (
-      <Cart match={this.props.match} carts={carts} />
-    );
+    var { carts, token } = this.props;
+    if (!token) {
+      return <Redirect push to="/shopping-cart-reactjs/login" />
+    } else {
+      return (
+        <Cart match={this.props.match} carts={carts} />
+      );
+    }
   }
 }
 const mapStateToProps = state => {
   return {
-    carts: state.carts
+    carts: state.carts,
+    token: state.user.token
   };
 }
 
