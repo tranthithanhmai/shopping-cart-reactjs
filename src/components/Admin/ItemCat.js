@@ -10,19 +10,19 @@ class ItemCat extends Component {
           value={category.id}
           name={category.name}
           onChange={this.props.onChangeCheckBox}
-          checked = {this.showCheked(arrCat)}
+          checked={this.showCheked(arrCat)}
         />
         <label className="form-check-label">{category.name}</label>
       </div>
-    );  
+    );
   }
 
-  showCheked (arrCat) {
+  showCheked(arrCat) {
     var checked = "";
     var { category } = this.props;
-    if(arrCat !== null && arrCat.length > 0) {
-      for(var i = 0; i < arrCat.length ; i++) {
-        if(category.id === arrCat[i].id) {
+    if (arrCat !== null && arrCat.length > 0) {
+      for (var i = 0; i < arrCat.length; i++) {
+        if (category.id === arrCat[i].id) {
           checked = "checked";
         }
       }

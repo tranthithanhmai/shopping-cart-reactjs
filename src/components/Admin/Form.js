@@ -43,7 +43,7 @@ class Form extends Component {
           id: itemEditing.id,
           txtName: itemEditing.name,
           txtPrice: itemEditing.regular_price,
-          urlImages: itemEditing.images.map(item => ({...item, uploaded: true})),
+          urlImages: itemEditing.images.map(item => ({ ...item, uploaded: true })),
           txtDesc: itemEditing.description,
           arrCat: itemEditing.categories
         });
@@ -99,9 +99,9 @@ class Form extends Component {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       let src = await this.getBase64(file);
-      urlImages.push({src, uploaded: false, file})
+      urlImages.push({ src, uploaded: false, file })
     }
-    this.setState({urlImages})
+    this.setState({ urlImages })
   }
 
   onClickSubmit = async (e) => {
@@ -114,7 +114,7 @@ class Form extends Component {
         var formData = new FormData();
         formData.append('file', fileData.file);
         await this.props.actions.actAddImagesRequest(formData);
-      } 
+      }
     }
     let { history, uploadImages } = this.props;
     urlArr = [...urlArr, ...uploadImages];
@@ -122,7 +122,7 @@ class Form extends Component {
       id: id,
       name: txtName,
       regular_price: txtPrice,
-      images:  urlArr,
+      images: urlArr,
       description: txtDesc,
       categories: arrCat
     };
@@ -144,7 +144,7 @@ class Form extends Component {
     var { txtName, txtPrice, txtDesc } = this.state;
     var { categories } = this.props;
     txtDesc = txtDesc.replace(new RegExp(/[<p>,</p>,</br>]/, 'g'), '');
-    
+
     return (
       <div className="row">
         <div className="col-12">
@@ -187,9 +187,9 @@ class Form extends Component {
             <div className="form-group">
               <label>Hình ảnh sản phẩm</label>
               <div className="col-12">
-                {this.state.urlImages.map((item, index) => <img src={item.src} alt="Hình ảnh" key={index } style={{ width: '100px', height: '100px', marginRight: '5px'}} />)}
+                {this.state.urlImages.map((item, index) => <img src={item.src} alt="Hình ảnh" key={index} style={{ width: '100px', height: '100px', marginRight: '5px' }} />)}
               </div>
-              
+
               <input
                 type="file"
                 multiple

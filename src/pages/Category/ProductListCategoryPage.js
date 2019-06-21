@@ -3,9 +3,9 @@ import ListProductCategory from '../../components/Category/ListProductCategory';
 
 class ProductListCategoryPage extends Component {
   render() {
-    var {match, history} = this.props;
+    var { match, history } = this.props;
     return (
-      <ListProductCategory match={match} history ={history} />
+      <ListProductCategory match={match} history={history} />
     );
   }
 }

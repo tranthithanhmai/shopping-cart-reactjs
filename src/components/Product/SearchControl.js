@@ -16,8 +16,8 @@ class SearchControl extends Component {
   }
 
   onClickClear = () => {
-    this.setState ({
-      strSearch : ""
+    this.setState({
+      strSearch: ""
     });
     this.props.actions.actSearch("");
   }
@@ -53,9 +53,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    // handleSearch: (strSearch) => {
-    //   dispatch(actSearch(strSearch));
-    // }
     actions: bindActionCreators({
       actSearch
     }, dispatch)

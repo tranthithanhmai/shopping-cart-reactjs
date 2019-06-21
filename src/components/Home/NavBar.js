@@ -41,7 +41,7 @@ const MenuLink = ({ menu }) => {
 class NavBar extends Component {
 	render() {
 		return (
-			<nav className="navbar navbar-expand-sm bg-dark navbar-dark py-lg-4" style={{ display: 'flex',justifyContent: 'space-between'}}>
+			<nav className="navbar navbar-expand-sm bg-dark navbar-dark py-lg-4" style={{ display: 'flex', justifyContent: 'space-between' }}>
 				<NavLink to='/shopping-cart-reactjs/' className="navbar-brand text-uppercase text-expanded font-weight-bold">
 					Shopping Cart
 				</NavLink>

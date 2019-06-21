@@ -23,7 +23,7 @@ class CartLists extends Component {
         <div className="row">
           <div className="col-12">
             <div style={{ display: 'flex', marginBottom: '40px' }}>
-              <button class="btn btn-light" onClick={this.onClickBack} style={{marginRight: '10px'}}><i className="fa fa-arrow-left" aria-hidden="true"></i> &nbsp;Back</button>
+              <button class="btn btn-light" onClick={this.onClickBack} style={{ marginRight: '10px' }}><i className="fa fa-arrow-left" aria-hidden="true"></i> &nbsp;Back</button>
               <h2>Danh sách sản phẩm của key order : {cart.order_key} </h2>
             </div>
             <table className="table table-hover" style={{ marginBottom: '40px' }}>

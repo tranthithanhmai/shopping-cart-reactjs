@@ -16,7 +16,7 @@ class AdminPage extends Component {
   render() {
     var { products } = this.props;
     return (
-      <Lists products={products} onDelete= {this.onDelete} />
+      <Lists products={products} onDelete={this.onDelete} />
     );
   }
 }

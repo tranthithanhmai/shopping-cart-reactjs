@@ -70,26 +70,26 @@ class Cart extends Component {
                 {
                   Header: "Action",
                   Cell: state =>
-                  <div>
-                    <Link
-                      to={`/shopping-cart-reactjs/shopping-cart/view/${state.original.id}`}
-                      type="button"
-                      className="btn btn-sm btn-success">
-                      View
+                    <div>
+                      <Link
+                        to={`/shopping-cart-reactjs/shopping-cart/view/${state.original.id}`}
+                        type="button"
+                        className="btn btn-sm btn-success">
+                        View
                     </Link>
-                    <Link
-                      to={`/shopping-cart-reactjs/shopping-cart/edit/${state.original.id}`}
-                      style={{ marginLeft: '5px' }}
-                      type="button"
-                      className="btn btn-sm btn-info">
-                      Edit
+                      <Link
+                        to={`/shopping-cart-reactjs/shopping-cart/edit/${state.original.id}`}
+                        style={{ marginLeft: '5px' }}
+                        type="button"
+                        className="btn btn-sm btn-info">
+                        Edit
                     </Link>
-                    <button type="button" className="btn btn-sm btn-danger" style={{ marginLeft: '5px' }}
-                      onClick={() => this.onDeleteItem(state.original.id)}>
-                      Delete
+                      <button type="button" className="btn btn-sm btn-danger" style={{ marginLeft: '5px' }}
+                        onClick={() => this.onDeleteItem(state.original.id)}>
+                        Delete
                     </button>
-                  </div>
-              }
+                    </div>
+                }
               ]}
               defaultPageSize={5}
               className="-striped -highlight"

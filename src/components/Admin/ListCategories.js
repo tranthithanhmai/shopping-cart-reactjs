@@ -61,6 +61,7 @@ class ListCategories extends Component {
               <tr>
                 <th>Name</th>
                 <th>Slug</th>
+                {/* <th>Image</th> */}
                 <th>Action</th>
               </tr>
             </thead>
@@ -95,6 +96,9 @@ class ListCategories extends Component {
           <tr key={index}>
             <td>{category.name}</td>
             <td>{category.slug}</td>
+            {/* <td>
+              <img style={{ width : '100px'}} src={(category.image === null ? 'http://192.168.1.198/wordpress-demo/wp-content/uploads/2019/06/og__c80n4z3t6n0i.png' : category.image.src)} alt="images" />
+            </td> */}
             <td>
               <Link
                 to={`/shopping-cart-reactjs/admin/edit-category/${category.id}`}

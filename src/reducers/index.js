@@ -18,7 +18,7 @@ const appReducers = combineReducers({
 	itemEditing,
 	uploadImages,
 	categories,
-	carts
+	carts,
 });
 
 export default appReducers;

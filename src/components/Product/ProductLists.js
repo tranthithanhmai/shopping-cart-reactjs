@@ -50,8 +50,10 @@ class ProductLists extends Component {
     products = filter(itemsOrigin, (product) => {
       return includes(product.name.toLowerCase(), strSearch.toLowerCase());
     });
+
     //Sort
     products = funcOrderBy(products, [orderBy], [orderDir]);
+    
     //Pagination
     rowsPerPage = products.slice(startIndex, endIndex + 1);
 
@@ -75,7 +77,6 @@ class ProductLists extends Component {
           />
         </div>
       </div>
-
     );
   }
 

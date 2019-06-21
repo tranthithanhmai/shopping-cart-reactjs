@@ -1,6 +1,6 @@
 import * as types from './../constants/ActionType';
 import * as callApi from './../services/apiCaller';
-import {LoginStore} from './login';
+import { LoginStore } from './login';
 
 export const actLoginRequest = (data) => {
   return dispatch => {
@@ -32,7 +32,7 @@ export const actSearch = (strSearch) => {
 export const actSort = (orderBy, orderDir) => {
   return {
     type: types.SORT_ITEM,
-    orderBy, 
+    orderBy,
     orderDir
   }
 }

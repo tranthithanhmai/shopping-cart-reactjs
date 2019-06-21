@@ -70,12 +70,8 @@ class Login extends Component {
 	}
 }
 
-
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		// onLogin: (data) => {
-		// 	dispatch(actLoginRequest(data));
-		// }
 		actions: bindActionCreators({
       actLoginRequest
     }, dispatch)

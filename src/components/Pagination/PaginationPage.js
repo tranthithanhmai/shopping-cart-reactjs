@@ -100,12 +100,8 @@ class PaginationPage extends Component {
   }
 
   render() {
-    // console.log(this.state);
     if (!this.state.totalRecords || this.state.totalPages === 1) return null;
-
     var pager = this.getPager();
-    // console.log(pager);
-
     return (
       <ul className="pagination">
         <li className="page-item"

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actAddCategoryRequest, actGetCategoryRequest, actUpdateCategoryRequest } from './../../actions/index';
+import { actAddCategoryRequest, actGetCategoryRequest, actUpdateCategoryRequest, actAddImagesRequest } from './../../actions/index';
 import { isEmpty } from 'lodash';
 
 class FormCategory extends Component {
@@ -10,7 +10,8 @@ class FormCategory extends Component {
     this.state = {
       id: "",
       txtName: "",
-      scrImage: []
+      txtSlug: ""
+      // srcImage: ""
     };
   }
 
@@ -18,7 +19,6 @@ class FormCategory extends Component {
     var { match } = this.props;
     if (match.params.id) {
       var id = match.params.id;
-      console.log('id : ', id)
       this.props.actions.actGetCategoryRequest(id);
     }
   }
@@ -30,11 +30,12 @@ class FormCategory extends Component {
         this.setState({
           id: itemEditing.id,
           txtName: itemEditing.name,
+          txtSlug: itemEditing.slug
+          // srcImage: itemEditing.image
         });
       }
     }
   }
-
 
   onChange = (event) => {
     const target = event.target;
@@ -45,21 +46,57 @@ class FormCategory extends Component {
     });
   }
 
+  // getBase64 = (file) => {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file);
+  //     reader.onload = () => resolve(reader.result);
+  //     reader.onerror = error => reject(error);
+  //   });
+  // }
+
+  // onChangeFile = async (event) => {
+  //   let srcImage = this.state.srcImage;
+  //   let files = event.target.files;
+  //   console.log('files: ', files[0])
+  //   let file = files[0];
+  //   let src =  await this.getBase64(file);
+  //   this.setState({
+  //     srcImage: {
+  //       src : src
+  //     }
+  //   });
+  //   console.log('scr: ', src)
+  //   console.log('srcImage : ', this.state)
+  // }
+
   onClickSubmit = async (e) => {
     e.preventDefault();
-    let { history, match } = this.props;
-    let id = match.params.id;
+    let {
+      id,
+      txtName,
+      txtSlug
+      // srcImage 
+    } = this.state;
+    let { history } = this.props;
+    // let urlArr = srcImage.src;
+    // var formData = new FormData();
+    //     formData.append('file', urlArr);
+    //     await this.props.actions.actAddImagesRequest(formData);
     let category = {
-      id: this.state.id,
-      name: this.state.txtName
+      id: id,
+      name: txtName,
+      slug: txtSlug
+      // image: {
+      //   src : urlArr
+      // }
     }
-    console.log('id : ', id)
     if (id) {
       await this.props.actions.actUpdateCategoryRequest(category);
     } else {
       await this.props.actions.actAddCategoryRequest(category);
     }
-    
+
     history.goBack();
   }
 
@@ -69,7 +106,11 @@ class FormCategory extends Component {
   }
 
   render() {
-    var { txtName } = this.state;
+    var {
+      txtName,
+      txtSlug
+      // srcImage 
+    } = this.state;
     return (
       <div className="row">
         <div className="col-12">
@@ -88,10 +129,31 @@ class FormCategory extends Component {
                 onChange={this.onChange}
               />
             </div>
+            <div className="form-group">
+              <label>Slug</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Slug Name"
+                name='txtSlug'
+                value={txtSlug}
+                onChange={this.onChange}
+              />
+            </div>
+            {/* <div className="form-group">
+              <label>Image</label>
+              <input
+                type="file"
+                className="form-control"
+                placeholder="Category Image"
+                name='urlImage'
+                onChange={this.onChangeFile}
+              />
+            </div> */}
             <button to="/shopping-cart-reactjs/admin/" type="submit" className="btn btn-primary" style={{ marginRight: '10px' }}>
               Submit
             </button>
-            <button type="button" className="btn btn-light" onClick= {this.onClickBack}>Back</button>
+            <button type="button" className="btn btn-light" onClick={this.onClickBack}>Back</button>
           </form>
         </div>
       </div>
@@ -109,7 +171,8 @@ const mapDispatchToProps = (dispatch, props) => {
     actions: bindActionCreators({
       actAddCategoryRequest,
       actGetCategoryRequest,
-      actUpdateCategoryRequest
+      actUpdateCategoryRequest,
+      actAddImagesRequest
     }, dispatch)
   }
 }
