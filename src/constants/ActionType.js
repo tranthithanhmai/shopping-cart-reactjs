@@ -11,6 +11,15 @@ export const VIEW_RELATED_PRODUCT = 'VIEW_RELATED_PRODUCT'
 export const GO_HOME 		          = 'GO_HOME';
 export const GO_PRODUCT 		      = 'GO_PRODUCT';
 export const GO_PRODUCT_ITEM      = 'GO_PRODUCT_ITEM';
+export const GO_CATEGORY 		      = 'GO_CATEGORY';
+export const GO_CATEGORY_ITEM     = 'GO_CATEGORY_ITEM';
+export const GO_ADMIN 		        = 'GO_ADMIN';
+export const GO_ADMIN_ITEM        = 'GO_ADMIN_ITEM';
+export const GO_ORDER 		        = 'GO_ORDER';
+export const GO_ORDER_ITEM        = 'GO_ORDER_ITEM';
+export const GO_LOGIN 		        = 'GO_LOGIN';
+export const GO_LOGOUT 		        = 'GO_LOGOUT';
+
 
 //admin
 export const FETCH_PRODUCTS       = 'FETCH_PRODUCTS';

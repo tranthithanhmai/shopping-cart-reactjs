@@ -10,12 +10,12 @@ class ProductItem extends Component {
     return (
       <div className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" style={{ marginBottom: '20px' }}>
         <div className="card box-product">
-          <Route to={`/shopping-cart-reactjs/product/${product.id}`}>
+          <Route to={`/shopping-cart-reactjs/product/${product.id}`} target = "_blank">
             <img className="card-img-top" src={scrImg} alt="Card Product" style={{ width: '100%', height: '200px' }} />
           </Route>
           <div className="card-body" style={{ textAlign: 'center' }}>
             <h4>
-              <Link to={`/shopping-cart-reactjs/product/${product.id}`} className="card-title">
+              <Link to={`/shopping-cart-reactjs/product/${product.id}`} target = "_blank" product={product} className="card-title">
                 {product.name}
               </Link>
             </h4>

@@ -19,7 +19,12 @@ const routes = [
     { 
         path: '/shopping-cart-reactjs/',
         exact: true,
-        main: () => <HomePage />
+        main: ({match}) => <HomePage match = {match} />
+    },
+    { 
+        path: '/',
+        exact: true,
+        main: ({match}) => <HomePage match = {match} />
     },
     { 
         path: '/shopping-cart-reactjs/product',

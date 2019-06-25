@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ProductItem from './ProductItem';
 import { filter, includes, orderBy as funcOrderBy } from 'lodash';
-import { actFetchProductsRequest } from './../../actions/index';
+import { actFetchProductsRequest, actGoProducts } from './../../actions/index';
 import PaginationPage from '../Pagination/PaginationPage';
 
 class ProductLists extends Component {
@@ -29,9 +29,9 @@ class ProductLists extends Component {
       endIndex: data.endIndex
     });
   };
-
   componentDidMount() {
     this.props.actions.actFetchProductsRequest();
+    this.props.actions.actGoProducts('Product', '/shopping-cart-reactjs/product');
   }
 
   render() {
@@ -104,7 +104,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     actions: bindActionCreators({
-      actFetchProductsRequest
+      actFetchProductsRequest,
+      actGoProducts
     }, dispatch)
   }
 }

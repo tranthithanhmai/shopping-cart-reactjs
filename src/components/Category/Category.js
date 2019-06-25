@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { actFetchCategoriesRequest } from './../../actions/index';
+import { actFetchCategoriesRequest, actGoCategories } from './../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -8,6 +8,7 @@ class Category extends Component {
 
   componentDidMount() {
     this.props.actions.actFetchCategoriesRequest();
+    this.props.actions.actGoCategories('Categories', '/shopping-cart-reactjs/products/categories');
   }
 
   render() {
@@ -55,7 +56,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     actions: bindActionCreators({
-      actFetchCategoriesRequest
+      actFetchCategoriesRequest,
+      actGoCategories
     }, dispatch)
   }
 }

@@ -13,7 +13,7 @@ class Add extends Component {
               type="button"
               className="btn btn-info">
               <i className='fa fa-plus' aria-hidden="true" style={{ paddingTop: '8px' }}></i> &nbsp;Add Product
-                        </Link>
+            </Link>
           </div>
         </div>
       </div>

@@ -376,3 +376,91 @@ export const actViewCategory = (categories) => {
     categories
   }
 }
+
+//breadcrumb
+
+export const actGoHome = () => {
+	return {
+    type : types.GO_HOME
+	}
+}
+
+export const actGoProducts = (name, to) => {
+	return {
+		type : types.GO_PRODUCT,
+		name, 
+		to
+	}
+}
+
+export const actGoProductItem = (name, to) => {
+	return {
+		type : types.GO_PRODUCT_ITEM,
+		name, 
+		to
+	}
+}
+
+export const actGoCategories = (name, to) => {
+	return {
+		type : types.GO_CATEGORY,
+		name, 
+		to
+	}
+}
+
+export const actGoCategoryItem = (name, to) => {
+	return {
+		type : types.GO_CATEGORY_ITEM,
+		name, 
+		to
+	}
+}
+
+export const actGoAdmin = (name, to) => {
+	return {
+		type : types.GO_ADMIN,
+		name, 
+		to
+	}
+}
+
+export const actGoAdminItem = (name, to) => {
+	return {
+		type : types.GO_ADMIN_ITEM,
+		name, 
+		to
+	}
+}
+
+export const actGoOrder = (name, to) => {
+	return {
+		type : types.GO_ORDER,
+		name, 
+		to
+	}
+}
+
+export const actGoOrderItem = (name, to) => {
+	return {
+		type : types.GO_ORDER_ITEM,
+		name, 
+		to
+	}
+}
+
+export const actGoLogin = (name, to) => {
+	return {
+		type : types.GO_LOGIN,
+		name, 
+		to
+	}
+}
+
+export const actGoLogout = (name, to) => {
+	return {
+		type : types.GO_LOGOUT,
+		name, 
+		to
+	}
+}

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import * as callApi from '../../services/apiCaller';
 import {
-  actViewCategoryRequest
+  actViewCategoryRequest,
+  actGoCategoryItem
 } from './../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -33,34 +34,53 @@ class ListProductCategory extends Component {
       endIndex: data.endIndex
     });
   };
+  compareData = (categories, data) => {
+    var {
+      products
+    } = this.state;
+    var { match } = this.props;
+    var id = match.params.id;
+    var idCat = parseInt(id);
+    categories.map(cat => {
+      if (cat.id === idCat) {
+        products.push(data);
+      }
+      return products;
+    });
+  }
+
+  listData = (listData) => {
+    if (listData !== null && listData.length > 0) {
+      listData.map((data) => {
+        if (data && data.categories.length > 0) {
+          let categories =  data.categories;
+          this.compareData(categories, data);
+        }
+        return data;
+      });
+    }
+  }
 
   componentDidMount() {
     var {
       products
     } = this.state;
-
     var { match } = this.props;
     var id = match.params.id;
     this.props.actions.actViewCategoryRequest(id);
-    var idCat = parseInt(id);
+   
     callApi.call(`wordpress-demo/wp-json/wc/v3/products`, 'GET', null).then(res => {
-      var listData = res.data;
-      for (var j = 0; j < 10; j++) {
-        listData.filter((data) => {
-          if (data && j < data.categories.length) {
-            var id = data.categories[j].id;
-            if (id === idCat) {
-              products.push(data);
-            }
-          }
-        });
-      }
+      let listData = res.data;
+      this.listData(listData);
       this.setState({
         products
       });
-    });
+    }); 
   }
-
+  componentDidUpdate () {
+    let { categories } = this.props;
+    this.props.actions.actGoCategoryItem(categories.name, `/shopping-cart-reactjs/product/${categories.id}`);
+  }
   handleBack = () => {
     var { history } = this.props;
     history.goBack();
@@ -85,14 +105,14 @@ class ListProductCategory extends Component {
       <div className="container">
         <div className="row">
           <div className="col-12" style={{ marginBottom: '20px', display: 'flex' }}>
-            <button
+            {/* <button
               className="btn btn-light"
               onClick={this.handleBack}
               style={{ marginRight: '10px' }}
             >
               <i className="fa fa-chevron-circle-left" aria-hidden="true"></i>
               &nbsp;Back
-                        </button>
+                        </button> */}
             <h2>Category : {categories.name}</h2>
           </div>
         </div>
@@ -137,7 +157,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     actions: bindActionCreators({
-      actViewCategoryRequest
+      actViewCategoryRequest,
+      actGoCategoryItem
     }, dispatch)
   }
 }

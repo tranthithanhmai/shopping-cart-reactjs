@@ -2,8 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PaginationPage from '../Pagination/PaginationPage';
 import { connect } from 'react-redux';
 import {
-  actFetchCategoriesRequest,
-  // actDeleteCategoryRequest
+  actFetchCategoriesRequest
 } from './../../actions/index';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
@@ -24,12 +23,6 @@ class ListCategories extends Component {
   componentDidMount() {
     this.props.actions.actFetchCategoriesRequest();
   }
-
-  // onDelete = (id) => {
-  //   if (confirm('Bạn chắc chắn muốn xóa ?')) { //eslint-disable-line
-  //     this.props.actions.actDeleteCategoryRequest(id);
-  //   }
-  // }
 
   onChangePage = data => {
     this.setState({
@@ -61,7 +54,6 @@ class ListCategories extends Component {
               <tr>
                 <th>Name</th>
                 <th>Slug</th>
-                {/* <th>Image</th> */}
                 <th>Action</th>
               </tr>
             </thead>
@@ -96,9 +88,6 @@ class ListCategories extends Component {
           <tr key={index}>
             <td>{category.name}</td>
             <td>{category.slug}</td>
-            {/* <td>
-              <img style={{ width : '100px'}} src={(category.image === null ? 'http://192.168.1.198/wordpress-demo/wp-content/uploads/2019/06/og__c80n4z3t6n0i.png' : category.image.src)} alt="images" />
-            </td> */}
             <td>
               <Link
                 to={`/shopping-cart-reactjs/admin/edit-category/${category.id}`}
@@ -108,14 +97,6 @@ class ListCategories extends Component {
               >
                 <i className="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp; Update
               </Link>
-              {/* <button
-                type="button"
-                className="btn btn-xs btn-danger"
-                data-original-title="Remove category"
-                onClick={() => this.onDelete(category.id)}
-              >
-                <i className="fa fa-trash-o" aria-hidden="true"></i> &nbsp; Delete
-              </button> */}
             </td>
           </tr>
         );
@@ -135,7 +116,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     actions: bindActionCreators({
       actFetchCategoriesRequest,
-      // actDeleteCategoryRequest
     }, dispatch)
   }
 }

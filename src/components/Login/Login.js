@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { actLoginRequest } from './../../actions/index';
+import { actLoginRequest, actGoLogin } from './../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
@@ -12,6 +12,10 @@ class Login extends Component {
 			username: '',
 			password: ''
 		};
+	}
+
+	componentDidMount() {
+		this.props.actions.actGoLogin('Login', '/shopping-cart-reactjs/login');
 	}
 
 	handleChange = (event) => {
@@ -72,7 +76,8 @@ class Login extends Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		actions: bindActionCreators({
-      actLoginRequest
+			actLoginRequest,
+			actGoLogin
     }, dispatch)
 	}
 }

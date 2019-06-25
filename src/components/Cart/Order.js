@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   actAddCartRequest,
   actGetCartRequest,
-  actUpdateCartRequest
+  actUpdateCartRequest,
+  actGoOrderItem
 } from './../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -38,6 +39,9 @@ class Order extends Component {
     if (match.params.id) {
       var id = match.params.id;
       this.props.actions.actGetCartRequest(id);
+      this.props.actions.actGoOrderItem('Edit', `shopping-cart-reactjs/shopping-cart/edit/${id}`);
+    } else {
+      this.props.actions.actGoOrderItem('Add', `shopping-cart-reactjs/shopping-cart/add`);
     }
   }
 
@@ -327,7 +331,8 @@ const mapDispatchToProps = (dispatch, props) => {
     actions: bindActionCreators({
       actAddCartRequest,
       actGetCartRequest,
-      actUpdateCartRequest
+      actUpdateCartRequest,
+      actGoOrderItem
     }, dispatch)
   }
 }

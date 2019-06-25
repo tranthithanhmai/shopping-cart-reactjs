@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class TabProductItemDetail extends Component {
   render() {
     var { product } = this.props;
-    console.log('product detail : ', product)
     var description = "";
     if (product.id) {
       description = product.description.replace(new RegExp(/<.*?>/, 'g'), '');

@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import ProductItemDetail from './../../components/Product/ProductItemDetail';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actGetProductRequest } from './../../actions/index';
+import { actGetProductRequest, actGoProductItem } from './../../actions/index';
 
 class ProductItemPage extends Component {
   componentDidMount() {
     var { match } = this.props;
     var id = match.params.id;
     this.props.actions.actGetProductRequest(id);
+   
+  }
+  componentDidUpdate () {
+    var { product } = this.props;
+    this.props.actions.actGoProductItem(product.name, `/shopping-cart-reactjs/product/${product.id}`);
   }
   render() {
     var { match, product } = this.props;
@@ -26,7 +31,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     actions: bindActionCreators({
-      actGetProductRequest
+      actGetProductRequest,
+      actGoProductItem
     }, dispatch)
   }
 }

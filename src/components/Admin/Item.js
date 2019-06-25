@@ -31,7 +31,7 @@ class Item extends Component {
             id={item.id}
           >
             <i className="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp; Update
-                    </Link>
+          </Link>
 
           <button
             type="button"
@@ -40,7 +40,7 @@ class Item extends Component {
             onClick={() => this.onDelete(item.id)}
           >
             <i className="fa fa-trash-o" aria-hidden="true"></i> &nbsp; Delete
-                    </button>
+          </button>
         </td>
       </tr>
     );

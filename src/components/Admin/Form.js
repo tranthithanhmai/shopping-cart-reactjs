@@ -5,7 +5,8 @@ import {
   actGetProductRequest,
   actAddImagesRequest,
   actFetchCategoriesRequest,
-  actFetchProductsRequest
+  actFetchProductsRequest,
+  actGoAdminItem
 } from './../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -32,14 +33,17 @@ class Form extends Component {
     if (match.params.id) {
       var id = match.params.id;
       this.props.actions.actGetProductRequest(id);
+      this.props.actions.actGoAdminItem('Edit', `/shopping-cart-reactjs/admin/eidt/${id}`);
+    } else {
+      this.props.actions.actGoAdminItem('Add', '/shopping-cart-reactjs/admin/add');
     }
-    this.props.actions.actFetchCategoriesRequest();
+    this.props.actions.actFetchCategoriesRequest();  
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.itemEditing) {
-      var { itemEditing } = nextProps;
-      if (!isEmpty(itemEditing)) {
+      var { itemEditing, match } = nextProps;
+      if (!isEmpty(itemEditing) && itemEditing.images && match.params.id) {
         this.setState({
           id: itemEditing.id,
           txtName: itemEditing.name,
@@ -80,7 +84,6 @@ class Form extends Component {
         }
       }
     }
-
     this.setState({
       arrCat
     });
@@ -261,7 +264,8 @@ const mapDispatchToProps = (dispatch, props) => {
       actUpdateProductRequest,
       actAddImagesRequest,
       actFetchCategoriesRequest,
-      actFetchProductsRequest
+      actFetchProductsRequest,
+      actGoAdminItem
     }, dispatch)
   }
 }

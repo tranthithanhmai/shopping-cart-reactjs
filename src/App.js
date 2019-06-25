@@ -5,7 +5,7 @@ import {
   Switch
 } from 'react-router-dom';
 import NavBar from './components/Home/NavBar';
-// import Breadcrumb from './components/Home/Breadcrumb';
+import Breadcrumb from './components/Home/Breadcrumb';
 import routes from './route-config';
 class App extends Component {
   render() {
@@ -14,6 +14,7 @@ class App extends Component {
         <div className="wrapper">
           <div className="header-container fixed-top">
             <NavBar />
+            <Breadcrumb />
           </div>
           <div className="product-container" style={{ marginTop: '150px' }}>
             {this.showRoute(routes)}

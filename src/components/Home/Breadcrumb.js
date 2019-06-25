@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
 
-const breadcrumbs = [
-	{ to: '/shopping-cart-reactjs/', name: 'Home' },
-	// {to: '/shopping-cart-reactjs/product', name: 'Product'},
-	// {to: '/shopping-cart-reactjs/login', name: 'login'}
-];
-
-const BreadcrumbLink = ({ menu }) => {
+const MenuLink = ({ menu }) => {
 	return (
 		<Route
 			path={menu.to}
@@ -15,10 +10,10 @@ const BreadcrumbLink = ({ menu }) => {
 			children=
 			{
 				({ match }) => {
-					if (match !== null && match.isExact === true) {
-						return <li className="active">{menu.name}</li>;
+					if (match === null || (match !== null && match.isExact === true)) {
+						return <li style={{ marginRight: '10px' }} className="active" >{menu.name}</li>;
 					} else {
-						return <li><Link to={menu.to} >{menu.name}</Link></li>;
+						return <li style={{ marginRight: '10px' }}><Link to={menu.to} >{menu.name}</Link></li>;
 					}
 				}
 			}
@@ -28,28 +23,25 @@ const BreadcrumbLink = ({ menu }) => {
 
 class Breadcrumb extends Component {
 	render() {
-		return (
-			<nav aria-label="breadcrumb">
-				<ol className="breadcrumb">
-					{this.showBreadcrumb(breadcrumbs)}
-				</ol>
-			</nav>
-		);
-	}
-
-	showBreadcrumb(breadcrumbs) {
+		let menus = this.props.breadcrumb;
 		let xhtml = null;
-
-		if (breadcrumbs.length > 0) {
-			xhtml = breadcrumbs.map((menu, index) => {
-				return (
-					<BreadcrumbLink menu={menu} key={index} />
-				);
+		if (menus.length > 0) {
+			xhtml = menus.map((menu, index) => {
+				if (menu !== undefined) {
+					return (
+						<MenuLink menu={menu} key={index} />
+					);
+				}
+				return null;
 			});
 		}
-
-		return xhtml;
+		return <ol className="breadcrumb">{xhtml}</ol>;
 	}
 }
 
-export default Breadcrumb;
+const mapStateToProps = state => {
+	return {
+		breadcrumb: state.breadcrumb
+	}
+}
+export default connect(mapStateToProps, null)(Breadcrumb);

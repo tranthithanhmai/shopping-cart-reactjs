@@ -4,6 +4,7 @@ import TabProductItemDetail from './TabProductItemDetail';
 import RelatedProduct from './RelatedProduct';
 
 class ProductItemDetail extends Component {
+
   render() {
     var { product } = this.props;
     var regularPrice = '';
@@ -57,7 +58,7 @@ class ProductItemDetail extends Component {
       if (categories.length > 0) {
         xhtml = categories.map((category, index) => {
           return (
-            <Link to={`/shopping-cart-reactjs/products/categories/${category.id}`} key={index} style={{ marginRight: '10px' }} category={category.name}>{category.name}</Link>
+            <Link to={`/shopping-cart-reactjs/products/categories/${category.id}`} target="_blank" key={index} style={{ marginRight: '10px' }} category={category.name}>{category.name}</Link>
           );
         });
       }

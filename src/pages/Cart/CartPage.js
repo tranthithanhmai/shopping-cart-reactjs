@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { actFetchCartsRequest, actDeleteCartRequest } from './../../actions/index';
+import { actFetchCartsRequest, actDeleteCartRequest, actGoOrder } from './../../actions/index';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 import Cart from './../../components/Cart/Cart';
@@ -8,6 +8,7 @@ import Cart from './../../components/Cart/Cart';
 class CartPage extends Component {
   componentDidMount() {
     this.props.actions.actFetchCartsRequest();
+    this.props.actions.actGoOrder('Orders', '/shopping-cart-reactjs/shopping-cart');
   }
 
   onDeleteItem = (id) => {
@@ -37,7 +38,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     actions: bindActionCreators({
       actFetchCartsRequest,
-      actDeleteCartRequest
+      actDeleteCartRequest,
+      actGoOrder
     }, dispatch)
   }
 }

@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import Lists from './../../components/Admin/Lists';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actFetchProductsRequest, actDeleteProductRequest } from './../../actions/index';
+import { actFetchProductsRequest, actDeleteProductRequest, actGoAdmin } from './../../actions/index';
 import { Redirect } from 'react-router-dom';
 
 class AdminPage extends Component {
   componentDidMount() {
     this.props.actions.actFetchProductsRequest();
+    this.props.actions.actGoAdmin('Admin', '/shopping-cart-reactjs/admin');
   }
 
   onDelete = (id) => {
@@ -37,7 +38,8 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     actions: bindActionCreators({
       actFetchProductsRequest,
-      actDeleteProductRequest
+      actDeleteProductRequest,
+      actGoAdmin
     }, dispatch)
   }
 }

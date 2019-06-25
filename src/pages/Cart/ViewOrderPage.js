@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { actViewCartsRequest } from './../../actions/index';
+import { actViewCartsRequest, actGoOrderItem } from './../../actions/index';
 import { bindActionCreators } from 'redux';
 import CartLists from '../../components/Cart/CartLists';
 
@@ -10,6 +10,7 @@ class ViewOrderPage extends Component {
     let { id } = this.props.match.params;
     if (id) {
       this.props.actions.actViewCartsRequest(id);
+      this.props.actions.actGoOrderItem('View', `/shopping-cart-reactjs/shopping-cart/view/${id}`);
     }
   }
 
@@ -32,7 +33,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     actions: bindActionCreators({
-      actViewCartsRequest
+      actViewCartsRequest,
+      actGoOrderItem
     }, dispatch)
   }
 }

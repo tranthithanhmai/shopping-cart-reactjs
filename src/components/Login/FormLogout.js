@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { actLogout } from '../../actions/index';
+import { actLogout, actGoLogout } from '../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
+
 class FormLogout extends Component {
+  componentDidMount() {
+    this.props.actions.actGoLogout('Logout', '/shopping-cart-reactjs/logout');
+  }
   handleLogout =  (event) => {
     event.preventDefault();
     this.props.actions.actLogout();
@@ -39,7 +43,8 @@ class FormLogout extends Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     actions: bindActionCreators({
-      actLogout
+      actLogout,
+      actGoLogout
     }, dispatch)
   }
 }
