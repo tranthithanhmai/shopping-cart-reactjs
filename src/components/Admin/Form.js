@@ -78,9 +78,10 @@ class Form extends Component {
     } else {
       arrCat.push(checkVal);
       for (var i = 0; i < arrCat.length; i++) {
-        var idChecked = arrCat.length - 1;
+        var idChecked = arrCat.length - 1; 
         if ((arrCat[i].id === arrCat[idChecked].id) && (arrCat[idChecked].checked === false)) {
           arrCat.splice(i, 1);
+          arrCat.pop();
         }
       }
     }
