@@ -8,9 +8,9 @@ class Item extends Component {
     }
   }
   render() {
-    var { item } = this.props;
-    var price = (item.price !== '') ? item.price : 0;
-    var srcImg = (item.images && item.images.length) > 0 ? item.images[0].src : "http://192.168.1.198/wordpress-demo/wp-content/uploads/2019/05/poster_4_up.jpg";
+    let { item } = this.props;
+    let price = (item.price !== '') ? item.price : 0;
+    let srcImg = (item.images && item.images.length) > 0 ? item.images[0].src : "http://192.168.1.198/wordpress-demo/wp-content/uploads/2019/05/poster_4_up.jpg";
 
     return (
       <tr>
@@ -26,7 +26,7 @@ class Item extends Component {
         <td>
           <Link
             to={`/shopping-cart-reactjs/admin/edit/${item.id}`}
-            className="btn btn-xs btn-primary"
+            className="btn btn-sm btn-primary"
             style={{ marginRight: '5px' }}
             id={item.id}
           >
@@ -35,7 +35,7 @@ class Item extends Component {
 
           <button
             type="button"
-            className="btn btn-xs btn-danger"
+            className="btn btn-sm btn-danger"
             data-original-title="Remove item"
             onClick={() => this.onDelete(item.id)}
           >

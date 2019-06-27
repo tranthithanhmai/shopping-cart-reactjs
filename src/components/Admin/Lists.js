@@ -29,15 +29,15 @@ class Lists extends Component {
   };
 
   render() {
-    var {
+    let {
       totalPages,
       currentPage,
       pageLimit,
       startIndex,
       endIndex
     } = this.state;
-    var rowsPerPage = [];
-    var { products } = this.props;
+    let rowsPerPage = [];
+    let { products } = this.props;
     //Pagination
     rowsPerPage = products.slice(startIndex, endIndex + 1);
     return (

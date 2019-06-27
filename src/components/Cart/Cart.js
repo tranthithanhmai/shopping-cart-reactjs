@@ -1,10 +1,19 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { actDeleteCartRequest } from './../../actions/index';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import ReactTable from "react-table";
 
 class Cart extends Component {
+  onDeleteItem = (id) => {
+    if (confirm('Bạn chắc chắn muốn xóa ?')) { //eslint-disable-line
+      this.props.actions.actDeleteCartRequest(id);
+    }
+  }
+
   render() {
-    var { carts } = this.props;
+    let { carts } = this.props;
     return (
       <div className="container">
         <div className="row">
@@ -87,4 +96,13 @@ class Cart extends Component {
     );
   }
 }
-export default Cart;
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    actions: bindActionCreators({
+      actDeleteCartRequest
+    }, dispatch)
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Cart);

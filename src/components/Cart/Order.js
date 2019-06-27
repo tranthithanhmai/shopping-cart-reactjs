@@ -35,9 +35,9 @@ class Order extends Component {
   }
 
   componentDidMount() {
-    var { match } = this.props;
+    let { match } = this.props;
     if (match.params.id) {
-      var id = match.params.id;
+      const id = match.params.id;
       this.props.actions.actGetCartRequest(id);
       this.props.actions.actGoOrderItem('Edit', `shopping-cart-reactjs/shopping-cart/edit/${id}`);
     } else {
@@ -47,7 +47,7 @@ class Order extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.itemEditing) {
-      var { itemEditing } = nextProps;
+      let { itemEditing } = nextProps;
       if (!isEmpty(itemEditing)) {
         this.setState({
           id: itemEditing.id,
@@ -91,7 +91,7 @@ class Order extends Component {
       shipping_state, shipping_postcode, shipping_country
     } = this.state;
 
-    var cart = {
+    let cart = {
       id: id,
       billing: {
         first_name: first_name,

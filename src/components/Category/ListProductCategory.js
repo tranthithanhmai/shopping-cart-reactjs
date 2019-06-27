@@ -35,12 +35,10 @@ class ListProductCategory extends Component {
     });
   };
   compareData = (categories, data) => {
-    var {
-      products
-    } = this.state;
-    var { match } = this.props;
-    var id = match.params.id;
-    var idCat = parseInt(id);
+    let { products } = this.state;
+    let { match } = this.props;
+    const id = match.params.id;
+    let idCat = parseInt(id);
     categories.map(cat => {
       if (cat.id === idCat) {
         products.push(data);
@@ -62,11 +60,9 @@ class ListProductCategory extends Component {
   }
 
   componentDidMount() {
-    var {
-      products
-    } = this.state;
-    var { match } = this.props;
-    var id = match.params.id;
+    let { products } = this.state;
+    let { match } = this.props;
+    const id = match.params.id;
     this.props.actions.actViewCategoryRequest(id);
    
     callApi.call(`wordpress-demo/wp-json/wc/v3/products`, 'GET', null).then(res => {
@@ -82,12 +78,12 @@ class ListProductCategory extends Component {
     this.props.actions.actGoCategoryItem(categories.name, `/shopping-cart-reactjs/product/${categories.id}`);
   }
   handleBack = () => {
-    var { history } = this.props;
+    let { history } = this.props;
     history.goBack();
   }
 
   render() {
-    var {
+    let {
       products,
       totalPages,
       currentPage,
@@ -97,7 +93,7 @@ class ListProductCategory extends Component {
     } = this.state;
     let { categories } = this.props;
 
-    var rowsPerPage = [];
+    let rowsPerPage = [];
     //Pagination
     rowsPerPage = products.slice(startIndex, endIndex + 1);
 

@@ -12,7 +12,7 @@ class Category extends Component {
   }
 
   render() {
-    var { categories } = this.props;
+    let { categories } = this.props;
     return (
       <div className="container">
         <div className="row">

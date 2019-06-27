@@ -29,9 +29,9 @@ class Form extends Component {
   }
 
   componentDidMount() {
-    var { match } = this.props;
+    let { match } = this.props;
     if (match.params.id) {
-      var id = match.params.id;
+      const id = match.params.id;
       this.props.actions.actGetProductRequest(id);
       this.props.actions.actGoAdminItem('Edit', `/shopping-cart-reactjs/admin/eidt/${id}`);
     } else {
@@ -42,7 +42,7 @@ class Form extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.itemEditing) {
-      var { itemEditing, match } = nextProps;
+      let { itemEditing, match } = nextProps;
       if (!isEmpty(itemEditing) && itemEditing.images && match.params.id) {
         this.setState({
           id: itemEditing.id,
@@ -67,7 +67,7 @@ class Form extends Component {
   }
 
   onChangeCheckBox = (event) => {
-    var { arrCat } = this.state;
+    let { arrCat } = this.state;
     let checkVal = {
       id: +event.target.value,
       name: event.target.name,
@@ -77,8 +77,8 @@ class Form extends Component {
       arrCat = [];
     } else {
       arrCat.push(checkVal);
-      for (var i = 0; i < arrCat.length; i++) {
-        var idChecked = arrCat.length - 1; 
+      for (let i = 0; i < arrCat.length; i++) {
+        const idChecked = arrCat.length - 1; 
         if ((arrCat[i].id === arrCat[idChecked].id) && (arrCat[idChecked].checked === false)) {
           arrCat.splice(i, 1);
           arrCat.pop();
@@ -117,14 +117,14 @@ class Form extends Component {
     for (let i = 0; i < urlImages.length; i++) {
       const fileData = urlImages[i];
       if (!fileData.uploaded) {
-        var formData = new FormData();
+        let formData = new FormData();
         formData.append('file', fileData.file);
         await this.props.actions.actAddImagesRequest(formData);
       }
     }
     let { history, uploadImages } = this.props;
     urlArr = [...urlArr, ...uploadImages];
-    var product = {
+    let product = {
       id: id,
       name: txtName,
       regular_price: txtPrice,
@@ -148,8 +148,8 @@ class Form extends Component {
   }
 
   render() {
-    var { txtName, txtPrice, txtDesc, txtSku } = this.state;
-    var { categories } = this.props;
+    let { txtName, txtPrice, txtDesc, txtSku } = this.state;
+    let { categories } = this.props;
     txtDesc = txtDesc.replace(new RegExp(/<.*?>/, 'g'), '');
 
     return (
@@ -230,7 +230,7 @@ class Form extends Component {
   }
 
   showCategories(categories) {
-    var { arrCat } = this.state;
+    let { arrCat } = this.state;
     let xhtml = null;
     if (categories !== null && categories.length > 0) {
       xhtml = categories.map((category, index) => {

@@ -35,17 +35,17 @@ class ProductLists extends Component {
   }
 
   render() {
-    var {
+    let {
       totalPages,
       currentPage,
       pageLimit,
       startIndex,
       endIndex
     } = this.state;
-    var rowsPerPage = [];
-    var { strSearch, sort, products } = this.props;
-    var { orderBy, orderDir } = sort;
-    var itemsOrigin = (products !== null) ? [...products] : [];
+    let rowsPerPage = [];
+    let { strSearch, sort, products } = this.props;
+    let { orderBy, orderDir } = sort;
+    let itemsOrigin = (products !== null) ? [...products] : [];
     //Search
     products = filter(itemsOrigin, (product) => {
       return includes(product.name.toLowerCase(), strSearch.toLowerCase());

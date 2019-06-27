@@ -30,9 +30,9 @@ class Login extends Component {
 
 	handleSubmit = async (event) => {
 		event.preventDefault();
-		var { username, password } = this.state;
+		let { username, password } = this.state;
 		let { history } = this.props;
-		var data = {
+		let data = {
 			username,
 			password
 		}
@@ -41,7 +41,7 @@ class Login extends Component {
 	}
 
 	render() {
-		var { username, password } = this.state;
+		let { username, password } = this.state;
 		const { token } = this.props;
 		if (token) {
 			return <Redirect to="/shopping-cart-reactjs/logout" />

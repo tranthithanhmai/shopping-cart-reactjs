@@ -11,9 +11,9 @@ class RelatedProduct extends Component {
   }
 
   componentDidUpdate() {
-    var { product } = this.props;
+    let { product } = this.props;
     if (product !== undefined) {
-      var arrId = product.join(',');
+      let arrId = product.join(',');
       callApi.call(`wordpress-demo/wp-json/wc/v3/products?include=${arrId}`, 'GET', null).then(res => {
         this.setState({
           relatedProduct: res.data
@@ -23,7 +23,7 @@ class RelatedProduct extends Component {
   }
 
   render() {
-    var { relatedProduct } = this.state;
+    let { relatedProduct } = this.state;
     return (
       <div className="container">
         <div className="row">

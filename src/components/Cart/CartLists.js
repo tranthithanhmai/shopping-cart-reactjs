@@ -7,7 +7,7 @@ class CartLists extends Component {
   }
 
   render() {
-    var { cart } = this.props;
+    let { cart } = this.props;
     return (
       <div className="container">
         <div className="row">
@@ -44,7 +44,7 @@ class CartLists extends Component {
   showCart(cart) {
     let xhtml = null;
     if (cart !== null && cart.line_items) {
-      var items = cart.line_items
+      let items = cart.line_items
       if (items !== null && items.length > 0) {
         xhtml = items.map((item, index) => {
           return (

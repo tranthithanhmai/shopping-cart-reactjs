@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 class TabProductItemDetail extends Component {
   render() {
-    var { product } = this.props;
-    var description = "";
+    let { product } = this.props;
+    let description = "";
     if (product.id) {
       description = product.description.replace(new RegExp(/<.*?>/, 'g'), '');
     }

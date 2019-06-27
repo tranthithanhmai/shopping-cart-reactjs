@@ -6,11 +6,11 @@ import RelatedProduct from './RelatedProduct';
 class ProductItemDetail extends Component {
 
   render() {
-    var { product } = this.props;
-    var regularPrice = '';
-    var images = [];
-    var categories = [];
-    var description = "";
+    let { product } = this.props;
+    let regularPrice = '';
+    let images = [];
+    let categories = [];
+    let description = "";
     if (product.id) {
       images = product.images;
       categories = product.categories;

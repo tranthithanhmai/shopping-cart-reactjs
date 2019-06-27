@@ -27,7 +27,7 @@ class SearchControl extends Component {
   }
 
   render() {
-    var { strSearch } = this.state;
+    let { strSearch } = this.state;
 
     strSearch = strSearch ? strSearch : this.props.strSearch;
 

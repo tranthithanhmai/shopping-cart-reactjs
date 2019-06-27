@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class ItemCat extends Component {
   render() {
-    var { category, arrCat } = this.props;
+    let { category, arrCat } = this.props;
     return (
       <div className="form-check">
         <input type="checkbox"
@@ -18,10 +18,10 @@ class ItemCat extends Component {
   }
 
   showCheked(arrCat) {
-    var checked = "";
-    var { category } = this.props;
+    let checked = "";
+    let { category } = this.props;
     if (arrCat !== null && arrCat.length > 0) {
-      for (var i = 0; i < arrCat.length; i++) {
+      for (let i = 0; i < arrCat.length; i++) {
         if (category.id === arrCat[i].id) {
           checked = "checked";
         }

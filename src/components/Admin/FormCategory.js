@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actAddCategoryRequest, actGetCategoryRequest, actUpdateCategoryRequest, actAddImagesRequest } from './../../actions/index';
+import {
+  actAddCategoryRequest,
+  actGetCategoryRequest,
+  actUpdateCategoryRequest,
+  actAddImagesRequest,
+  actGoAdminItem
+} from './../../actions/index';
 import { isEmpty } from 'lodash';
 
 class FormCategory extends Component {
@@ -16,16 +22,19 @@ class FormCategory extends Component {
   }
 
   componentDidMount() {
-    var { match } = this.props;
+    let { match } = this.props;
     if (match.params.id) {
-      var id = match.params.id;
+      const id = match.params.id;
       this.props.actions.actGetCategoryRequest(id);
+      this.props.actions.actGoAdminItem('Edit', `/shopping-cart-reactjs/admin/eidt-category/${id}`);
+    } else {
+      this.props.actions.actGoAdminItem('Add', '/shopping-cart-reactjs/admin/add-category');
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.itemEditing) {
-      var { itemEditing } = nextProps;
+      let { itemEditing } = nextProps;
       if (!isEmpty(itemEditing)) {
         this.setState({
           id: itemEditing.id,
@@ -106,7 +115,7 @@ class FormCategory extends Component {
   }
 
   render() {
-    var {
+    let {
       txtName,
       txtSlug
       // srcImage 
@@ -172,7 +181,8 @@ const mapDispatchToProps = (dispatch, props) => {
       actAddCategoryRequest,
       actGetCategoryRequest,
       actUpdateCategoryRequest,
-      actAddImagesRequest
+      actAddImagesRequest,
+      actGoAdminItem
     }, dispatch)
   }
 }

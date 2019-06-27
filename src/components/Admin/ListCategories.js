@@ -35,15 +35,15 @@ class ListCategories extends Component {
   };
 
   render() {
-    var {
+    let {
       totalPages,
       currentPage,
       pageLimit,
       startIndex,
       endIndex
     } = this.state;
-    var { categories } = this.props;
-    var rowsPerPage = [];
+    let { categories } = this.props;
+    let rowsPerPage = [];
     //Pagination
     rowsPerPage = categories.slice(startIndex, endIndex + 1);
     return (

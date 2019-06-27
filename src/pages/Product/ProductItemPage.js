@@ -6,17 +6,17 @@ import { actGetProductRequest, actGoProductItem } from './../../actions/index';
 
 class ProductItemPage extends Component {
   componentDidMount() {
-    var { match } = this.props;
-    var id = match.params.id;
+    let { match } = this.props;
+    const id = match.params.id;
     this.props.actions.actGetProductRequest(id);
    
   }
   componentDidUpdate () {
-    var { product } = this.props;
+    let { product } = this.props;
     this.props.actions.actGoProductItem(product.name, `/shopping-cart-reactjs/product/${product.id}`);
   }
   render() {
-    var { match, product } = this.props;
+    let { match, product } = this.props;
     return (
       <ProductItemDetail match={match} product={product} />
     );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { actFetchCartsRequest, actDeleteCartRequest, actGoOrder } from './../../actions/index';
+import { actFetchCartsRequest, actGoOrder } from './../../actions/index';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 import Cart from './../../components/Cart/Cart';
@@ -11,18 +11,13 @@ class CartPage extends Component {
     this.props.actions.actGoOrder('Orders', '/shopping-cart-reactjs/shopping-cart');
   }
 
-  onDeleteItem = (id) => {
-    if (confirm('Bạn chắc chắn muốn xóa ?')) { //eslint-disable-line
-      this.props.actions.actDeleteCartRequest(id);
-    }
-  }
   render() {
     var { carts, token } = this.props;
     if (!token) {
       return <Redirect push to="/shopping-cart-reactjs/login" />
     } else {
       return (
-        <Cart match={this.props.match} carts={carts} />
+        <Cart match={this.props.match} carts={carts} onDeleteItem={this.onDeleteItem} />
       );
     }
   }
@@ -38,7 +33,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     actions: bindActionCreators({
       actFetchCartsRequest,
-      actDeleteCartRequest,
       actGoOrder
     }, dispatch)
   }

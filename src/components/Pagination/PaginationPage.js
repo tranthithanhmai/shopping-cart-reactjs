@@ -45,7 +45,7 @@ class PaginationPage extends Component {
   }
 
   setPage(page) {
-    var { totalRecords, pageLimit, totalPages } = this.state;
+    let { totalRecords, pageLimit, totalPages } = this.state;
 
     if (page < 1) {
       page = 1;
@@ -57,8 +57,8 @@ class PaginationPage extends Component {
       currentPage: page
     });
 
-    var startIndex = (page - 1) * pageLimit;
-    var endIndex = Math.min(startIndex + pageLimit - 1, totalRecords - 1);
+    let startIndex = (page - 1) * pageLimit;
+    let endIndex = Math.min(startIndex + pageLimit - 1, totalRecords - 1);
 
     this.props.onChangePage({
       pageLimit,
@@ -70,8 +70,8 @@ class PaginationPage extends Component {
   }
 
   getPager() {
-    var { pagesToShow, currentPage, totalPages } = this.state;
-    var pages = [],
+    let { pagesToShow, currentPage, totalPages } = this.state;
+    let pages = [],
       startFromNumber;
 
     if (totalPages <= pagesToShow) {
@@ -104,7 +104,7 @@ class PaginationPage extends Component {
   render() {
     let { totalRecords , totalPages} = this.state;
     if (!totalRecords || totalPages === 1) return null;
-    var pager = this.getPager();
+    let pager = this.getPager();
     return (
       <ul className="pagination">
         <li className="page-item"
