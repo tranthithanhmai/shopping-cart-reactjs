@@ -33,10 +33,6 @@ class ProductItemDetail extends Component {
                 {regularPrice}  {product.price === '' ? 0 : product.price} $
               </h3>
               <p>{description}</p>
-              {/* <div style={{ display: 'flex' }}>
-                <input type="number" style={{ marginRight: '10px' }} />
-                <Link to={`/shopping-cart-reactjs/shopping-cart`} type="button" className="btn btn-primary">Add to cart</Link>
-              </div> */}
               <p>
                 SKU:{product.sku}
               </p>
@@ -47,7 +43,7 @@ class ProductItemDetail extends Component {
           </div>
         </div>
         <TabProductItemDetail product={product} />
-        <RelatedProduct product={product.related_ids} />
+        <RelatedProduct />
       </div>
     );
 
@@ -58,7 +54,7 @@ class ProductItemDetail extends Component {
       if (categories.length > 0) {
         xhtml = categories.map((category, index) => {
           return (
-            <Link to={`/shopping-cart-reactjs/products/categories/${category.id}`} target="_blank" key={index} style={{ marginRight: '10px' }} category={category.name}>{category.name}</Link>
+            <Link to={`/shopping-cart-reactjs/products/categories/${category.id}`} key={index} style={{ marginRight: '10px' }} category={category.name}>{category.name}</Link>
           );
         });
       }

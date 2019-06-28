@@ -15,8 +15,11 @@ const breadcrumb = (state = defaultState, action) => {
 			if (state.length > 2) state.splice(-1, 1);
 			return [...state];
 		case types.GO_PRODUCT_ITEM:
-			if (state.length > 1) state.splice(-1, 1);
-			state.push({ to: '/shopping-cart-reactjs/product', name: 'Product' }, { to, name });
+			if (state.length < 2) {
+				state.push({ to: '/shopping-cart-reactjs/product', name: 'Product' }, { to, name });
+			} else {
+				state[2] = { to, name };
+			}
 			return [...state];
 		case types.GO_CATEGORY:
 			state[1] = { to, name };
@@ -25,6 +28,9 @@ const breadcrumb = (state = defaultState, action) => {
 		case types.GO_CATEGORY_ITEM:
 			if (state.length < 2) {
 				state.push({ to: '/shopping-cart-reactjs/products/categories', name: 'Categories' }, { to, name });
+			} else if (state.length === 3) {
+				state.splice(1, 2)
+				 state.push({ to: '/shopping-cart-reactjs/products/categories', name: 'Categories' }, { to, name });
 			} else {
 				state[2] = { to, name };
 			}

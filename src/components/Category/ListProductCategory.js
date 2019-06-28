@@ -34,6 +34,7 @@ class ListProductCategory extends Component {
       endIndex: data.endIndex
     });
   };
+  
   compareData = (categories, data) => {
     let { products } = this.state;
     let { match } = this.props;
@@ -73,10 +74,12 @@ class ListProductCategory extends Component {
       });
     }); 
   }
+
   componentDidUpdate () {
     let { categories } = this.props;
     this.props.actions.actGoCategoryItem(categories.name, `/shopping-cart-reactjs/product/${categories.id}`);
   }
+
   handleBack = () => {
     let { history } = this.props;
     history.goBack();
@@ -101,14 +104,6 @@ class ListProductCategory extends Component {
       <div className="container">
         <div className="row">
           <div className="col-12" style={{ marginBottom: '20px', display: 'flex' }}>
-            {/* <button
-              className="btn btn-light"
-              onClick={this.handleBack}
-              style={{ marginRight: '10px' }}
-            >
-              <i className="fa fa-chevron-circle-left" aria-hidden="true"></i>
-              &nbsp;Back
-                        </button> */}
             <h2>Category : {categories.name}</h2>
           </div>
         </div>
@@ -144,9 +139,10 @@ class ListProductCategory extends Component {
     return xhtml;
   }
 }
+
 const mapStateToProps = state => {
   return {
-    categories: state.itemEditing,
+    categories: state.itemEditing
   }
 }
 

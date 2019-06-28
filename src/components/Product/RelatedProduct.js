@@ -1,29 +1,19 @@
 import React, { Component } from 'react';
-import * as callApi from './../../services/apiCaller';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actViewRelatedProductRequest } from './../../actions/index';
 import ProductItem from '././/ProductItem';
 
 class RelatedProduct extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      relatedProduct: []
-    };
-  }
-
-  componentDidUpdate() {
+  componentDidUpdate(){
     let { product } = this.props;
-    if (product !== undefined) {
+    if(product) {
       let arrId = product.join(',');
-      callApi.call(`wordpress-demo/wp-json/wc/v3/products?include=${arrId}`, 'GET', null).then(res => {
-        this.setState({
-          relatedProduct: res.data
-        });
-      })
+      this.props.actions.actViewRelatedProductRequest(arrId);
     }
   }
-
   render() {
-    let { relatedProduct } = this.state;
+    let { relatedProduct } = this.props;
     return (
       <div className="container">
         <div className="row">
@@ -51,6 +41,19 @@ class RelatedProduct extends Component {
     return xhtml;
   }
 }
+const mapStateToProps = state => {
+  return {
+    product: state.itemEditing.related_ids,
+    relatedProduct: state.product
+  }
+}
 
-export default RelatedProduct;
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    actions: bindActionCreators({
+      actViewRelatedProductRequest
+    }, dispatch)
+  }
+}
 
+export default connect(mapStateToProps, mapDispatchToProps)(RelatedProduct);

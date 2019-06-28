@@ -29,6 +29,8 @@ const products = (state = initialState, action) => {
             index = findIndex(state, product.id);
             state[index] = products;
             return [...state];
+        case types.VIEW_RELATED_PRODUCT:
+            return action.relatedProduct;
         default: return [...state];
     }
 };

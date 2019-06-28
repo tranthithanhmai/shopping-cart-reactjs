@@ -377,6 +377,25 @@ export const actViewCategory = (categories) => {
   }
 }
 
+//VIEW RELATED PRODUCT
+
+export const actViewRelatedProductRequest = (id) => {
+  return dispatch => {
+    return callApi.call(`wordpress-demo/wp-json/wc/v3/products?include=${id}`, 'GET', null).then(res => {
+      dispatch(actViewRelatedProduct(res.data));
+    }).catch(error => {
+      console.log(error.message);
+    });
+  };
+}
+
+export const actViewRelatedProduct = (relatedProduct) => {
+  return {
+    type: types.VIEW_RELATED_PRODUCT,
+    relatedProduct
+  }
+}
+
 //breadcrumb
 
 export const actGoHome = () => {

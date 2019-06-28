@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class ProductItem extends Component {
   render() {
@@ -10,9 +10,9 @@ class ProductItem extends Component {
     return (
       <div className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" style={{ marginBottom: '20px' }}>
         <div className="card box-product">
-          <Route to={`/shopping-cart-reactjs/product/${product.id}`} target = "_blank">
+          <Link to={`/shopping-cart-reactjs/product/${product.id}`} target = "_blank">
             <img className="card-img-top" src={scrImg} alt="Card Product" style={{ width: '100%', height: '200px' }} />
-          </Route>
+          </Link>
           <div className="card-body" style={{ textAlign: 'center' }}>
             <h4>
               <Link to={`/shopping-cart-reactjs/product/${product.id}`} target = "_blank" product={product} className="card-title">
@@ -20,7 +20,6 @@ class ProductItem extends Component {
               </Link>
             </h4>
             <p className="card-text">{regularPrice} {price}$</p>
-            {/* <Link to={`/shopping-cart-reactjs/shopping-cart`} type="button" className="btn btn-primary">Add to cart</Link> */}
           </div>
         </div>
       </div>
