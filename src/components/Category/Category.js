@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { actFetchCategoriesRequest, actGoCategories } from './../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { PropTypes } from 'prop-types';
 
 class Category extends Component {
 
@@ -60,6 +61,18 @@ const mapDispatchToProps = (dispatch, props) => {
       actGoCategories
     }, dispatch)
   }
+}
+
+Category.propTypes = {
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      id : PropTypes.number,
+      name : PropTypes.string,
+      image : PropTypes.object
+  })
+  ),
+  actFetchCategoriesRequest : PropTypes.func,
+  actGoCategories           : PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

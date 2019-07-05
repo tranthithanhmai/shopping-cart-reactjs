@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { PropTypes} from 'prop-types';
 import { actGoHome } from './../../actions/index';
 
 class Home extends Component {
@@ -22,6 +23,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       actGoHome
     }, dispatch)
   }
+}
+
+Home.propTypes = {
+  actGoHome : PropTypes.func
 }
 
 export default connect(null, mapDispatchToProps)(Home);

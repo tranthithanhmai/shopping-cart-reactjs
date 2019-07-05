@@ -3,6 +3,7 @@ import { actLogout, actGoLogout } from '../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 
 class FormLogout extends Component {
   componentDidMount() {
@@ -53,7 +54,12 @@ const mapStatetoProps = state => {
   return {
     user: state.user
   }
+}
 
+FormLogout.propTypes = {
+  user        : PropTypes.object,
+  actLogout   : PropTypes.func,
+  actGoLogout : PropTypes.func
 }
 
 export default connect(mapStatetoProps, mapDispatchToProps)(FormLogout);

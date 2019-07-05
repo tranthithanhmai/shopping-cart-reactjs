@@ -11,6 +11,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isEmpty } from 'lodash';
+import { PropTypes } from 'prop-types';
 import ItemCat from './ItemCat';
 
 class Form extends Component {
@@ -269,6 +270,19 @@ const mapDispatchToProps = (dispatch, props) => {
       actGoAdminItem
     }, dispatch)
   }
+}
+
+Form.propTypes = {
+  actAddProductRequest      : PropTypes.func,
+  actGetProductRequest      : PropTypes.func,
+  actUpdateProductRequest   : PropTypes.func,
+  actAddImagesRequest       : PropTypes.func,
+  actFetchCategoriesRequest : PropTypes.func,
+  actFetchProductsRequest   : PropTypes.func,
+  actGoAdminItem            : PropTypes.func,
+  itemEditing               : PropTypes.object,
+  uploadImages              : PropTypes.array,
+  categories                : PropTypes.array,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

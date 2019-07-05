@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 
 class Item extends Component {
   onDelete = (id) => {
@@ -45,6 +46,10 @@ class Item extends Component {
       </tr>
     );
   }
+}
+
+Item.propTypes = {
+  item: PropTypes.object
 }
 
 export default Item;

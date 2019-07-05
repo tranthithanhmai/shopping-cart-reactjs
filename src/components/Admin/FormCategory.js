@@ -9,6 +9,7 @@ import {
   actGoAdminItem
 } from './../../actions/index';
 import { isEmpty } from 'lodash';
+import { PropTypes } from 'prop-types';
 
 class FormCategory extends Component {
   constructor(props) {
@@ -185,6 +186,15 @@ const mapDispatchToProps = (dispatch, props) => {
       actGoAdminItem
     }, dispatch)
   }
+}
+
+FormCategory.propTypes = {
+  actAddCategoryRequest     : PropTypes.func,
+  actGetCategoryRequest     : PropTypes.func,
+  actUpdateCategoryRequest  : PropTypes.func,
+  actAddImagesRequest       : PropTypes.func,
+  actGoAdminItem            : PropTypes.func,
+  itemEditing               : PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormCategory);

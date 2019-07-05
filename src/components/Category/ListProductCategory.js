@@ -6,6 +6,7 @@ import {
 } from './../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { PropTypes} from 'prop-types';
 import ProductItem from './../../components/Product/ProductItem';
 import PaginationPage from './../Pagination/PaginationPage';
 
@@ -153,6 +154,17 @@ const mapDispatchToProps = (dispatch, props) => {
       actGoCategoryItem
     }, dispatch)
   }
+}
+
+ListProductCategory.propTypes = {
+  categories            : PropTypes.object,
+  totalPages            : PropTypes.number,
+  currentPage           : PropTypes.number,
+  pageLimit             : PropTypes.number,
+  startIndex            : PropTypes.number,
+  endIndex              : PropTypes.number,
+  actViewCategoryRequest: PropTypes.func,
+  actGoCategoryItem     : PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListProductCategory);

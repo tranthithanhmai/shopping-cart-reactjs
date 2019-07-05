@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { PropTypes } from 'prop-types';
 import { actViewRelatedProductRequest } from './../../actions/index';
 import ProductItem from '././/ProductItem';
 
@@ -54,6 +55,12 @@ const mapDispatchToProps = (dispatch, props) => {
       actViewRelatedProductRequest
     }, dispatch)
   }
+}
+
+RelatedProduct.propTypes = {
+  product: PropTypes.array,
+  relatedProduct: PropTypes.array,
+  actViewRelatedProductRequest: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RelatedProduct);

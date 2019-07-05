@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { PropTypes } from 'prop-types';
 import { actSort } from './../../actions/index';
 
 class Sort extends Component {
@@ -38,6 +39,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       actSort
     }, dispatch)
   }
+}
+
+Sort.propTypes = {
+  sort    : PropTypes.object,
+  actSort : PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sort);

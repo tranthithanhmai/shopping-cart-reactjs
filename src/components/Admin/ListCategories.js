@@ -6,6 +6,7 @@ import {
 } from './../../actions/index';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 
 class ListCategories extends Component {
   constructor(props) {
@@ -118,6 +119,21 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       actFetchCategoriesRequest,
     }, dispatch)
   }
+}
+
+ListCategories.propTypes = {
+  categories: PropTypes.arrayOf(
+      PropTypes.shape({
+        name : PropTypes.string,
+        slug : PropTypes.string
+    })
+  ),
+  actFetchCategoriesRequest: PropTypes.func,
+  totalPages  : PropTypes.number,
+  currentPage : PropTypes.number,
+  pageLimit   : PropTypes.number,
+  startIndex  : PropTypes.number,
+  endIndex    : PropTypes.number
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListCategories);

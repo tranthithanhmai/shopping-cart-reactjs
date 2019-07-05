@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 class CartLists extends Component {
   onClickBack = () => {
@@ -61,4 +62,9 @@ class CartLists extends Component {
     return xhtml;
   }
 }
+
+CartLists.propTypes = {
+  cart: PropTypes.object
+}
+
 export default CartLists;

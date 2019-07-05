@@ -48,6 +48,7 @@ class ProductItemDetail extends Component {
     );
 
   }
+
   showCategory(categories) {
     let xhtml = null;
     if (categories !== undefined) {
@@ -61,6 +62,7 @@ class ProductItemDetail extends Component {
     }
     return xhtml;
   };
+  
   showImages(images) {
     let xhtml = null;
     if (images !== undefined) {

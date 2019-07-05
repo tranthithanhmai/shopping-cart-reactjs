@@ -3,6 +3,7 @@ import { actLoginRequest, actGoLogin } from './../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 
 class Login extends Component {
 	constructor(props) {
@@ -85,5 +86,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStatetoProps = (state) => ({
 		token : state.user.token
 })
+
+Login.propTypes = {
+	token 					: PropTypes.string,
+	username				: PropTypes.string,
+	password				: PropTypes.string,
+	actLoginRequest	: PropTypes.func,
+	actGoLogin			: PropTypes.func
+}
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Login);

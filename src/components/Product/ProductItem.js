@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 
 class ProductItem extends Component {
   render() {
@@ -27,4 +28,7 @@ class ProductItem extends Component {
   }
 }
 
+ProductItem.propTypes = {
+  product: PropTypes.object
+}
 export default ProductItem;

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 import Item from './Item';
 import Add from './Add';
 import ListCategories from './ListCategories';
 import PaginationPage from './../Pagination/PaginationPage';
-import { Link } from 'react-router-dom';
 
 class Lists extends Component {
   constructor(props) {
@@ -108,6 +109,15 @@ class Lists extends Component {
     }
     return xhtml;
   }
+}
+
+Lists.propTypes = {
+  product     : PropTypes.array,
+  totalPages  : PropTypes.number,
+  currentPage : PropTypes.number,
+  pageLimit   : PropTypes.number,
+  startIndex  : PropTypes.number,
+  endIndex    : PropTypes.number
 }
 
 export default Lists;

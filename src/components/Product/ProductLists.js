@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ProductItem from './ProductItem';
+import { PropTypes } from 'prop-types';
 import { filter, includes, orderBy as funcOrderBy } from 'lodash';
 import { actFetchProductsRequest, actGoProducts } from './../../actions/index';
 import PaginationPage from '../Pagination/PaginationPage';
+import ProductItem from './ProductItem';
 
 class ProductLists extends Component {
 
@@ -46,6 +47,7 @@ class ProductLists extends Component {
     let { strSearch, sort, products } = this.props;
     let { orderBy, orderDir } = sort;
     let itemsOrigin = (products !== null) ? [...products] : [];
+
     //Search
     products = filter(itemsOrigin, (product) => {
       return includes(product.name.toLowerCase(), strSearch.toLowerCase());
@@ -108,6 +110,19 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       actGoProducts
     }, dispatch)
   }
+}
+
+ProductLists.propTypes = {
+  products                : PropTypes.array,
+  strSearch               : PropTypes.string,
+  sort                    : PropTypes.object,
+  totalPages              : PropTypes.number,
+  currentPage             : PropTypes.number,
+  pageLimit               : PropTypes.number,
+  startIndex              : PropTypes.number,
+  endIndex                : PropTypes.number,
+  actFetchProductsRequest : PropTypes.func,
+  actGoProducts           : PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductLists);

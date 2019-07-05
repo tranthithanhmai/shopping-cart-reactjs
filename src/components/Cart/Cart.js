@@ -4,6 +4,7 @@ import { actDeleteCartRequest } from './../../actions/index';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import ReactTable from "react-table";
+import { PropTypes } from 'prop-types';
 
 class Cart extends Component {
   onDeleteItem = (id) => {
@@ -103,6 +104,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       actDeleteCartRequest
     }, dispatch)
   }
+}
+
+Cart.propTypes = {
+  carts : PropTypes.array,
+  actDeleteCartRequest: PropTypes.func
 }
 
 export default connect(null, mapDispatchToProps)(Cart);

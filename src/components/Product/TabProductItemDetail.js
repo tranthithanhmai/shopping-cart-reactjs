@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 class TabProductItemDetail extends Component {
   render() {
@@ -34,6 +35,10 @@ class TabProductItemDetail extends Component {
       </div>
     );
   }
+}
+
+TabProductItemDetail.propTypes = {
+  product: PropTypes.object
 }
 
 export default TabProductItemDetail;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 
 const MenuLink = ({ menu }) => {
 	return (
@@ -44,4 +45,9 @@ const mapStateToProps = state => {
 		breadcrumb: state.breadcrumb
 	}
 }
+
+Breadcrumb.propTypes = {
+	breadcrumb: PropTypes.array
+}
+
 export default connect(mapStateToProps, null)(Breadcrumb);

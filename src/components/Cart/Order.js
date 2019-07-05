@@ -8,6 +8,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isEmpty } from 'lodash';
+import { PropTypes } from 'prop-types';
 
 class Order extends Component {
 
@@ -335,6 +336,14 @@ const mapDispatchToProps = (dispatch, props) => {
       actGoOrderItem
     }, dispatch)
   }
+}
+
+Order.propTypes = {
+  itemEditing           : PropTypes.object,
+  actAddCartRequest     : PropTypes.func,
+  actGetCartRequest     : PropTypes.func,
+  actUpdateCartRequest  : PropTypes.func,
+  actGoOrderItem        : PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Order);

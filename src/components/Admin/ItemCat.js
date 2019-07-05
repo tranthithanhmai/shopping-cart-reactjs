@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 class ItemCat extends Component {
   render() {
@@ -29,6 +30,11 @@ class ItemCat extends Component {
     }
     return checked;
   }
+}
+
+ItemCat.propTypes = {
+  category: PropTypes.object,
+  arrCat:  PropTypes.array
 }
 
 export default ItemCat;

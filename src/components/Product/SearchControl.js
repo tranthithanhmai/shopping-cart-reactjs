@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { PropTypes } from 'prop-types';
 import { actSearch } from './../../actions/index';
 
 class SearchControl extends Component {
@@ -28,7 +29,6 @@ class SearchControl extends Component {
 
   render() {
     let { strSearch } = this.state;
-
     strSearch = strSearch ? strSearch : this.props.strSearch;
 
     return (
@@ -57,6 +57,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       actSearch
     }, dispatch)
   }
+}
+
+SearchControl.propTypes = {
+  strSearch: PropTypes.string,
+  actSearch: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchControl);
